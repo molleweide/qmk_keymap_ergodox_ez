@@ -1,16 +1,16 @@
 #include QMK_KEYBOARD_H
-#include "version.h"
-#include "keymap_german.h"
-#include "keymap_nordic.h"
-#include "keymap_french.h"
-#include "keymap_spanish.h"
-#include "keymap_hungarian.h"
-#include "keymap_swedish.h"
-#include "keymap_br_abnt2.h"
-#include "keymap_canadian_multilingual.h"
-#include "keymap_german_ch.h"
-#include "keymap_jp.h"
-#include "keymap_bepo.h"
+// #include "version.h"
+// #include "keymap_german.h"
+// #include "keymap_nordic.h"
+// #include "keymap_french.h"
+// #include "keymap_spanish.h"
+// #include "keymap_hungarian.h"
+// #include "keymap_swedish.h"
+// #include "keymap_br_abnt2.h"
+// #include "keymap_canadian_multilingual.h"
+// #include "keymap_german_ch.h"
+// #include "keymap_jp.h"
+// #include "keymap_bepo.h"
 
 #include "pointing_device.h"
 
@@ -32,7 +32,8 @@
 // my custom keynames
 ////////////////////////////////////////
 
-#define ________ KC_TRANSPARENT
+#define ________    KC_TRANSPARENT
+#define xxxxxxxx    KC_NO
 
 #define KC_SPC      KC_SPACE
 #define KC_BSPC     KC_BSPACE
@@ -92,32 +93,8 @@ enum custom_keycodes {
   MOVE_L,
   MOVE_R,
   MOVE_OFF,
-  Mvim,
-  M11,
-  M12,
-  M13,
-  M14,
-  M15,
-  M21,
-  M22,
-  M23,
-  M24,
-  M25,
-  M31,
-  M32,
-  M33,
-  M34,
-  M35,
-  M41,
-  M42,
-  M43,
-  M44,
-  M45,
-  M51,
-  M52,
-  M53,
-  M54,
-  M55,
+  MGRID,
+  TD_MMODE = 0,
   PFREEZE,
   SET_MS_STATE,
 };
@@ -125,17 +102,19 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 00 | Base
-    [0] = LAYOUT_ergodox_pretty(//------|---------------|---------------X---------------|---------------$---------------$---------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+    [0] = LAYOUT_ergodox_pretty(//------|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         TO(5),          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            TG(9),          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRNS,        /**/            KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
         KC_ESCAPE,      CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           GUI_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), KC_QUOTE,
         KC_LSPO,        LT(4,KC_Z),     LT(2,KC_X),     KC_C,           KC_V,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_N,           KC_M,           KC_COMMA,       LT(1,KC_DOT),   LT(3,KC_SLSH),  KC_RSPC,
-        LT(1,KC_GRAVE), CTL_T(KC_LEFT),KC_DOWN,        KC_UP,          KC_RGHT,         /*--------------$**/            /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT),MO(1),
-
-        /*--------------|***************|***************|***************|***************|---------------$-----------------------------------------------$---------------|***************|***************|***************|***************/
-                                                                        /**/            TG(1),          MO(1),          /**/            OSL(1),         TO(1),          /**/
-                                                                        /**/                            TT(1),          /**/            LT(1,KC_NO),                    /**/
+        LT(1,KC_GRAVE), CTL_T(KC_LEFT),KC_DOWN,        KC_UP,          KC_RGHT,         /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT),MO(1),
+        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+                                                                                        TG(1),          MO(1),          /**/            OSL(1),         TO(1),
+                                                                        /***************/               TT(1),          /**/            LT(1,KC_NO),    /***************/
                                                                         LSFT_T(KC_SPC), KC_BSPC,        KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENT)),
+
+
+
     // 01 | L Symbols
     [1] = LAYOUT_ergodox_pretty(//------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
         ________,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       TO(0),
@@ -159,11 +138,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                                             KC_TRNS,        KC_TRNS,
                                                                                             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS),
     // 03 | Mouse L
-    [3] = LAYOUT_ergodox_pretty(//----------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
+    [3] = LAYOUT_ergodox_pretty(//----------|---------------|---------------X---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_AU_M,  KC_TRNS,        /***********************/             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-            KC_TRNS,        KC_TRNS,        KC_MWHD,        KC_MU,          KC_MWHU,        KC_TRNS,        KC_AU_U,/***********************/               KC_TRNS,        KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       KC_TRNS,        KC_TRNS,
-            KC_TRNS,        KC_MWHL,        KC_ML,          KC_MD,          KC_MR,          KC_MWHR,                 /***********************/                       KC_TRNS,        KC_MS_ACCEL2,   KC_MS_ACCEL1,   KC_MS_ACCEL0,   KC_TRNS,        KC_TRNS,
-            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_AU_D,      /***********************/         KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
+            KC_TRNS,        KC_MWHL,        KC_MWHD,        KC_MWHU,        KC_MWHR,        KC_TRNS,        KC_AU_U,/***********************/               KC_TRNS,        KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       KC_TRNS,        KC_TRNS,
+            KC_TRNS,        KC_ML,          KC_MD,          KC_MU,          KC_MR,          KC_TRNS,                 /***********************/                              KC_TRNS,        KC_MS_ACCEL2,   KC_MS_ACCEL1,   KC_MS_ACCEL0,   KC_TRNS,        KC_TRNS,
+            KC_TRNS,        KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        KC_TRNS,        KC_AU_D,      /***********************/         KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
                                                                                                             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
                                                                                                                             KC_TRNS,        KC_TRNS,
@@ -174,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [4] = LAYOUT_ergodox_pretty(
             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        KC_AU_M,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        KC_AU_U,        KC_MS_WH_UP,    KC_TRNS,        KC_MS_UP,       KC_TRNS,        KC_TRNS,        KC_TRNS,
-            KC_TRNS,        KC_TRNS,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   KC_TRNS,                                                                        KC_MS_WH_DOWN,  KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_TRNS,        KC_TRNS,
+            KC_TRNS,        KC_TRNS,        KC_MS_ACCEL0,   KC_MS_ACCEL1,   KC_MS_ACCEL2,   KC_TRNS,                                                                        KC_TRNS,        KC_ML,          KC_MD,          KC_MU,          KC_MR,          KC_TRNS,
             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        KC_AU_D,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
                                                                                                             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
@@ -302,17 +281,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                             KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
     ),
 
-    // Mouse testing        |---------------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
-    [15] = LAYOUT_ergodox_pretty(
-            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          TO(0),
-            KC_NO,          Mvim,           Mvim,           Mvim,           Mvim,           Mvim,           KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-            KC_NO,          Mvim,           Mvim,           Mvim,           Mvim,           Mvim,           /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-            KC_NO,          Mvim,           Mvim,           Mvim,           Mvim,           Mvim,           KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          /**/            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-            /**/            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,           /**/            /**/            /**/            /**/            /**/            /**/
-            /**/            /**/            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          /**/            /**/            /**/            /**/            /**/            /**/            /**/
-            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO           /**/            /**/            /**/            /**/            /**/
-    ),
+
+    // Mouse testing
+    [15] = LAYOUT_ergodox_pretty(//-----|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(0),
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        TD(TD_MMODE),   MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+                                                                                            xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,
+                                                                            /***************/               xxxxxxxx,   /**/            xxxxxxxx,       /***************/
+                                                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 
@@ -328,7 +308,7 @@ bool disable_layer_color = 0;
 //     directionInputArr   // 1-3
 //     directionMode       // hardcoded; free angle
 // 
-//     moveMode            // hardcoded steps; specify freely
+//     moveMode            // hardcoded steps; specify freely -> so that I w/tap dance can specify which poihter logic I want to use on the fly.
 //     moveInputLength     // 1-3
 //     moveStepping        // continuous; discrete
 //     moveFreeze
@@ -344,6 +324,7 @@ uint8_t moveDirection = 0;
 uint8_t cursorTimeout = 10;
 uint16_t lastCursor = 0;
 uint8_t stateMove = 0;
+uint8_t mouseMode = 0;
 
 void pointer_click(void) {
     // regular || hook
@@ -351,7 +332,52 @@ void pointer_click(void) {
 
 void reset_pointer(void) {
     // reset all variables and stop movement
+#ifdef CONSOLE_ENABLE
+    uprintf("reset pointer\n");
+#endif
 }
+
+void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
+#ifdef CONSOLE_ENABLE
+            uprintf("mouseMode: %u\n", state->count);
+#endif
+    mouseMode = state->count;
+    reset_pointer();
+}
+qk_tap_dance_action_t tap_dance_actions[] = {
+    /*
+    // Enums defined for all examples:
+        why is the first enum 0 when it is not used? i dont understand. 
+    enum {
+        CT_SE = 0,
+        CT_CLN,
+        CT_EGG,
+        CT_FLSH,
+        X_TAP_DANCE
+    };
+    Ex. 1 tap once for Esc, twice for Caps
+        [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+            ...in Layer put tap dance item `TD(TD_ESC_CAPS)` in place of key code
+        Other declarations below, separated by commas
+    Ex. 2
+        [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
+            .. in functions
+                void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
+                    if (state->count == 1) {
+                        register_code (KC_RSFT);
+                        register_code (KC_SCLN);
+                    } else {
+                        register_code (KC_SCLN);
+                    }
+                }
+
+    todo
+        set mouse mode
+    */
+    [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished)
+
+};
+// ??
 
 void set_pointer_mode(void) {
     // 
@@ -428,14 +454,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 moveToggle = true;
             }
             break;
-        case Mvim:
+        case MGRID:
             // I want to log column, and rows here to make sure i understand how it works
             // pass key coordinates to pointer route
             handle_mvim_grid_event(record);
         case PFREEZE:
             reset_pointer();
+            break;
         case SET_MS_STATE:
             set_pointer_mode();
+            break;
     }
     return true;
 }
