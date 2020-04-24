@@ -19,3 +19,5 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 80
 
 #define FIRMWARE_VERSION u8"N4mKd/60MqD"
+
+#define PERMISSIVE_HOLD // should make using mod tap more comfortable for fast typing.

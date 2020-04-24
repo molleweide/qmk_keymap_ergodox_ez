@@ -31,6 +31,9 @@
 //////////////////////////////////////
 // my custom keynames
 ////////////////////////////////////////
+
+#define ________ KC_TRANSPARENT
+
 #define KC_SPC      KC_SPACE
 #define KC_BSPC     KC_BSPACE
 #define KC_ENT      KC_ENTER
@@ -76,6 +79,11 @@
 #define KC_YEJ      KC_MEDIA_EJECT
 #define KC_YSE      KC_MEDIA_SELECT
 
+// layer shortcuts
+#define _BASE 0
+#define _LSYM 1
+#define _LNUM 2
+
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -84,6 +92,7 @@ enum custom_keycodes {
   MOVE_L,
   MOVE_R,
   MOVE_OFF,
+  Mvim,
   M11,
   M12,
   M13,
@@ -116,26 +125,28 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 00 | Base
-    [0] = LAYOUT_ergodox_pretty(//------|---------------|---------------X---------------|---------------$---------------$---------------$---------------$---------------|---------------X---------------|---------------|---------------|---------------
-        TO(5),          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,                                         TG(9),          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRNS,                                        KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
-        KC_ESCAPE,      LCTL_T(KC_A), LSFT_T(KC_S),   LALT_T(KC_D),   LGUI_T(KC_F),   KC_G,           /**/                                            /**/            KC_H,           RGUI_T(KC_J),   RALT_T(KC_K),   RSFT_T(KC_L),   RCTL_T(KC_SCOL),KC_QUOTE,
-        KC_LSPO,        LT(4,KC_Z),     LT(2,KC_X),     KC_C,           KC_V,           KC_B,           KC_TRNS,                                        KC_TRNS,        KC_N,           KC_M,           KC_COMMA,       LT(1,KC_DOT),   LT(3,KC_SLSH),  KC_RSPC,
-        LT(1,KC_GRAVE), LCTL_T(KC_LEFT),KC_DOWN,        KC_UP,          KC_RIGHT,       /*--------------$**/                                            /*--------------|-*/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          RCTL_T(KC_RIGHT),MO(1),
-                        /***************|***************|***************|***************|---------------$-----------------------------------------------$---------------|***************|***************|***************|***************/
-                                                                                        /**/            TG(1),          MO(1),          OSL(1),         TO(1),          /**/
-                                                                                        /**/                            TT(1),          LT(1,KC_NO),                    /**/
-                                                                                        LSFT_T(KC_SPC), KC_BSPC,        KC_TRNS,        KC_TRNS,        KC_TAB,         RSFT_T(KC_ENT)),
+    [0] = LAYOUT_ergodox_pretty(//------|---------------|---------------X---------------|---------------$---------------$---------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+        TO(5),          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            TG(9),          KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRNS,        /**/            KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
+        KC_ESCAPE,      CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           GUI_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), KC_QUOTE,
+        KC_LSPO,        LT(4,KC_Z),     LT(2,KC_X),     KC_C,           KC_V,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_N,           KC_M,           KC_COMMA,       LT(1,KC_DOT),   LT(3,KC_SLSH),  KC_RSPC,
+        LT(1,KC_GRAVE), CTL_T(KC_LEFT),KC_DOWN,        KC_UP,          KC_RGHT,         /*--------------$**/            /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT),MO(1),
+
+        /*--------------|***************|***************|***************|***************|---------------$-----------------------------------------------$---------------|***************|***************|***************|***************/
+                                                                        /**/            TG(1),          MO(1),          /**/            OSL(1),         TO(1),          /**/
+                                                                        /**/                            TT(1),          /**/            LT(1,KC_NO),                    /**/
+                                                                        LSFT_T(KC_SPC), KC_BSPC,        KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENT)),
     // 01 | L Symbols
-    [1] = LAYOUT_ergodox_pretty(//----------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
-            KC_TRNS,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_TRNS,         /***********************/      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(0),
-            KC_TRNS,        KC_EXLM,        KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        KC_TRNS,        /***********************/       KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-            KC_TRNS,        KC_HASH,        KC_DLR,         KC_LPRN,        KC_RPRN,        KC_GRAVE,                                                                       KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-            KC_AMPR,        KC_PERC,        KC_CIRC,        KC_LBRACKET,    KC_RBRACKET,    KC_TILD,        KC_TRNS,                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-                                                                                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-                                                                                                                            KC_TRNS,        KC_TRNS,
-                                                                                           KC_TRNS,         KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS),
+    [1] = LAYOUT_ergodox_pretty(//------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
+        ________,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       TO(0),
+        ________,       KC_EXLM,        KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
+        ________,       KC_HASH,        KC_DLR,         KC_LPRN,        KC_RPRN,        KC_GRAVE,                       /**/                            ________,       ________,       ________,       ________,       ________,       ________,
+        KC_AMPR,        KC_PERC,        KC_CIRC,        KC_LBRACKET,    KC_RBRACKET,    KC_TILD,        ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
+        ________,       ________,       ________,       ________,       ________,                                       /**/                                            ________,       ________,       ________,       ________,       ________,
+        /*--------------|***************|***************|***************|***************|---------------$-----------------------------------------------$---------------|***************|***************|***************|***************/
+                                                                                        ________,       ________,                       ________,      ________,
+                                                                                                        ________,                       ________,
+                                                                        ________,       ________,       ________,                       ________,      ________,        ________),
 
     // 02 | R Numbers
     [2] = LAYOUT_ergodox_pretty(//----------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
@@ -294,9 +305,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mouse testing        |---------------|---------------|---------------|---------------|---------------$---------------$---------------$---------------$---------------|---------------|---------------|---------------|---------------|---------------
     [15] = LAYOUT_ergodox_pretty(
             KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          TO(0),
-            KC_NO,          M11,            M12,            M13,            M14,            M15,            KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-            KC_NO,          M21,            M22,            M23,            M24,            M25,            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-            KC_NO,          M31,            M32,            M33,            M34,            M35,            KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+            KC_NO,          Mvim,           Mvim,           Mvim,           Mvim,           Mvim,           KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+            KC_NO,          Mvim,           Mvim,           Mvim,           Mvim,           Mvim,           /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+            KC_NO,          Mvim,           Mvim,           Mvim,           Mvim,           Mvim,           KC_NO,          /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
             KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          /**/            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
             /**/            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          KC_NO,          KC_NO,           /**/            /**/            /**/            /**/            /**/            /**/
             /**/            /**/            /**/            /**/            /**/            /**/            /**/            KC_NO,          KC_NO,          /**/            /**/            /**/            /**/            /**/            /**/            /**/
@@ -359,8 +370,12 @@ void computer_direction(void){
 void compute_move_magnitude(void) {
     //
 }
-void pointer_mode_router(void) {
+void handle_mvim_grid_event(keyrecord_t *record/*uint8_t col, uint8_t row*/) {
     // decide what to do based on state
+#ifdef CONSOLE_ENABLE
+            uprintf("MVIM | col: %u, row: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+#endif
+
     if (!stateMove) {
         set_direction();
     } else {
@@ -369,6 +384,10 @@ void pointer_mode_router(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // If console is enabled, it will print the matrix position and status of each key pressed
+// #ifdef CONSOLE_ENABLE
+//     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
+// #endif
     switch (keycode) {
         case RGB_SLD:
             if (record->event.pressed) {
@@ -409,32 +428,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 moveToggle = true;
             }
             break;
-        case M11:
-        case M12:
-        case M13:
-        case M14:
-        case M15:
-        case M21:
-        case M22:
-        case M23:
-        case M24:
-        case M25:
-        case M31:
-        case M32:
-        case M33:
-        case M34:
-        case M35:
-        case M41:
-        case M42:
-        case M43:
-        case M44:
-        case M45:
-        case M51:
-        case M52:
-        case M53:
-        case M54:
-        case M55:
-            pointer_mode_router();
+        case Mvim:
+            // I want to log column, and rows here to make sure i understand how it works
+            // pass key coordinates to pointer route
+            handle_mvim_grid_event(record);
         case PFREEZE:
             reset_pointer();
         case SET_MS_STATE:
@@ -607,9 +604,23 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 };
 
+//  find what it is that is not working; console true/ debug enable/ or matrix=true?
 void keyboard_post_init_user(void) {
+    // Customise these values to desired behave
+    // debug_enable=true; // keyboard becomes very slow when using this or next setting; why??
+    // debug_matrix=true; // this makes keyb very slow!!!
+    // debug_keyboard=true;
+    // debug_mouse=true;
+
     layer_state_set_user(layer_state);
 }
+
+
+
+
+
+
+
 
 
 

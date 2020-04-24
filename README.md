@@ -3,6 +3,9 @@ KB LAYOUT
 ================================================
 
 
+
+
+
 RAPID DEV
     >>> LEARN HOW TO AUTO FLASH KEYBOARD
 
@@ -167,7 +170,11 @@ ___, M51, M52, M53, M54, ___,
     create a layer which is optimized for using a L/R hand in conjunction with mouse.
     remove click and scroll functionality from the mouse.
 
+--------------------------------------------------------------
 
+the key event object comes loaded with several pieces of information regarding key pressed
+and therefore I could only use one keycode since the logic then is computed based on the 
+key possitions.
 
 
 
