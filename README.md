@@ -4,15 +4,12 @@ KB LAYOUT
 
 ## todo
 
-    -   tap dance
-        set mvim mode
-
-
-
-
-
-
-
+this is going to be a great exercise in thinking about interaction
+and it is going to allow for a lot of fun which i am all for and
+so when I come out of this I will be faster at using my computer than anybody else
+I will also conduct a few mouse button experiments later to make sure that I know how the mouse actually works.
+this is because as of know it seems that the mouse press outputs more events than it should
+judging by the fact that i cannot resize windows with the current mouse functionality.
 
 
 RAPID DEV
@@ -135,13 +132,6 @@ POINTER DESIGN
                     else
                         setMove
                 
-        case changeMode:     
-            setMode()
-                reset()
-
-        case freezes:
-            reset()
-
         case click:
             regular || hook
 
@@ -165,25 +155,9 @@ ___, M51, M52, M53, M54, ___,
 
 1. keypress -> if mouse grid -> enter mouse mode router based on which mouse mode is selected
 
-    (I want to know how to log my kb in real time, so that I can make dev easier)
-
-2. now I have to create a function that handles the keypresses for the chosen mode.
-
-3. During my first version these functions should be working on their own.
-    later I can refactor them...
-
-4. 
-
-
 >>> idea on how to use ergodox with mouse.
     create a layer which is optimized for using a L/R hand in conjunction with mouse.
     remove click and scroll functionality from the mouse.
-
---------------------------------------------------------------
-
-the key event object comes loaded with several pieces of information regarding key pressed
-and therefore I could only use one keycode since the logic then is computed based on the 
-key possitions.
 
 
 

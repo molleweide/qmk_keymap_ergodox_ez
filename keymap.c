@@ -1,16 +1,4 @@
 #include QMK_KEYBOARD_H
-// #include "version.h"
-// #include "keymap_german.h"
-// #include "keymap_nordic.h"
-// #include "keymap_french.h"
-// #include "keymap_spanish.h"
-// #include "keymap_hungarian.h"
-// #include "keymap_swedish.h"
-// #include "keymap_br_abnt2.h"
-// #include "keymap_canadian_multilingual.h"
-// #include "keymap_german_ch.h"
-// #include "keymap_jp.h"
-// #include "keymap_bepo.h"
 
 #include "pointing_device.h"
 
@@ -31,9 +19,6 @@
 //////////////////////////////////////
 // my custom keynames
 ////////////////////////////////////////
-
-#define ________    KC_TRANSPARENT
-#define xxxxxxxx    KC_NO
 
 #define KC_SPC      KC_SPACE
 #define KC_BSPC     KC_BSPACE
@@ -80,11 +65,6 @@
 #define KC_YEJ      KC_MEDIA_EJECT
 #define KC_YSE      KC_MEDIA_SELECT
 
-// layer shortcuts
-#define _BASE 0
-#define _LSYM 1
-#define _LNUM 2
-
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -94,9 +74,12 @@ enum custom_keycodes {
   MOVE_R,
   MOVE_OFF,
   MGRID,
-  TD_MMODE = 0,
   PFREEZE,
   SET_MS_STATE,
+};
+
+enum tapdance_keycodes {
+    TD_MMODE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -292,31 +275,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                             xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,
                                                                             /***************/               xxxxxxxx,   /**/            xxxxxxxx,       /***************/
-                                                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+                                                                            MOVE_OFF,       xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
-// # VARIABLES 
-// 
-//     pointerState        // dirReceiver; moveReceiver
-//     specSettings        // if true, then I can change mode/settings
-//     
-//     directionAngle 
-//     directionInputArr   // 1-3
-//     directionMode       // hardcoded; free angle
-// 
-//     moveMode            // hardcoded steps; specify freely -> so that I w/tap dance can specify which poihter logic I want to use on the fly.
-//     moveInputLength     // 1-3
-//     moveStepping        // continuous; discrete
-//     moveFreeze
-// 
-//     keepDir
-//     keepMove
-
-//    clickMode           // regular; hook
 bool suspended = false;
 bool moveToggle = false;
 bool moveState = false;
@@ -324,96 +289,88 @@ uint8_t moveDirection = 0;
 uint8_t cursorTimeout = 10;
 uint16_t lastCursor = 0;
 uint8_t stateMove = 0;
-uint8_t mouseMode = 0;
+uint8_t mouseMode = 1;
 
-void pointer_click(void) {
-    // regular || hook
-}
+uint8_t seqStep = 0;
+uint8_t contMagnitude = 10;
+uint8_t discMagnitude = 10;
 
 void reset_pointer(void) {
-    // reset all variables and stop movement
 #ifdef CONSOLE_ENABLE
     uprintf("reset pointer\n");
 #endif
 }
 
 void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
-#ifdef CONSOLE_ENABLE
-            uprintf("mouseMode: %u\n", state->count);
-#endif
     mouseMode = state->count;
     reset_pointer();
 }
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-    /*
-    // Enums defined for all examples:
-        why is the first enum 0 when it is not used? i dont understand. 
-    enum {
-        CT_SE = 0,
-        CT_CLN,
-        CT_EGG,
-        CT_FLSH,
-        X_TAP_DANCE
-    };
-    Ex. 1 tap once for Esc, twice for Caps
-        [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
-            ...in Layer put tap dance item `TD(TD_ESC_CAPS)` in place of key code
-        Other declarations below, separated by commas
-    Ex. 2
-        [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset)
-            .. in functions
-                void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
-                    if (state->count == 1) {
-                        register_code (KC_RSFT);
-                        register_code (KC_SCLN);
-                    } else {
-                        register_code (KC_SCLN);
-                    }
-                }
-
-    todo
-        set mouse mode
-    */
     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished)
-
 };
-// ??
 
-void set_pointer_mode(void) {
-    // 
-    reset_pointer();
+void mouse_mode_basic(keyrecord_t *record) {
+    // change speed by altering the report OR the cursorTimeout.
+    moveToggle = true;
+    // note that the rows and cols are inverted for some reason?!
+    if (record->event.key.col == 2 && record->event.pressed) {
+        if (record->event.key.row == 1){
+                seqStep == 0 ?  moveDirection = 0 : contMagnitude = 10;
+        }
+        if (record->event.key.row == 2){
+                seqStep == 0 ?  moveDirection = 1 : contMagnitude = 20;
+        }
+        if (record->event.key.row == 3){
+                seqStep == 0 ?  moveDirection = 2 : contMagnitude = 30;
+        }
+        if (record->event.key.row == 4){
+                moveDirection = 3;
+                seqStep == 0 ?  moveDirection = 3 : contMagnitude = 40;
+        }
+    }
 }
 
-void set_direction(void) {
-    // change state 
-}
-void set_move(void) {
-    // change state
-}
-void computer_direction(void){
-    // 
-}
-void compute_move_magnitude(void) {
-    //
-}
-void handle_mvim_grid_event(keyrecord_t *record/*uint8_t col, uint8_t row*/) {
-    // decide what to do based on state
-#ifdef CONSOLE_ENABLE
-            uprintf("MVIM | col: %u, row: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
-#endif
+void mouse_mode_basic_discrete(keyrecord_t *record) {
+    // change magnitude by changing report below
+    report_mouse_t report = pointing_device_get_report();
 
-    if (!stateMove) {
-        set_direction();
-    } else {
-        set_move();
+// ifdef CONSOLE_ENABLE
+//    uprintf("x: %u, y: %u\n", report.x, report.y);
+// endif
+    if (record->event.key.col == 2 && record->event.pressed) {
+        if (record->event.key.row == 1){
+                report.x = -5;
+        }
+        if (record->event.key.row == 2){
+                report.y = 5;
+        }
+        if (record->event.key.row == 3){
+                report.y = -5;
+        }
+        if (record->event.key.row == 4){
+                report.x = 5;
+        }
+    }
+    pointing_device_set_report(report);
+    pointing_device_send();
+}
+
+
+void handle_mvim_grid_event(keyrecord_t *record) {
+    switch (mouseMode) {
+        case 1:
+            mouse_mode_basic(record);
+            // set continuous mode
+            break;
+        case 2:
+            mouse_mode_basic_discrete(record);
+            // set discrete mode
+            break;
     }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // If console is enabled, it will print the matrix position and status of each key pressed
-// #ifdef CONSOLE_ENABLE
-//     uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
-// #endif
     switch (keycode) {
         case RGB_SLD:
             if (record->event.pressed) {
@@ -455,37 +412,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
         case MGRID:
-            // I want to log column, and rows here to make sure i understand how it works
-            // pass key coordinates to pointer route
             handle_mvim_grid_event(record);
-        case PFREEZE:
-            reset_pointer();
-            break;
-        case SET_MS_STATE:
-            set_pointer_mode();
             break;
     }
     return true;
 }
 
 void pointing_device_task(void) {
-    report_mouse_t report = pointing_device_get_report(); 
+    report_mouse_t report = pointing_device_get_report();
     if (timer_elapsed(lastCursor) > cursorTimeout && moveToggle) {
         lastCursor = timer_read();
         switch (moveDirection) {
             case 0:
-                report.y = -5;
-                break;
-            case 2:
-                report.y = 5;
-                break;
-            case 3:
-                report.x = -5;
+                report.x = -contMagnitude; // replace the integer with contMagnitude
                 break;
             case 1:
-                report.x = 5;
+                report.y = contMagnitude;
                 break;
-        }  
+            case 2:
+                report.y = -contMagnitude;
+                break;
+            case 3:
+                report.x = contMagnitude;
+                break;
+        }
     }
     pointing_device_set_report(report);
     pointing_device_send();

@@ -23,3 +23,12 @@
 #define PERMISSIVE_HOLD // should make using mod tap more comfortable for fast typing.
 
 #define TAPPING_TERM 200
+
+
+// Fillers to make layering more clear
+#define ________    KC_TRANSPARENT
+#define xxxxxxxx    KC_NO
+
+
+
+
