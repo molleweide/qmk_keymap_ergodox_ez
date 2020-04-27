@@ -14,7 +14,8 @@ judging by the fact that i cannot resize windows with the current mouse function
 
 RAPID DEV
     >>> LEARN HOW TO AUTO FLASH KEYBOARD
-
+# layer improvements
+    in mouse layer > only xxxxxxxxx keys - no transparent keys?
 # types of buttons that I need to configure
 
     - the '-' character is a bit annoying under the pinky, or is it?
