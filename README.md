@@ -16,8 +16,8 @@ KB LAYOUT
             -   mod keys        4   home row HOLD DOWN
             -   to base layer   1   press outer pinky (pseudo esc)
             -   mouse buttons   3   index inner column
-        1. update all layer mappings in each layer
-        2. populate layers
+        todo
+            -   populate layers
 
 
 -   strategy???
