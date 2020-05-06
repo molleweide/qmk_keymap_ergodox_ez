@@ -99,12 +99,12 @@ enum layer_names {
     _WRK, // rm ?
 
     _MS_TEST, // this is where I do my mouse testing
-}
+};
 
 enum tapdance_keycodes {
     TD_MMODE,       // switch mouse mode
-    TD_ESC_LCMP,    // esc or move to L mouse complement
-    TD_QUOTE_RCMP,  // esc or move to R mouse complement
+    TD_ESC_LCO,    // esc or move to L mouse complement
+    TD_QUOTE_RCO,  // esc or move to R mouse complement
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BAS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         TO(_RTE),       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRNS,        /**/            KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
-        TD(TD_ESC_LCMP),CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           GUI_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), TD(TD_QUOTE_RCMP),
+        TD(TD_ESC_LCO),CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           GUI_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), TD(TD_QUOTE_RCO),
         KC_LSPO,        LT(_RMS,KC_Z),  LT(_RNU,KC_X),  KC_C,           KC_V,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_N,           KC_M,           KC_COMMA,       LT(_LSY,KC_DOT),LT(_LMS,KC_SLSH),KC_RSPC,
         KC_GRAVE,       CTL_T(KC_LEFT), KC_DOWN,        KC_UP,          KC_RGHT,        /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT), xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                             KC_MS_BTN1,     KC_MS_BTN2,     KC_TRNS,        KC_MS_BTN5,     KC_MS_BTN4,     KC_MS_BTN3
     ),
 
-
+    // left mouse helper layer
     [_LCO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN3,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                         /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
                                                                         KC_MWHD,        KC_MWHU,        KC_MWHR,        /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 
-
+    // right mouse helper layer
     [_RCO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN3,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -287,17 +287,19 @@ void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
 void dance_esc_lco (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code (KC_ESC);
+        unregister_code (KC_ESC);
     } else {
         // set layer left compl
-        layer_move(_LCO)
+        layer_move(_LCO);
     }
 }
 void dance_quote_rco (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         register_code (KC_QUOTE);
+        unregister_code (KC_QUOTE);
     } else {
         // set layer right comp
-        layer_move(_RCO)
+        layer_move(_RCO);
     }
 }
 
