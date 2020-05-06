@@ -4,25 +4,6 @@ KB LAYOUT
 
 ## todo
 
-- create a layer for using in conjunction with the mouse
-    that is single toggle so that I can tap enter the layer
-    fast for quick editing.
-        candidate triggers
-            -   double tap outer PINKY (KC_ESCAPE / KC_QUOTE)
-                ACTION_TAP_DANCE_LAYER_MOVE
-        functions
-            -   mouse scroll    4   thumb keys
-            -   arrow keys      4   home row
-            -   mod keys        4   home row HOLD DOWN
-            -   to base layer   1   press outer pinky (pseudo esc)
-            -   mouse buttons   3   index inner column
-        todo
-            -   populate layers
-
-
--   strategy???
-        how make sure I always have a working backup keymap !!!! 
-
 RAPID DEV
     >>> LEARN HOW TO AUTO FLASH KEYBOARD
 # layer improvements
