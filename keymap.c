@@ -78,6 +78,23 @@ enum custom_keycodes {
   SET_MS_STATE,
 };
 
+enum layer_names {
+    _BASE___ = 0,
+
+    _L_SYMB_,
+    _R_NUMB_,
+
+    _L_MOUSE,
+    _R_MOUSE,
+
+    _LAYOUTS,
+    _DVORAK_, // rm? 
+    _COLEMAK,
+    _WORKMAN, // rm ?
+
+    _MS_TEST, // this is where I do my mouse testing 
+}
+
 enum tapdance_keycodes {
     TD_MMODE,
 };
@@ -316,17 +333,16 @@ void mouse_mode_basic(keyrecord_t *record) {
     // note that the rows and cols are inverted for some reason?!
     if (record->event.key.col == 2 && record->event.pressed) {
         if (record->event.key.row == 1){
-                seqStep == 0 ?  moveDirection = 0 : contMagnitude = 10;
+                //seqStep == 0 ?  moveDirection = 0 : contMagnitude = 10;
         }
         if (record->event.key.row == 2){
-                seqStep == 0 ?  moveDirection = 1 : contMagnitude = 20;
+                //seqStep == 0 ?  moveDirection = 1 : contMagnitude = 20;
         }
         if (record->event.key.row == 3){
-                seqStep == 0 ?  moveDirection = 2 : contMagnitude = 30;
+                //seqStep == 0 ?  moveDirection = 2 : contMagnitude = 30;
         }
         if (record->event.key.row == 4){
-                moveDirection = 3;
-                seqStep == 0 ?  moveDirection = 3 : contMagnitude = 40;
+                //seqStep == 0 ?  moveDirection = 3 : contMagnitude = 40;
         }
     }
 }

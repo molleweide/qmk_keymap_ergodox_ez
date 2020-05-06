@@ -4,13 +4,23 @@ KB LAYOUT
 
 ## todo
 
-this is going to be a great exercise in thinking about interaction
-and it is going to allow for a lot of fun which i am all for and
-so when I come out of this I will be faster at using my computer than anybody else
-I will also conduct a few mouse button experiments later to make sure that I know how the mouse actually works.
-this is because as of know it seems that the mouse press outputs more events than it should
-judging by the fact that i cannot resize windows with the current mouse functionality.
+-   delete all unnecessary layers
+        so that I can start improving on my layers and
+        build new ones with ease
+        
+        1. make sure all layers are named
+        2. make enumerated arr for layers
+        3. delete unnecessary ones
 
+- create a layer for using in conjunction with the mouse
+    that is single toggle so that I can tap enter the layer
+    fast for quick editing.
+        candidate triggers
+            -   double tap outer PINKY (KC_ESCAPE / KC_QUOTE)
+
+
+-   strategy???
+        how make sure I always have a working backup keymap !!!! 
 
 RAPID DEV
     >>> LEARN HOW TO AUTO FLASH KEYBOARD
