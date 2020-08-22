@@ -206,22 +206,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // VARIABLES ----------------------------------------
-
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
-//bool suspended = false;
-bool moveToggle = false;
-uint8_t moveDirection = 0;
-uint8_t cursorTimeout = 10;
-uint16_t lastCursor = 0;
-uint8_t mouseMode = 1;
 
-
-
-//uint8_t seqStep = 0;
-uint8_t contMagnitude = 10;
-uint8_t discMagnitude = 10;
 
 void reset_pointer(void) {
 #ifdef CONSOLE_ENABLE
@@ -229,56 +217,15 @@ void reset_pointer(void) {
 #endif
 }
 
+uint8_t someVar = 1;
 void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
-    mouseMode = state->count;
+    someVar  = state->count;
     reset_pointer();
 }
 
-//void dance_esc_lco (qk_tap_dance_state_t *state, void *user_data) {
-//    if (state->count == 1) {
-//        register_code (KC_ESC);
-//        unregister_code (KC_ESC);
-//    } else {
-//        // set layer left compl
-//        layer_move(_LCO);
-//    }
-//}
-//void dance_quote_rco (qk_tap_dance_state_t *state, void *user_data) {
-//    if (state->count == 1) {
-//        register_code (KC_QUOTE);
-//        unregister_code (KC_QUOTE);
-//    } else {
-//        // set layer right comp
-//        layer_move(_RCO);
-//    }
-//}
-
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished),
-    //[TD_ESC_LCO]   = ACTION_TAP_DANCE_FN (dance_esc_lco),
-    //[TD_QUOTE_RCO] = ACTION_TAP_DANCE_FN (dance_quote_rco),
 };
-
-//void mouse_mode_basic(keyrecord_t *record) {
-//    // change speed by altering the report OR the cursorTimeout.
-//    moveToggle = true;
-//    // note that the rows and cols are inverted for some reason?!
-//    if (record->event.key.col == 2 && record->event.pressed) {
-//        if (record->event.key.row == 1){
-//                //seqStep == 0 ?  moveDirection = 0 : contMagnitude = 10;
-//        }
-//        if (record->event.key.row == 2){
-//                //seqStep == 0 ?  moveDirection = 1 : contMagnitude = 20;
-//        }
-//        if (record->event.key.row == 3){
-//                //seqStep == 0 ?  moveDirection = 2 : contMagnitude = 30;
-//        }
-//        if (record->event.key.row == 4){
-//                //seqStep == 0 ?  moveDirection = 3 : contMagnitude = 40;
-//        }
-//    }
-//}
-
 
 
 
@@ -295,67 +242,66 @@ uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
 uint8_t mag = 0;
 uint8_t deg = 0;
 
-void mouse_mode_basic_discrete(keyrecord_t *record) { /////////////////////////////////////////////////
-  report_mouse_t report = pointing_device_get_report();
+void set_mag_deg(uint8_t m, uint8_t d){
+  if (mouseState == 1) {
+#ifdef CONSOLE_ENABLE
+  uprintf("mag: %u", mag);
+#endif
+    mag = m; mouseState = 2;
 
-//#ifdef CONSOLE_ENABLE
-//  uprintf("mouseState: %u", mouseState);
-//#endif
+  } else {
+#ifdef CONSOLE_ENABLE
+  uprintf("deg: %u", deg);
+#endif
+    deg = d;
+
+    report_mouse_t report = pointing_device_get_report();
+    report.x = round(mag * cos(deg));
+    report.y = round(mag * sin(deg));
+
+#ifdef CONSOLE_ENABLE
+  uprintf("x: %u, y: %u", report.x, report.y);
+#endif
+
+    pointing_device_set_report(report);
+    pointing_device_send();
+    mouseState = 1;
+  }
+}
+
+void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////////////
+
 
   if (record->event.pressed) { // key pressed
 
     if (record->event.key.col == 1) {
       switch (record->event.key.row) {
-        case 1: if (mouseState == 1) { mag = 10;} else {deg = 0;} break;
-        case 2: if (mouseState == 1) { mag = 20;} else {deg = 15;} break;
-        case 3: if (mouseState == 1) { mag = 30;} else {deg = 30;} break;
-        case 4: if (mouseState == 1) { mag = 40;} else {deg = 45;} break;
+        case 1: set_mag_deg(10, 20); break;
+        case 2: set_mag_deg(10, 20); break;
+        case 3: set_mag_deg(10, 20); break;
+        case 4: set_mag_deg(10, 20); break;
       }
     }
     if (record->event.key.col == 2) {
       switch (record->event.key.row) {
-        case 1: if (mouseState == 1) { mag = 10;} else {deg = 0;} break;
-        case 2: if (mouseState == 1) { mag = 20;} else {deg = 15;} break;
-        case 3: if (mouseState == 1) { mag = 30;} else {deg = 30;} break;
-        case 4: if (mouseState == 1) { mag = 40;} else {deg = 45;} break;
+        case 1: set_mag_deg(10, 20); break;
+        case 2: set_mag_deg(10, 20); break;
+        case 3: set_mag_deg(10, 20); break;
+        case 4: set_mag_deg(10, 20); break;
       }
     }
     if (record->event.key.col == 3) {
       switch (record->event.key.row) {
-        case 1: if (mouseState == 1) { mag = 10;} else {deg = 0;} break;
-        case 2: if (mouseState == 1) { mag = 20;} else {deg = 15;} break;
-        case 3: if (mouseState == 1) { mag = 30;} else {deg = 30;} break;
-        case 4: if (mouseState == 1) { mag = 40;} else {deg = 45;} break;
+        case 1: set_mag_deg(10, 20); break;
+        case 2: set_mag_deg(10, 20); break;
+        case 3: set_mag_deg(10, 20); break;
+        case 4: set_mag_deg(10, 20); break;
       }
-    }
-
-    if (mouseState == 1) {
-      mouseState = 2;
-    } else {
-
-      report.x = round(mag * cos(deg));
-      report.y = round(mag * sin(deg));
-
-      pointing_device_set_report(report);
-      pointing_device_send();
-      mouseState = 1;
     }
   }
 } /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//void handle_mvim_grid_event(keyrecord_t *record) {
-//    switch (mouseMode) {
-//        case 1:
-//            mouse_mode_basic(record);
-//            // set continuous mode
-//            break;
-//        case 2:
-//            mouse_mode_basic_discrete(record);
-//            // set discrete mode
-//            break;
-//    }
-//}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -369,43 +315,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 disable_layer_color ^= 1;
             }
             return false;
-        case MOVE_OFF:
-            if (record->event.pressed) {
-                moveToggle = false;
-            }
-            break;
-        //case MOVE_U:
-        //    if(record->event.pressed) {
-        //        moveDirection = 0;
-        //        moveToggle = true;
-        //    }
-        //    break;
-        //case MOVE_D:
-        //    if(record->event.pressed) {
-        //        moveDirection = 2;
-        //        moveToggle = true;
-        //    }
-        //    break;
-        //case MOVE_L:
-        //    if(record->event.pressed) {
-        //        moveDirection = 3;
-        //        moveToggle = true;
-        //    }
-        //    break;
-        //case MOVE_R:
-        //    if(record->event.pressed) {
-        //        moveDirection = 1;
-        //        moveToggle = true;
-        //    }
-        //    break;
         case MGRID:
-            mouse_mode_basic_discrete(record);
-            //handle_mvim_grid_event(record);
+            mouse_keys(record);
             break;
     }
     return true;
 }
 
+
+//uint8_t moveDirection = 0;
+//uint8_t cursorTimeout = 10;
+//uint16_t lastCursor = 0;
 //void pointing_device_task(void) {
 //    report_mouse_t report = pointing_device_get_report();
 //    if (timer_elapsed(lastCursor) > cursorTimeout && moveToggle) {
@@ -570,7 +490,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 };
 
-//  find what it is that is not working; console true/ debug enable/ or matrix=true?
+// why do I have this function here???
 void keyboard_post_init_user(void) {
     // Customise these values to desired behave
     // debug_enable=true; // keyboard becomes very slow when using this or next setting; why??
