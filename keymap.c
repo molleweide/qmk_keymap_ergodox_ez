@@ -371,16 +371,16 @@ void mouse_mode_basic_discrete(keyrecord_t *record) { //////////////////////////
   if (mouseState == 1) {
     if (record->event.key.col == 2 && record->event.pressed) {
       if (record->event.key.row == 1){
-        currentMagnitude = 10
+        currentMagnitude = 10;
       }
       if (record->event.key.row == 2){
-        currentMagnitude = 30
+        currentMagnitude = 30;
       }
       if (record->event.key.row == 3){
-        currentMagnitude = 50
+        currentMagnitude = 50;
       }
       if (record->event.key.row == 4){
-        currentMagnitude = 70
+        currentMagnitude = 70;
       }
     }
     mouseState = 2
