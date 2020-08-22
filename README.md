@@ -152,7 +152,10 @@ ___, M51, M52, M53, M54, ___,
     create a layer which is optimized for using a L/R hand in conjunction with mouse.
     remove click and scroll functionality from the mouse.
 
-
+det känns ju som att report senden ska vara tillsammans i if-satsen för riktningen och sen har man en variabel switch för att se till att man först
+matar in magnituden eller längden, och sedan matar man in riktningen.
+och det innebär sedan att det man tillskriver report variabeln i sig också skall vara en variabel. 
+När detta är fixat, då kan man börja med att inkorporera flera tangenter för att ge en högre precision i hur man styr musen på datorn.
 
 
 
