@@ -295,12 +295,15 @@ bool disable_layer_color = 0;
 
 bool suspended = false;
 bool moveToggle = false;
-bool moveState = false;
 uint8_t moveDirection = 0;
 uint8_t cursorTimeout = 10;
 uint16_t lastCursor = 0;
-uint8_t stateMove = 0;
 uint8_t mouseMode = 1;
+
+
+uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
+
+uint8_t currentMagnitude = 0;
 
 uint8_t seqStep = 0;
 uint8_t contMagnitude = 10;
@@ -362,30 +365,49 @@ void mouse_mode_basic(keyrecord_t *record) {
     }
 }
 
-void mouse_mode_basic_discrete(keyrecord_t *record) {
-    // change magnitude by changing report below
+
+void mouse_mode_basic_discrete(keyrecord_t *record) { /////////////////////////////////////////////////
+  // MAGNITUDE
+  if (mouseState == 1) {
+    if (record->event.key.col == 2 && record->event.pressed) {
+      if (record->event.key.row == 1){
+        currentMagnitude = 10
+      }
+      if (record->event.key.row == 2){
+        currentMagnitude = 30
+      }
+      if (record->event.key.row == 3){
+        currentMagnitude = 50
+      }
+      if (record->event.key.row == 4){
+        currentMagnitude = 70
+      }
+    }
+    mouseState = 2
+  }
+  // DIRECTION
+  else if (mouseState == 2) {
     report_mouse_t report = pointing_device_get_report();
 
-// ifdef CONSOLE_ENABLE
-//    uprintf("x: %u, y: %u\n", report.x, report.y);
-// endif
     if (record->event.key.col == 2 && record->event.pressed) {
-        if (record->event.key.row == 1){
-                report.x = -5;
-        }
-        if (record->event.key.row == 2){
-                report.y = 5;
-        }
-        if (record->event.key.row == 3){
-                report.y = -5;
-        }
-        if (record->event.key.row == 4){
-                report.x = 5;
-        }
+      if (record->event.key.row == 1){
+        report.x = -currentMagnitude;
+      }
+      if (record->event.key.row == 2){
+        report.y = currentMagnitude;
+      }
+      if (record->event.key.row == 3){
+        report.y = -currentMagnitude;
+      }
+      if (record->event.key.row == 4){
+        report.x = currentMagnitude;
+      }
     }
     pointing_device_set_report(report);
     pointing_device_send();
-}
+    mouseState = 1
+  }
+} /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 void handle_mvim_grid_event(keyrecord_t *record) {
