@@ -368,15 +368,14 @@ void mouse_mode_basic(keyrecord_t *record) {
 
 void mouse_mode_basic_discrete(keyrecord_t *record) { /////////////////////////////////////////////////
 #ifdef CONSOLE_ENABLE
-  uprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
   uprintf("mouseState: %u", mouseState);
-#endif 
+#endif
   // MAGNITUDE
-  if (mouseState == 1) {
+  if (mouseState == 1 && record->event.pressed) {
 
 #ifdef CONSOLE_ENABLE
     uprintf("set magnitude");
-#endif 
+#endif
     if (record->event.key.col == 2 && record->event.pressed) {
       if (record->event.key.row == 1){
         currentMagnitude = 10;
@@ -394,10 +393,10 @@ void mouse_mode_basic_discrete(keyrecord_t *record) { //////////////////////////
     mouseState = 2;
   }
   // DIRECTION
-  else if (mouseState == 2) {
+  else if (mouseState == 2 && record->event.pressed) {
 #ifdef CONSOLE_ENABLE
     uprintf("set direction");
-#endif 
+#endif
     report_mouse_t report = pointing_device_get_report();
 
     if (record->event.key.col == 2 && record->event.pressed) {

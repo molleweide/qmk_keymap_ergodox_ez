@@ -2,6 +2,19 @@
 KB LAYOUT
 ================================================
 
+
+# debugging
+
+1. use this to create log statements
+  #ifdef CONSOLE_ENABLE
+      uprintf("set direction");
+  #endif
+
+2. run `./hid_listen.mac` in commandline to start logging
+
+
+
+
 ## todo
 
 RAPID DEV
