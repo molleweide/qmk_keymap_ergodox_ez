@@ -171,9 +171,12 @@ och det innebär sedan att det man tillskriver report variabeln i sig också ska
 När detta är fixat, då kan man börja med att inkorporera flera tangenter för att ge en högre precision i hur man styr musen på datorn.
 
 
-
-
-
+SEQUENCING IDEAS
+====================================
+2-step 
+3-step
+basic grid
+repeat avoiding shift.
 
 
 

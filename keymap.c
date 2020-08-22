@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+#include <math.h>
 #include "pointing_device.h"
 
 #define KC_MAC_UNDO LGUI(KC_Z)
@@ -289,11 +290,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                             MOVE_OFF,       xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
+// VARIABLES ----------------------------------------
 
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
-bool suspended = false;
+//bool suspended = false;
 bool moveToggle = false;
 uint8_t moveDirection = 0;
 uint8_t cursorTimeout = 10;
@@ -301,11 +303,8 @@ uint16_t lastCursor = 0;
 uint8_t mouseMode = 1;
 
 
-uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
 
-uint8_t currentMagnitude = 0;
-
-uint8_t seqStep = 0;
+//uint8_t seqStep = 0;
 uint8_t contMagnitude = 10;
 uint8_t discMagnitude = 10;
 
@@ -366,56 +365,123 @@ void mouse_mode_basic(keyrecord_t *record) {
 }
 
 
+
+
+// DISCRETE MOUSE ---------------------------------------------------------------
+//
+// todo
+//  - reset state
+//  - mouse
+//    * mouse hook
+//    * regular mouse button
+//  - 12 directions
+//  - create 3-step
+//  -
+
+uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
+uint8_t mag = 0;
+uint8_t deg = 0;
+uint8_t dirx = 0;
+uint8_t diry = 0;
+
+uint8_t getXComponent(uint8_t deg) {
+  return 1;
+}
+uint8_t getYComponent(uint8_t deg) {
+  return 2;
+}
 void mouse_mode_basic_discrete(keyrecord_t *record) { /////////////////////////////////////////////////
-#ifdef CONSOLE_ENABLE
-  uprintf("mouseState: %u", mouseState);
-#endif
-  // MAGNITUDE
-  if (mouseState == 1 && record->event.pressed) {
+  report_mouse_t report = pointing_device_get_report();
 
-#ifdef CONSOLE_ENABLE
-    uprintf("set magnitude");
-#endif
-    if (record->event.key.col == 2 && record->event.pressed) {
-      if (record->event.key.row == 1){
-        currentMagnitude = 10;
-      }
-      if (record->event.key.row == 2){
-        currentMagnitude = 30;
-      }
-      if (record->event.key.row == 3){
-        currentMagnitude = 50;
-      }
-      if (record->event.key.row == 4){
-        currentMagnitude = 70;
+//#ifdef CONSOLE_ENABLE
+//  uprintf("mouseState: %u", mouseState);
+//#endif
+
+  if (record->event.pressed) { // key pressed
+
+    if (record->event.key.col == 1) {
+      switch (record->event.key.row) {
+        case 1: if (mouseState == 1) { mag = 1;} else {deg = 0;} break;
+        //case 2:
+        //case 3:
+        //case 4:
       }
     }
-    mouseState = 2;
-  }
-  // DIRECTION
-  else if (mouseState == 2 && record->event.pressed) {
-#ifdef CONSOLE_ENABLE
-    uprintf("set direction");
-#endif
-    report_mouse_t report = pointing_device_get_report();
+    //if (record->event.key.col == 2) {
+    //  switch (record->event.key.row) {
+    //    case 1:
+    //    case 2:
+    //    case 3:
+    //    case 4:
+    //  }
+    //}
+    //if (record->event.key.col == 3) {
+    //  switch (record->event.key.row) {
+    //    case 1:
+    //    case 2:
+    //    case 3:
+    //    case 4:
+    //  }
+    //}
 
-    if (record->event.key.col == 2 && record->event.pressed) {
-      if (record->event.key.row == 1){
-        report.x = -currentMagnitude;
-      }
-      if (record->event.key.row == 2){
-        report.y = currentMagnitude;
-      }
-      if (record->event.key.row == 3){
-        report.y = -currentMagnitude;
-      }
-      if (record->event.key.row == 4){
-        report.x = currentMagnitude;
-      }
+    if (mouseState == 1) {
+      mouseState = 2;
+    } else {
+      //dirx = ; // compute
+      //diry = ;
+      report.x = getXComponent(deg); // set xy
+      report.y = getYComponent(deg);
+      pointing_device_set_report(report);
+      pointing_device_send();
+      mouseState = 1;
     }
-    pointing_device_set_report(report);
-    pointing_device_send();
-    mouseState = 1;
+
+//    if (mouseState == 1) { // MAGNITUDE
+//
+//      //#ifdef CONSOLE_ENABLE
+//      //    uprintf("set magnitude");
+//      //#endif
+//
+//      if (record->event.key.col == 2) {
+//        if (record->event.key.row == 1){
+//          mag = 10;
+//        }
+//        if (record->event.key.row == 2){
+//          mag = 30;
+//        }
+//        if (record->event.key.row == 3){
+//          mag = 50;
+//        }
+//        if (record->event.key.row == 4){
+//          mag = 70;
+//        }
+//      }
+//      mouseState = 2;
+//    }
+//    else if (mouseState == 2) { // DIRECTION
+//
+//#ifdef CONSOLE_ENABLE
+//      uprintf("set direction");
+//#endif
+//
+//      if (record->event.key.col == 2) {
+//        if (record->event.key.row == 1){
+//          report.x = -mag;
+//        }
+//        if (record->event.key.row == 2){
+//          report.y = mag;
+//        }
+//        if (record->event.key.row == 3){
+//          report.y = -mag;
+//        }
+//        if (record->event.key.row == 4){
+//          report.x = mag;
+//        }
+//      }
+//      pointing_device_set_report(report);
+//      pointing_device_send();
+//      mouseState = 1;
+//    }
   }
 } /////////////////////////////////////////////////////////////////////////////////////////////////////
 
