@@ -383,7 +383,7 @@ void mouse_mode_basic_discrete(keyrecord_t *record) { //////////////////////////
         currentMagnitude = 70;
       }
     }
-    mouseState = 2
+    mouseState = 2;
   }
   // DIRECTION
   else if (mouseState == 2) {
@@ -405,7 +405,7 @@ void mouse_mode_basic_discrete(keyrecord_t *record) { //////////////////////////
     }
     pointing_device_set_report(report);
     pointing_device_send();
-    mouseState = 1
+    mouseState = 1;
   }
 } /////////////////////////////////////////////////////////////////////////////////////////////////////
 
