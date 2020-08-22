@@ -3,7 +3,8 @@ KB LAYOUT
 ================================================
 
 
-# debugging
+debugging
+================================================
 
 1. use this to create log statements
   #ifdef CONSOLE_ENABLE
@@ -15,12 +16,18 @@ KB LAYOUT
 
 
 
-## todo
+todo
+================================================
 
-RAPID DEV
-    >>> LEARN HOW TO AUTO FLASH KEYBOARD
-# layer improvements
-    in mouse layer > only xxxxxxxxx keys - no transparent keys?
+1. remove dvo, col, wrk layer
+  - put these in new file
+2. rm mouse helper layers
+
+
+
+
+
+
 # types of buttons that I need to configure
 
     - the '-' character is a bit annoying under the pinky, or is it?
@@ -34,32 +41,11 @@ RAPID DEV
         and use thumb clusters for more important stuff
       put nav buttons on LOWEST row in BASE layer 
 
-  - Numbers & Fn-key
-      dedicated layer for these -> used in many media programs etc., eg. for screensets
-
-  - media buttons
-  
-  - layer switches
-      learn all types of switches
-        populate base layer
-
   - spacing keys
       enter, space, backspace, tab
 
-  - outer keys 
-      what is the best way of utilizing the outer keys. 
-        what smart layer switches can I make heres
 
 # general thoughts and todos
-
-- move numpad zero away from bottom row
-    i would argue that 0 is used so freq that it shouldn't be in the bottom row
-
-- SWAP shift and alt
-    this could be smart because then I can switch to the symbols lay and also use shift at the same time
-      which would make the layout even more ergonomic when it comes to generatic ([{]}) 
-
-- HOW do i combine the mouse with modifiers in a smooth way 
 
 - how should I do with the CMD key
     * dual with SPACE and ENTER?
@@ -127,56 +113,9 @@ POINTER DESIGN
 
     clickMode           // regular; hook
 
-## FUNCTIONS
-
-    process_user
-        case Mxx: based on state route events to corresponding pointerFunction.
-            pointerModeRouter()
-                pointerFunc()
-                    if dir
-                        setDirection()
-                    else
-                        setMove
-                
-        case click:
-            regular || hook
-
     
 
 RNDM
 ====================================
-
-How do I manage the variable key position? Since I am going to switch between multiple
-pointer modes during development, and I am also probably going to keep a bunch of modes,
-I am thinking about creating a nested switch of a set of generic pointer grid keys.
-This will mean that I'll have to create keys with a smart naming convention so that 
-I can keep track of what I am doing in the code. I should probably add COL and ROW
-number to the keys like this: 
-
-___, M11, M12, M13, M14, M15,
-___, M21, M22, M23, M24, M25,
-___, M31, M32, M33, M34, M35,
-___, M41, M42, M43, M44, M45,
-___, M51, M52, M53, M54, ___,
-
-1. keypress -> if mouse grid -> enter mouse mode router based on which mouse mode is selected
-
->>> idea on how to use ergodox with mouse.
-    create a layer which is optimized for using a L/R hand in conjunction with mouse.
-    remove click and scroll functionality from the mouse.
-
-det känns ju som att report senden ska vara tillsammans i if-satsen för riktningen och sen har man en variabel switch för att se till att man först
-matar in magnituden eller längden, och sedan matar man in riktningen.
-och det innebär sedan att det man tillskriver report variabeln i sig också skall vara en variabel. 
-När detta är fixat, då kan man börja med att inkorporera flera tangenter för att ge en högre precision i hur man styr musen på datorn.
-
-
-SEQUENCING IDEAS
-====================================
-2-step 
-3-step
-basic grid
-repeat avoiding shift.
-
 
 

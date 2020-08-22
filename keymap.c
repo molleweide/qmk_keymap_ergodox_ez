@@ -92,22 +92,22 @@ enum layer_names {
     _LMS,
     _RMS,
 
-    _LCO,
-    _RCO,
+//    _LCO,
+//    _RCO,
 
     _FUN,
 
-    _RTE,
-    _DVO, // rm?
-    _COL,
-    _WRK, // rm ?
+//    _RTE,
+//    _DVO, // rm?
+//    _COL,
+//    _WRK, // rm ?
 
     _MS_TEST, // this is where I do my mouse testing
 };
 
 enum tapdance_keycodes {
     TD_MMODE,       // switch mouse mode
-    TD_ESC_LCO,    // esc or move to L mouse complement
+    //TD_ESC_LCO,    // esc or move to L mouse complement
     TD_QUOTE_RCO,  // esc or move to R mouse complement
 };
 
@@ -118,10 +118,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_BAS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        TO(_RTE),       KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
+        TO(_MS_TEST),   KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRNS,        /**/            KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
         KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), KC_QUOTE,
-        TO(_LCO),       LT(_RMS,KC_Z),  LT(_RNU,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_N,           KC_M,           LT(_FUN,KC_COM),LT(_LSY,KC_DOT),LT(_LMS,KC_SLSH),TO(_RCO),
+        xxxxxxxx,       LT(_RMS,KC_Z),  LT(_RNU,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_N,           KC_M,           LT(_FUN,KC_COM),LT(_LSY,KC_DOT),LT(_LMS,KC_SLSH),xxxxxxxx,
         KC_GRAVE,       CTL_T(KC_LEFT), KC_DOWN,        KC_UP,          KC_RGHT,        /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT), xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -184,27 +184,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * MOUSE_HELPER_LR ------------------------------------------------ MOUSE_HELPER_LR ----------------------------------------------- MOUSE_HELPER_LR --------------------------------------------------------------- MOUSE_HELPER_LR ----------------
      */
 
-    [_LCO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN3,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       KC_LCTL,        KC_LSFT,        KC_LALT,        KC_LCMD,        KC_MS_BTN4,     /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        TO(_BAS),       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        KC_MS_BTN5,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MWHL,        /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
-                                                                        /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-                                                                        KC_MWHD,        KC_MWHU,        KC_MWHR,        /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
-
-    [_RCO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN3,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            KC_MS_BTN4,     KC_RCMD,        KC_RALT,        KC_RSFT,        KC_RCTL,        xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN5,     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            KC_MWHR,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
-                                                                        /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-                                                                        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            KC_MWHL,       KC_MWHD,       KC_MWHU),
+//    [_LCO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN3,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        xxxxxxxx,       KC_LCTL,        KC_LSFT,        KC_LALT,        KC_LCMD,        KC_MS_BTN4,     /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        TO(_BAS),       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        KC_MS_BTN5,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MWHL,        /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+//                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+//                                                                        /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
+//                                                                        KC_MWHD,        KC_MWHU,        KC_MWHR,        /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+//
+//    [_RCO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN3,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            KC_MS_BTN4,     KC_RCMD,        KC_RALT,        KC_RSFT,        KC_RCTL,        xxxxxxxx,
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN5,     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        TO(_BAS),
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            KC_MWHR,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+//                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+//                                                                        /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
+//                                                                        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            KC_MWHL,       KC_MWHD,       KC_MWHU),
 
     /**
      * FUNCTION_LAYER ------------------------------------------------ FUNCTION_LAYER ----------------------------------------------- FUCNTION_LAYER --------------------------------------------------------------- FUNCTION_LAYER ----------------
@@ -225,54 +225,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ROUTER --------------------------------------
      */
 
-    [_RTE] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_MS_TEST),   xxxxxxxx,                       /**/                            xxxxxxxx,       TO(_DVO),       TO(_COL),       TO(_WRK),       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                       /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/------------$---------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
-                                                                                                        xxxxxxxx,       /**/            xxxxxxxx,
-                                                                        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+//    [_RTE] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_MS_TEST),   xxxxxxxx,                       /**/                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                       /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+//        //--------------|***************|***************|***************|***************|---------------$---------------/**/------------$---------------$---------------|***************|***************|***************|***************|---------------
+//                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+//                                                                                                        xxxxxxxx,       /**/            xxxxxxxx,
+//                                                                        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 
     /**
      * Dvorak, Colemak, and Workman ----------------
      *     these layouts SHOULD BE superimposed nicely on top of the baselayer
      */
 
-    [_DVO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(_BAS),
-        KC_TRNS,        KC_QUOTE,       KC_COMMA,       KC_DOT,         KC_P,           KC_Y,           KC_TRNS,        /**/            KC_TRNS,        KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_TRNS,
-        KC_TRNS,        KC_A,           KC_O,           KC_E,           KC_U,          KC_I,                           /**/                            KC_D,           KC_H,           KC_T,           KC_N,           KC_S,           KC_TRNS,
-        KC_TRNS,        KC_SCOLON,      KC_Q,           KC_J,           KC_K,           KC_X,           KC_TRNS,        /**/            KC_TRNS,        KC_B,           KC_M,           KC_W,           KC_V,           KC_Z,           KC_TRNS,
-        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
-                                                                                                        KC_TRNS,        /**/            KC_TRNS,
-                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS),
-
-    [_COL] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(_BAS),
-        KC_TRNS,        KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_J,           KC_L,           KC_U,           KC_Y,           KC_SCOLON,      KC_TRNS,
-        KC_TRNS,        KC_A,           KC_R,           KC_S,           KC_T,           KC_G,                           /**/                            KC_K,           KC_N,           KC_E,           KC_I,           KC_O,           KC_TRNS,
-        KC_TRNS,        KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,           KC_TRNS,        /**/            KC_TRNS,        KC_M,           KC_H,           KC_COMMA,       KC_DOT,         KC_SLSH,        KC_TRNS,
-        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
-                                                                                                        KC_TRNS,        /**/            KC_TRNS,
-                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS),
-
-    [_WRK] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(_BAS),
-        KC_TRNS,        KC_Q,           KC_D,           KC_R,           KC_W,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_J,           KC_F,           KC_U,           KC_P,           KC_SLSH,       KC_TRNS,
-        KC_TRNS,        KC_A,           KC_S,           KC_H,           KC_T,           KC_G,                           /**/                            KC_Y,           KC_N,           KC_E,           KC_O,           KC_I,           KC_TRNS,
-        KC_TRNS,        KC_Z,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TRNS,        /**/            KC_TRNS,        KC_K,           KC_L,           KC_COMMA,       KC_DOT,         KC_SLSH,       KC_TRNS,
-        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
-                                                                                                        KC_TRNS,        /**/            KC_TRNS,
-                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS),
+//    [_DVO] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+//        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(_BAS),
+//        KC_TRNS,        KC_QUOTE,       KC_COMMA,       KC_DOT,         KC_P,           KC_Y,           KC_TRNS,        /**/            KC_TRNS,        KC_F,           KC_G,           KC_C,           KC_R,           KC_L,           KC_TRNS,
+//        KC_TRNS,        KC_A,           KC_O,           KC_E,           KC_U,          KC_I,                           /**/                            KC_D,           KC_H,           KC_T,           KC_N,           KC_S,           KC_TRNS,
+//        KC_TRNS,        KC_SCOLON,      KC_Q,           KC_J,           KC_K,           KC_X,           KC_TRNS,        /**/            KC_TRNS,        KC_B,           KC_M,           KC_W,           KC_V,           KC_Z,           KC_TRNS,
+//        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
+//        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+//                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
+//                                                                                                        KC_TRNS,        /**/            KC_TRNS,
+//                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS),
+//
+//    [_COL] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+//        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(_BAS),
+//        KC_TRNS,        KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_J,           KC_L,           KC_U,           KC_Y,           KC_SCOLON,      KC_TRNS,
+//        KC_TRNS,        KC_A,           KC_R,           KC_S,           KC_T,           KC_G,                           /**/                            KC_K,           KC_N,           KC_E,           KC_I,           KC_O,           KC_TRNS,
+//        KC_TRNS,        KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,           KC_TRNS,        /**/            KC_TRNS,        KC_M,           KC_H,           KC_COMMA,       KC_DOT,         KC_SLSH,        KC_TRNS,
+//        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
+//        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+//                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
+//                                                                                                        KC_TRNS,        /**/            KC_TRNS,
+//                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS),
+//
+//    [_WRK] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+//        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        TO(_BAS),
+//        KC_TRNS,        KC_Q,           KC_D,           KC_R,           KC_W,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_J,           KC_F,           KC_U,           KC_P,           KC_SLSH,       KC_TRNS,
+//        KC_TRNS,        KC_A,           KC_S,           KC_H,           KC_T,           KC_G,                           /**/                            KC_Y,           KC_N,           KC_E,           KC_O,           KC_I,           KC_TRNS,
+//        KC_TRNS,        KC_Z,           KC_X,           KC_M,           KC_C,           KC_V,           KC_TRNS,        /**/            KC_TRNS,        KC_K,           KC_L,           KC_COMMA,       KC_DOT,         KC_SLSH,       KC_TRNS,
+//        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
+//        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+//                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
+//                                                                                                        KC_TRNS,        /**/            KC_TRNS,
+//                                                                        KC_TRNS,        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,        KC_TRNS),
 
     /**
      * MOUSE TESTING
@@ -319,50 +319,50 @@ void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
     reset_pointer();
 }
 
-void dance_esc_lco (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code (KC_ESC);
-        unregister_code (KC_ESC);
-    } else {
-        // set layer left compl
-        layer_move(_LCO);
-    }
-}
-void dance_quote_rco (qk_tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        register_code (KC_QUOTE);
-        unregister_code (KC_QUOTE);
-    } else {
-        // set layer right comp
-        layer_move(_RCO);
-    }
-}
+//void dance_esc_lco (qk_tap_dance_state_t *state, void *user_data) {
+//    if (state->count == 1) {
+//        register_code (KC_ESC);
+//        unregister_code (KC_ESC);
+//    } else {
+//        // set layer left compl
+//        layer_move(_LCO);
+//    }
+//}
+//void dance_quote_rco (qk_tap_dance_state_t *state, void *user_data) {
+//    if (state->count == 1) {
+//        register_code (KC_QUOTE);
+//        unregister_code (KC_QUOTE);
+//    } else {
+//        // set layer right comp
+//        layer_move(_RCO);
+//    }
+//}
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished),
-    [TD_ESC_LCO]   = ACTION_TAP_DANCE_FN (dance_esc_lco),
-    [TD_QUOTE_RCO] = ACTION_TAP_DANCE_FN (dance_quote_rco),
+    //[TD_ESC_LCO]   = ACTION_TAP_DANCE_FN (dance_esc_lco),
+    //[TD_QUOTE_RCO] = ACTION_TAP_DANCE_FN (dance_quote_rco),
 };
 
-void mouse_mode_basic(keyrecord_t *record) {
-    // change speed by altering the report OR the cursorTimeout.
-    moveToggle = true;
-    // note that the rows and cols are inverted for some reason?!
-    if (record->event.key.col == 2 && record->event.pressed) {
-        if (record->event.key.row == 1){
-                //seqStep == 0 ?  moveDirection = 0 : contMagnitude = 10;
-        }
-        if (record->event.key.row == 2){
-                //seqStep == 0 ?  moveDirection = 1 : contMagnitude = 20;
-        }
-        if (record->event.key.row == 3){
-                //seqStep == 0 ?  moveDirection = 2 : contMagnitude = 30;
-        }
-        if (record->event.key.row == 4){
-                //seqStep == 0 ?  moveDirection = 3 : contMagnitude = 40;
-        }
-    }
-}
+//void mouse_mode_basic(keyrecord_t *record) {
+//    // change speed by altering the report OR the cursorTimeout.
+//    moveToggle = true;
+//    // note that the rows and cols are inverted for some reason?!
+//    if (record->event.key.col == 2 && record->event.pressed) {
+//        if (record->event.key.row == 1){
+//                //seqStep == 0 ?  moveDirection = 0 : contMagnitude = 10;
+//        }
+//        if (record->event.key.row == 2){
+//                //seqStep == 0 ?  moveDirection = 1 : contMagnitude = 20;
+//        }
+//        if (record->event.key.row == 3){
+//                //seqStep == 0 ?  moveDirection = 2 : contMagnitude = 30;
+//        }
+//        if (record->event.key.row == 4){
+//                //seqStep == 0 ?  moveDirection = 3 : contMagnitude = 40;
+//        }
+//    }
+//}
 
 
 
@@ -381,15 +381,7 @@ void mouse_mode_basic(keyrecord_t *record) {
 uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
 uint8_t mag = 0;
 uint8_t deg = 0;
-uint8_t dirx = 0;
-uint8_t diry = 0;
 
-uint8_t getXComponent(uint8_t deg) {
-  return 1;
-}
-uint8_t getYComponent(uint8_t deg) {
-  return 2;
-}
 void mouse_mode_basic_discrete(keyrecord_t *record) { /////////////////////////////////////////////////
   report_mouse_t report = pointing_device_get_report();
 
@@ -401,103 +393,56 @@ void mouse_mode_basic_discrete(keyrecord_t *record) { //////////////////////////
 
     if (record->event.key.col == 1) {
       switch (record->event.key.row) {
-        case 1: if (mouseState == 1) { mag = 1;} else {deg = 0;} break;
-        //case 2:
-        //case 3:
-        //case 4:
+        case 1: if (mouseState == 1) { mag = 10;} else {deg = 0;} break;
+        case 2: if (mouseState == 1) { mag = 20;} else {deg = 15;} break;
+        case 3: if (mouseState == 1) { mag = 30;} else {deg = 30;} break;
+        case 4: if (mouseState == 1) { mag = 40;} else {deg = 45;} break;
       }
     }
-    //if (record->event.key.col == 2) {
-    //  switch (record->event.key.row) {
-    //    case 1:
-    //    case 2:
-    //    case 3:
-    //    case 4:
-    //  }
-    //}
-    //if (record->event.key.col == 3) {
-    //  switch (record->event.key.row) {
-    //    case 1:
-    //    case 2:
-    //    case 3:
-    //    case 4:
-    //  }
-    //}
+    if (record->event.key.col == 2) {
+      switch (record->event.key.row) {
+        case 1: if (mouseState == 1) { mag = 10;} else {deg = 0;} break;
+        case 2: if (mouseState == 1) { mag = 20;} else {deg = 15;} break;
+        case 3: if (mouseState == 1) { mag = 30;} else {deg = 30;} break;
+        case 4: if (mouseState == 1) { mag = 40;} else {deg = 45;} break;
+      }
+    }
+    if (record->event.key.col == 3) {
+      switch (record->event.key.row) {
+        case 1: if (mouseState == 1) { mag = 10;} else {deg = 0;} break;
+        case 2: if (mouseState == 1) { mag = 20;} else {deg = 15;} break;
+        case 3: if (mouseState == 1) { mag = 30;} else {deg = 30;} break;
+        case 4: if (mouseState == 1) { mag = 40;} else {deg = 45;} break;
+      }
+    }
 
     if (mouseState == 1) {
       mouseState = 2;
     } else {
-      //dirx = ; // compute
-      //diry = ;
-      report.x = getXComponent(deg); // set xy
-      report.y = getYComponent(deg);
+
+      report.x = round(mag * cos(deg));
+      report.y = round(mag * sin(deg));
+
       pointing_device_set_report(report);
       pointing_device_send();
       mouseState = 1;
     }
-
-//    if (mouseState == 1) { // MAGNITUDE
-//
-//      //#ifdef CONSOLE_ENABLE
-//      //    uprintf("set magnitude");
-//      //#endif
-//
-//      if (record->event.key.col == 2) {
-//        if (record->event.key.row == 1){
-//          mag = 10;
-//        }
-//        if (record->event.key.row == 2){
-//          mag = 30;
-//        }
-//        if (record->event.key.row == 3){
-//          mag = 50;
-//        }
-//        if (record->event.key.row == 4){
-//          mag = 70;
-//        }
-//      }
-//      mouseState = 2;
-//    }
-//    else if (mouseState == 2) { // DIRECTION
-//
-//#ifdef CONSOLE_ENABLE
-//      uprintf("set direction");
-//#endif
-//
-//      if (record->event.key.col == 2) {
-//        if (record->event.key.row == 1){
-//          report.x = -mag;
-//        }
-//        if (record->event.key.row == 2){
-//          report.y = mag;
-//        }
-//        if (record->event.key.row == 3){
-//          report.y = -mag;
-//        }
-//        if (record->event.key.row == 4){
-//          report.x = mag;
-//        }
-//      }
-//      pointing_device_set_report(report);
-//      pointing_device_send();
-//      mouseState = 1;
-//    }
   }
 } /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void handle_mvim_grid_event(keyrecord_t *record) {
-    switch (mouseMode) {
-        case 1:
-            mouse_mode_basic(record);
-            // set continuous mode
-            break;
-        case 2:
-            mouse_mode_basic_discrete(record);
-            // set discrete mode
-            break;
-    }
-}
+//void handle_mvim_grid_event(keyrecord_t *record) {
+//    switch (mouseMode) {
+//        case 1:
+//            mouse_mode_basic(record);
+//            // set continuous mode
+//            break;
+//        case 2:
+//            mouse_mode_basic_discrete(record);
+//            // set discrete mode
+//            break;
+//    }
+//}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -516,59 +461,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 moveToggle = false;
             }
             break;
-        case MOVE_U:
-            if(record->event.pressed) {
-                moveDirection = 0;
-                moveToggle = true;
-            }
-            break;
-        case MOVE_D:
-            if(record->event.pressed) {
-                moveDirection = 2;
-                moveToggle = true;
-            }
-            break;
-        case MOVE_L:
-            if(record->event.pressed) {
-                moveDirection = 3;
-                moveToggle = true;
-            }
-            break;
-        case MOVE_R:
-            if(record->event.pressed) {
-                moveDirection = 1;
-                moveToggle = true;
-            }
-            break;
+        //case MOVE_U:
+        //    if(record->event.pressed) {
+        //        moveDirection = 0;
+        //        moveToggle = true;
+        //    }
+        //    break;
+        //case MOVE_D:
+        //    if(record->event.pressed) {
+        //        moveDirection = 2;
+        //        moveToggle = true;
+        //    }
+        //    break;
+        //case MOVE_L:
+        //    if(record->event.pressed) {
+        //        moveDirection = 3;
+        //        moveToggle = true;
+        //    }
+        //    break;
+        //case MOVE_R:
+        //    if(record->event.pressed) {
+        //        moveDirection = 1;
+        //        moveToggle = true;
+        //    }
+        //    break;
         case MGRID:
-            handle_mvim_grid_event(record);
+            mouse_mode_basic_discrete(record);
+            //handle_mvim_grid_event(record);
             break;
     }
     return true;
 }
 
-void pointing_device_task(void) {
-    report_mouse_t report = pointing_device_get_report();
-    if (timer_elapsed(lastCursor) > cursorTimeout && moveToggle) {
-        lastCursor = timer_read();
-        switch (moveDirection) {
-            case 0:
-                report.x = -contMagnitude; // replace the integer with contMagnitude
-                break;
-            case 1:
-                report.y = contMagnitude;
-                break;
-            case 2:
-                report.y = -contMagnitude;
-                break;
-            case 3:
-                report.x = contMagnitude;
-                break;
-        }
-    }
-    pointing_device_set_report(report);
-    pointing_device_send();
-}
+//void pointing_device_task(void) {
+//    report_mouse_t report = pointing_device_get_report();
+//    if (timer_elapsed(lastCursor) > cursorTimeout && moveToggle) {
+//        lastCursor = timer_read();
+//        switch (moveDirection) {
+//            case 0:
+//                report.x = -contMagnitude; // replace the integer with contMagnitude
+//                break;
+//            case 1:
+//                report.y = contMagnitude;
+//                break;
+//            case 2:
+//                report.y = -contMagnitude;
+//                break;
+//            case 3:
+//                report.x = contMagnitude;
+//                break;
+//        }
+//    }
+//    pointing_device_set_report(report);
+//    pointing_device_send();
+//}
 
 uint32_t layer_state_set_user(uint32_t state) {
 
