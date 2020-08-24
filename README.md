@@ -10,7 +10,6 @@ debugging
   #ifdef CONSOLE_ENABLE
       uprintf("set direction");
   #endif
-
 2. run `./hid_listen.mac` in commandline to start logging
 
 
@@ -19,18 +18,7 @@ debugging
 todo
 ================================================
 
-1. remove dvo, col, wrk layer
-  - put these in new file
-2. rm mouse helper layers
-
-
-
-
-
-
 # types of buttons that I need to configure
-
-    - the '-' character is a bit annoying under the pinky, or is it?
 
   - modifier keys 
       need access to mod keys in each layer -> for komplex key commands and mods + mouse

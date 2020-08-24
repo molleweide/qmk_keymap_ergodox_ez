@@ -1,5 +1,9 @@
 #include QMK_KEYBOARD_H
 
+//#ifdef CONSOLE_ENABLE
+//  uprintf("xxx: %u, yyy: %u\n\n", xxx, yyy);
+//#endif
+
 #include <math.h>
 #include "pointing_device.h"
 
@@ -196,13 +200,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MS_TEST] = LAYOUT_ergodox_pretty(//---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        TD(TD_MMODE),   MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        KC_ESC,         MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        TD(TD_MMODE),   MGRID,          MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                            xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,
-                                                                            /***************/               xxxxxxxx,   /**/            xxxxxxxx,       /***************/
-                                                                            MOVE_OFF,       xxxxxxxx,       xxxxxxxx,   /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+                                                                        /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
+                                                                        KC_MS_BTN1,     KC_MS_BTN2,     MOVE_OFF,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 // VARIABLES ----------------------------------------
@@ -230,39 +234,22 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 
 // DISCRETE MOUSE ---------------------------------------------------------------
-//
-// todo
 //  - reset state
-//  - mouse
-//    * mouse hook
-//    * regular mouse button
+//  - mouse hook
+//  - regular mouse button
 //  - create 3-step
-
+#define PI 3.14159265
 uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
-uint8_t mag = 0;
-uint8_t deg = 0;
+int mag = 0;
+double rad = PI / 180;
 
-void set_mag_deg(uint8_t m, uint8_t d){
+void set_mag_deg(int m, int d){
   if (mouseState == 1) {
-#ifdef CONSOLE_ENABLE
-  uprintf("mag: %u", mag);
-#endif
     mag = m; mouseState = 2;
-
   } else {
-#ifdef CONSOLE_ENABLE
-  uprintf("deg: %u", deg);
-#endif
-    deg = d;
-
     report_mouse_t report = pointing_device_get_report();
-    report.x = round(mag * cos(deg));
-    report.y = round(mag * sin(deg));
-
-#ifdef CONSOLE_ENABLE
-  uprintf("x: %u, y: %u", report.x, report.y);
-#endif
-
+    report.x = round(mag * cos(d * rad));
+    report.y = round(mag * sin(d * rad));
     pointing_device_set_report(report);
     pointing_device_send();
     mouseState = 1;
@@ -270,32 +257,29 @@ void set_mag_deg(uint8_t m, uint8_t d){
 }
 
 void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////////////
-
-
   if (record->event.pressed) { // key pressed
-
-    if (record->event.key.col == 1) {
+    if (record->event.key.col == 3) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(10, 20); break;
-        case 2: set_mag_deg(10, 20); break;
-        case 3: set_mag_deg(10, 20); break;
-        case 4: set_mag_deg(10, 20); break;
+        case 1: set_mag_deg(5,  0); break;
+        case 2: set_mag_deg(10, 30); break;
+        case 3: set_mag_deg(15, 60); break;
+        case 4: set_mag_deg(20, 90); break;
       }
     }
     if (record->event.key.col == 2) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(10, 20); break;
-        case 2: set_mag_deg(10, 20); break;
-        case 3: set_mag_deg(10, 20); break;
-        case 4: set_mag_deg(10, 20); break;
+        case 1: set_mag_deg(25, 120); break;
+        case 2: set_mag_deg(30, 150); break;
+        case 3: set_mag_deg(35, 180); break;
+        case 4: set_mag_deg(40, 210); break;
       }
     }
-    if (record->event.key.col == 3) {
+    if (record->event.key.col == 1) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(10, 20); break;
-        case 2: set_mag_deg(10, 20); break;
-        case 3: set_mag_deg(10, 20); break;
-        case 4: set_mag_deg(10, 20); break;
+        case 1: set_mag_deg(45, 240); break;
+        case 2: set_mag_deg(50, 270); break;
+        case 3: set_mag_deg(55, 300); break;
+        case 4: set_mag_deg(60, 330); break;
       }
     }
   }

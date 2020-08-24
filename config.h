@@ -1,6 +1,8 @@
 /*
   Set any config.h overrides for your specific keymap here.
   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
+
+  Key repeat rate is determined by OS, not qmk.
 */
 #define ORYX_CONFIGURATOR
 #undef MOUSEKEY_INTERVAL
