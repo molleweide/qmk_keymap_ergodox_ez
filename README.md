@@ -18,16 +18,28 @@ debugging
 todo
 ================================================
 
+- move continuous pointer function to its own file for reference. so i don't forget
+- make LSY och RNU into one layer
+- move high pinky to outer most keys
+    conflict w/ ESC
+- add reset state to ESC?
+    can this be done easily?
+- add layer on index finger
+- add all mod keys for symbol/numpad layer.
+- add more keys to top row on base layer
+  replace numbers since I cannot reach all keys easilly
+- remove as much stuff as possible
+
 # types of buttons that I need to configure
 
-  - modifier keys 
+  - modifier keys
       need access to mod keys in each layer -> for komplex key commands and mods + mouse
 
   - navigation
       mouse hard switch
-      put mouse buttons on left outer keys? 
+      put mouse buttons on left outer keys?
         and use thumb clusters for more important stuff
-      put nav buttons on LOWEST row in BASE layer 
+      put nav buttons on LOWEST row in BASE layer
 
   - spacing keys
       enter, space, backspace, tab
@@ -38,11 +50,11 @@ todo
 - how should I do with the CMD key
     * dual with SPACE and ENTER?
     * add it to the outermost thumb keys?
-    * 
+    *
 
 - REAL ESTATE layer switches
     use the LT layer switch to create a layer switching router.
-      I don't know how useful this would be but this would make it possible to access all other layers 
+      I don't know how useful this would be but this would make it possible to access all other layers
         by a 2-step sequence.
 
 ## THUMBCLUSTER
@@ -50,58 +62,6 @@ todo
       main kc, tap kc, and hold down kc.
         this will make the thumb clusters into monsters
 
-POINTER DESIGN
-====================================
-
-(guitar mode) move with one hand, control speed with other hand
-
-- direction
-    select resolution (usable digits; 1, 2, or 3)
-    how to specify?
-        degrees, pi, clock, etc..
-
-- movement type
-    continuous
-    discrete
-
-- click
-    L/R 
-    regular
-    hook
-    release
-
-- stateSwitching
-    WHY?     
-        I have good speed but I only want to change direction or vice versa  
-        Is it possible to accomodate for this?
-
-- modeSwitching
-    since there is no LED or GUI showing what the mode is using Tap Dance
-    for mode switching is a good idea, because then there will never be 
-    any ambiguity when it comes to the selection.
-        I can also use tap dance for entering into modeSelection, or
-        specifying settings.
-  
-## VARIABLES 
-
-    pointerState        // dirReceiver; moveReceiver
-    specSettings        // if true, then I can change mode/settings
-    
-    directionAngle 
-    directionInputArr   // 1-3
-    directionMode       // hardcoded; free angle
-
-    moveMode            // hardcoded steps; specify freely
-    moveInputLength     // 1-3
-    moveStepping        // continuous; discrete
-    moveFreeze
-
-    keepDir
-    keepMove
-
-    clickMode           // regular; hook
-
-    
 
 RNDM
 ====================================
