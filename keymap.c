@@ -239,20 +239,20 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //  - regular mouse button
 //  - create 3-step
 #define PI 3.14159265
-uint8_t mouseState = 1; // 1 = set magnitude; 2 = set direction
+uint8_t mouseState = 0; // 0 = set magnitude; 1 = set direction; 2 = enter layer
 int mag = 0;
 double rad = PI / 180;
 
 void set_mag_deg(int m, int d){
-  if (mouseState == 1) {
-    mag = m; mouseState = 2;
+  if (mouseState == 0 || mouseState == 2) {
+    mag = m; mouseState = 1;
   } else {
     report_mouse_t report = pointing_device_get_report();
     report.x = round(mag * cos(d * rad));
     report.y = round(mag * sin(d * rad));
     pointing_device_set_report(report);
     pointing_device_send();
-    mouseState = 1;
+    mouseState = 0;
   }
 }
 
@@ -335,7 +335,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 uint32_t layer_state_set_user(uint32_t state) {
 
+  // todo
+  //
+  //  - reset >>> mouseState = 2
+  //  - in set_mag_deg
+  //    add new check for 2 when coming back
+
     uint8_t layer = biton32(state);
+
+    if (layer == _MS_TEST) {
+      mouseState = 2;
+    }
+
+#ifdef CONSOLE_ENABLE
+  uprintf("_MS_TEST: %u, layer: %u, ms: %u \n\n", _MS_TEST, layer, mouseState);
+#endif
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();
