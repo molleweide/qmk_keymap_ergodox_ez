@@ -115,9 +115,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BAS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         TO(_MS_TEST),   KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRNS,        /**/            KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_AU_U,        /**/            KC_TRNS,        KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
         KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), KC_QUOTE,
-        xxxxxxxx,       LT(_RMS,KC_Z),  LT(_RNU,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC_TRNS,        /**/            KC_TRNS,        KC_N,           KC_M,           LT(_FUN,KC_COM),LT(_LSY,KC_DOT),LT(_LMS,KC_SLSH),xxxxxxxx,
+        xxxxxxxx,       LT(_RMS,KC_Z),  LT(_RNU,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC_AU_D,        /**/            KC_TRNS,        KC_N,           KC_M,           LT(_FUN,KC_COM),LT(_LSY,KC_DOT),LT(_LMS,KC_SLSH),xxxxxxxx,
         KC_GRAVE,       CTL_T(KC_LEFT), KC_DOWN,        KC_UP,          KC_RGHT,        /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT), xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -155,11 +155,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_LMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       KC_AU_M,        oooooooo,       /**/            oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       TO(_BAS),
-        oooooooo,       KC_MWHL,        KC_MWHD,        KC_MWHU,        KC_MWHR,        oooooooo,       KC_AU_U,        /**/            oooooooo,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       oooooooo,       oooooooo,
-        oooooooo,       KC_ML,          KC_MD,          KC_MU,          KC_MR,          oooooooo,       /**/            /**/            /**/            oooooooo,       KC_MACC2,       KC_MACC1,       KC_MACC0,       oooooooo,       oooooooo,
-        oooooooo,       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        oooooooo,       KC_AU_D,        /**/            oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,                                       /**/                                            oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       TO(_BAS),
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            oooooooo,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       oooooooo,       oooooooo,
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            oooooooo,       KC_MACC2,       KC_MACC1,       KC_MACC0,       oooooooo,       oooooooo,
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                       /**/                                            oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         oooooooo,       oooooooo,       /**/            oooooooo,       oooooooo,
                                                                                                         oooooooo,       /**/            oooooooo,
@@ -351,7 +351,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
     uint8_t layer = biton32(state);
 
-    if (layer == _MS_TEST) {
+    if (layer == _MS_TEST || layer == _LMS || layer == _RMS) {
       mouseState = 2;
     }
 
