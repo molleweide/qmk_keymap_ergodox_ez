@@ -220,7 +220,7 @@ void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////
   if (record->event.pressed) { // key pressed
     if (record->event.key.col == 0) {
       switch (record->event.key.row) {
-        case 1: setmd(65, 202.5); break;    case 2: setmd(70, 112.5); break;    case 3: setmd(75, 292.5); break;    case 4:setmd(240,22.5);break;
+        case 1: setmd(65, 202.5); break;    case 2: setmd(70, 112.5); break;    case 3: setmd(75, 292.5); break;    case 4:setmd(80,22.5);break;
       }
     }
     if (record->event.key.col == 1) {
