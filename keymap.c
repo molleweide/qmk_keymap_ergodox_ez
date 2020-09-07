@@ -77,14 +77,8 @@
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
-  MOVE_U,
-  MOVE_D,
-  MOVE_L,
-  MOVE_R,
-  MOVE_OFF,
   MGRID,
-  PFREEZE,
-  SET_MS_STATE,
+  MRESET,
 };
 
 enum layer_names {
@@ -157,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       xxxxxxxx,       oooooooo,
-        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       oooooooo,
+        MRESET,         MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       oooooooo,
 
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       oooooooo,
         xxxxxxxx,       KC_ML,          KC_MD,          KC_MU,          KC_MR,                                          /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       oooooooo,
@@ -207,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                         /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-                                                                        KC_MS_BTN1,     KC_MS_BTN2,     MOVE_OFF,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+                                                                        KC_MS_BTN1,     KC_MS_BTN2,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 // VARIABLES ----------------------------------------
@@ -297,22 +291,25 @@ void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case RGB_SLD:
-            if (record->event.pressed) {
-                rgblight_mode(1);
-            }
-            return false;
-        case TOGGLE_LAYER_COLOR:
-            if (record->event.pressed) {
-                disable_layer_color ^= 1;
-            }
-            return false;
-        case MGRID:
-            mouse_keys(record);
-            break;
-    }
-    return true;
+  switch (keycode) {
+    case RGB_SLD:
+      if (record->event.pressed) {
+        rgblight_mode(1);
+      }
+      return false;
+    case TOGGLE_LAYER_COLOR:
+      if (record->event.pressed) {
+        disable_layer_color ^= 1;
+      }
+      return false;
+    case MGRID:
+      mouse_keys(record);
+      break;
+    case MRESET:
+      mouseState = 0;
+      break;
+  }
+  return true;
 }
 
 
