@@ -315,119 +315,69 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+    //switch (layer) {
+    //    case _LSY:
+    //        ergodox_right_led_1_on();
+    //        break;
+    //    case _RNU:
+    //        ergodox_right_led_1_on();
+    //        //ergodox_right_led_2_on();
+    //        break;
+    //    case _LMS:
+    //        //ergodox_right_led_3_on();
+    //        break;
+    //    case _RMS:
+    //        //ergodox_right_led_1_on();
+    //        //ergodox_right_led_2_on();
+    //        break;
+    //    case _FUN:
+    //        //ergodox_right_led_1_on();
+    //        //ergodox_right_led_3_on();
+    //        break;
+    //    case _MS_TEST:
+    //        //ergodox_right_led_2_on();
+    //        //ergodox_right_led_3_on();
+    //        break;
+    //    default:
+    //        break;
+    //}
     switch (layer) {
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        case 3:
-            //ergodox_right_led_3_on();
-            break;
-        case 4:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
-        case 5:
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
-        case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        case 7:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        default:
-            break;
-    }
-    switch (layer) {
-        case 0:
+        case _BAS:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
                 rgblight_sethsv_noeeprom(0,252,255);
             }
             break;
-        case 1:
+        case _LSY:
+        case _RNU:
+            ergodox_right_led_1_on();
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
                 rgblight_sethsv_noeeprom(7,255,147);
             }
             break;
-        case 2:
+        case _LMS:
+        case _RMS:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(7,255,147);
+                rgblight_sethsv_noeeprom(92,50,0);
             }
             break;
-        case 3:
+        case _FUN:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(92,179,121);
+                rgblight_sethsv_noeeprom(255,0,50);
             }
             break;
-        case 4:
+        case _MS_TEST:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(92,179,121);
-            }
-            break;
-        case 5:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(45,255,255);
-            }
-            break;
-        case 6:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(142,255,143);
-            }
-            break;
-        case 7:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(217,255,133);
-            }
-            break;
-        case 8:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(255,255,201);
-            }
-            break;
-        case 9:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(210,255,255);
-            }
-            break;
-        case 10:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(1,0,114);
-            }
-            break;
-        case 11:
-            if(!disable_layer_color) {
-                rgblight_enable_noeeprom();
-                rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(43,255,154);
+                rgblight_sethsv_noeeprom(200,190,220);
             }
             break;
         default:
