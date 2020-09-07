@@ -338,21 +338,21 @@ uint32_t layer_state_set_user(uint32_t state) {
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(92,50,255);
+                rgblight_sethsv_noeeprom(10,90,40);
             }
             break;
         case _FUN:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(50,0,50);
+                rgblight_sethsv_noeeprom(70,0,50);
             }
             break;
         case _MS_TEST:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(200,190,220);
+                rgblight_sethsv_noeeprom(100,150,100);
             }
             break;
         default:
