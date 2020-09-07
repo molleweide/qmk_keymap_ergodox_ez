@@ -372,29 +372,3 @@ uint32_t layer_state_set_user(uint32_t state) {
     return state;
 
 };
-
-// why do I have this function here???
-void keyboard_post_init_user(void) {
-    // Customise these values to desired behave
-    // debug_enable=true; // keyboard becomes very slow when using this or next setting; why??
-    // debug_matrix=true; // this makes keyb very slow!!!
-    // debug_keyboard=true;
-    // debug_mouse=true;
-
-    layer_state_set_user(layer_state);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
