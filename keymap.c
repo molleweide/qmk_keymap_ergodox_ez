@@ -7,6 +7,7 @@
 #include <math.h>
 #include "pointing_device.h"
 
+#define PI 3.14159265
 //#define KC_MAC_UNDO LGUI(KC_Z)
 //#define KC_MAC_CUT LGUI(KC_X)
 //#define KC_MAC_COPY LGUI(KC_C)
@@ -71,10 +72,6 @@
 #define KC_YEJ      KC_MEDIA_EJECT
 #define KC_YSE      KC_MEDIA_SELECT
 
-// tap dance functions rename
-#define TD_LMV      ACTION_TAP_DANCE_LAYER_MOVE
-
-
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   MGRID,
@@ -94,12 +91,6 @@ enum layer_names {
 
     _MS_TEST, // this is where I do my mouse testing
 };
-
-//enum tapdance_keycodes {
-//    //TD_MMODE,       // switch mouse mode
-//    //TD_ESC_LCO,    // esc or move to L mouse complement
-//    //TD_QUOTE_RCO,  // esc or move to R mouse complement
-//};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -196,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         KC_ESC,         MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        xxxxxxxx,   MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -208,37 +199,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
-
-
-void reset_pointer(void) {
-#ifdef CONSOLE_ENABLE
-    uprintf("reset pointer\n");
-#endif
-}
-
-uint8_t someVar = 1;
-void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
-    someVar  = state->count;
-    reset_pointer();
-}
-
-// qk_tap_dance_action_t tap_dance_actions[] = {
-//     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished),
-// };
-
-
-
-// DISCRETE MOUSE ---------------------------------------------------------------
-//  - reset state
-//  - mouse hook
-//  - regular mouse button
-//  - create 3-step
-#define PI 3.14159265
 uint8_t mouseState = 0; // 0 = set magnitude; 1 = set direction; 2 = enter layer
 int mag = 0;
 double rad = PI / 180;
 
-void set_mag_deg(int m, double d){
+void setmd(int m, double d){
   if (mouseState == 0 || mouseState == 2) {
     mag = m; mouseState = 1;
   } else {
@@ -253,40 +218,30 @@ void set_mag_deg(int m, double d){
 
 void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////////////
   if (record->event.pressed) { // key pressed
-    // col is ROW
-    if (record->event.key.col == 3) {
-      // row is COLUMN
+    if (record->event.key.col == 0) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(5,  0); break;
-        case 2: set_mag_deg(10, 22.5); break;
-        case 3: set_mag_deg(15, 45); break;
-        case 4: set_mag_deg(20, 67.5); break;
-      }
-    }
-    if (record->event.key.col == 2) {
-      switch (record->event.key.row) {
-        case 1: set_mag_deg(25, 90); break;
-        case 2: set_mag_deg(30, 112.5); break;
-        case 3: set_mag_deg(35, 135); break;
-        case 4: set_mag_deg(40, 157.5); break;
+        case 1: setmd(65, 202.5); break;    case 2: setmd(70, 112.5); break;    case 3: setmd(75, 292.5); break;    case 4:setmd(240,22.5);break;
       }
     }
     if (record->event.key.col == 1) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(45, 180); break;
-        case 2: set_mag_deg(50, 202.5); break;
-        case 3: set_mag_deg(55, 225); break;
-        case 4: set_mag_deg(60, 247.5); break;
+        case 1: setmd(45, 247.5); break;    case 2: setmd(50, 157.5); break;    case 3: setmd(55, 337.5); break;    case 4:setmd(60, 67.5);break;
+        //case 1: setmd(45, 180); break;    case 2: setmd(50, 202.5); break;    case 3: setmd(55, 225); break;    case 4: setmd(60, 247.5); break;
       }
     }
-    if (record->event.key.col == 0) {
+    if (record->event.key.col == 2) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(65,  270); break;
-        case 2: set_mag_deg(70, 292.5); break;
-        case 3: set_mag_deg(75, 315); break;
-        case 4: set_mag_deg(240, 337.5); break;
+        case 1: setmd(25, 180); break;     case 2: setmd(30, 90); break;    case 3: setmd(35, 270); break;      case 4:setmd(40, 0);break;
+        //case 1: setmd(25, 90); break;     case 2: setmd(30, 112.5); break;    case 3: setmd(35, 135); break;    case 4: setmd(40, 157.5); break;
       }
     }
+    if (record->event.key.col == 3) {
+      switch (record->event.key.row) {
+        case 1: setmd(5,  225); break;      case 2: setmd(10, 135); break;     case 3: setmd(15, 315); break;   case 4:setmd(20, 45);break;
+        //case 1: setmd(5,  0); break;      case 2: setmd(10, 22.5); break;     case 3: setmd(15, 45); break;     case 4: setmd(20, 67.5); break;
+      }
+    }
+
   }
 } /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -346,7 +301,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   // todo
   //
   //  - reset >>> mouseState = 2
-  //  - in set_mag_deg
+  //  - in setmd
   //    add new check for 2 when coming back
 
     uint8_t layer = biton32(state);
