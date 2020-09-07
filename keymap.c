@@ -315,24 +315,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (layer) {
-        case _LSY:
-            ergodox_right_led_1_on();
-            break;
-        case _RNU:
-            ergodox_right_led_1_on();
-            break;
-        case _LMS:
-            break;
-        case _RMS:
-            break;
-        case _FUN:
-            break;
-        case _MS_TEST:
-            break;
-        default:
-            break;
-    }
+
     switch (layer) {
         case _BAS:
             if(!disable_layer_color) {
@@ -355,14 +338,14 @@ uint32_t layer_state_set_user(uint32_t state) {
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(92,50,0);
+                rgblight_sethsv_noeeprom(92,50,255);
             }
             break;
         case _FUN:
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(255,30,255);
+                rgblight_sethsv_noeeprom(50,0,50);
             }
             break;
         case _MS_TEST:
