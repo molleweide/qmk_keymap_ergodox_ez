@@ -220,25 +220,22 @@ void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////
   if (record->event.pressed) { // key pressed
     if (record->event.key.col == 0) {
       switch (record->event.key.row) {
-        case 1: setmd(65, 202.5); break;    case 2: setmd(70, 112.5); break;    case 3: setmd(75, 292.5); break;    case 4:setmd(80,22.5);break;
+        case 1: setmd(70, 202.5); break;    case 2: setmd(100, 112.5); break;    case 3: setmd(112, 292.5); break;    case 4:setmd(125,22.5);break;
       }
     }
     if (record->event.key.col == 1) {
       switch (record->event.key.row) {
         case 1: setmd(45, 247.5); break;    case 2: setmd(50, 157.5); break;    case 3: setmd(55, 337.5); break;    case 4:setmd(60, 67.5);break;
-        //case 1: setmd(45, 180); break;    case 2: setmd(50, 202.5); break;    case 3: setmd(55, 225); break;    case 4: setmd(60, 247.5); break;
       }
     }
     if (record->event.key.col == 2) {
       switch (record->event.key.row) {
         case 1: setmd(25, 180); break;     case 2: setmd(30, 90); break;    case 3: setmd(35, 270); break;      case 4:setmd(40, 0);break;
-        //case 1: setmd(25, 90); break;     case 2: setmd(30, 112.5); break;    case 3: setmd(35, 135); break;    case 4: setmd(40, 157.5); break;
       }
     }
     if (record->event.key.col == 3) {
       switch (record->event.key.row) {
-        case 1: setmd(5,  225); break;      case 2: setmd(10, 135); break;     case 3: setmd(15, 315); break;   case 4:setmd(20, 45);break;
-        //case 1: setmd(5,  0); break;      case 2: setmd(10, 22.5); break;     case 3: setmd(15, 45); break;     case 4: setmd(20, 67.5); break;
+        case 1: setmd(3,  225); break;      case 2: setmd(6, 135); break;     case 3: setmd(10, 315); break;   case 4:setmd(20, 45);break;
       }
     }
 
@@ -326,7 +323,7 @@ uint32_t layer_state_set_user(uint32_t state) {
             ergodox_right_led_2_on();
             break;
         case 3:
-            ergodox_right_led_3_on();
+            //ergodox_right_led_3_on();
             break;
         case 4:
             ergodox_right_led_1_on();
