@@ -240,9 +240,7 @@ void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////
     }
 
   }
-} /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -266,56 +264,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-//uint8_t moveDirection = 0;
-//uint8_t cursorTimeout = 10;
-//uint16_t lastCursor = 0;
-//void pointing_device_task(void) {
-//    report_mouse_t report = pointing_device_get_report();
-//    if (timer_elapsed(lastCursor) > cursorTimeout && moveToggle) {
-//        lastCursor = timer_read();
-//        switch (moveDirection) {
-//            case 0:
-//                report.x = -contMagnitude; // replace the integer with contMagnitude
-//                break;
-//            case 1:
-//                report.y = contMagnitude;
-//                break;
-//            case 2:
-//                report.y = -contMagnitude;
-//                break;
-//            case 3:
-//                report.x = contMagnitude;
-//                break;
-//        }
-//    }
-//    pointing_device_set_report(report);
-//    pointing_device_send();
-//}
-
 uint32_t layer_state_set_user(uint32_t state) {
-
-  // todo
-  //
-  //  - reset >>> mouseState = 2
-  //  - in setmd
-  //    add new check for 2 when coming back
-
     uint8_t layer = biton32(state);
-
-    if (layer == _MS_TEST || layer == _LMS || layer == _RMS) {
-      mouseState = 2;
-    }
-
 #ifdef CONSOLE_ENABLE
   uprintf("_MS_TEST: %u, layer: %u, ms: %u \n\n", _MS_TEST, layer, mouseState);
 #endif
-
     ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-
     switch (layer) {
         case _BAS:
             if(!disable_layer_color) {
@@ -335,6 +292,7 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
         case _LMS:
         case _RMS:
+            mouseState = 2;
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
@@ -349,6 +307,7 @@ uint32_t layer_state_set_user(uint32_t state) {
             }
             break;
         case _MS_TEST:
+            mouseState = 2;
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
@@ -370,5 +329,4 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
     }
     return state;
-
 };
