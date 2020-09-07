@@ -315,32 +315,24 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    //switch (layer) {
-    //    case _LSY:
-    //        ergodox_right_led_1_on();
-    //        break;
-    //    case _RNU:
-    //        ergodox_right_led_1_on();
-    //        //ergodox_right_led_2_on();
-    //        break;
-    //    case _LMS:
-    //        //ergodox_right_led_3_on();
-    //        break;
-    //    case _RMS:
-    //        //ergodox_right_led_1_on();
-    //        //ergodox_right_led_2_on();
-    //        break;
-    //    case _FUN:
-    //        //ergodox_right_led_1_on();
-    //        //ergodox_right_led_3_on();
-    //        break;
-    //    case _MS_TEST:
-    //        //ergodox_right_led_2_on();
-    //        //ergodox_right_led_3_on();
-    //        break;
-    //    default:
-    //        break;
-    //}
+    switch (layer) {
+        case _LSY:
+            ergodox_right_led_1_on();
+            break;
+        case _RNU:
+            ergodox_right_led_1_on();
+            break;
+        case _LMS:
+            break;
+        case _RMS:
+            break;
+        case _FUN:
+            break;
+        case _MS_TEST:
+            break;
+        default:
+            break;
+    }
     switch (layer) {
         case _BAS:
             if(!disable_layer_color) {
@@ -351,7 +343,7 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
         case _LSY:
         case _RNU:
-            ergodox_right_led_1_on();
+            ergodox_right_led_1_on(); // top
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
@@ -370,7 +362,7 @@ uint32_t layer_state_set_user(uint32_t state) {
             if(!disable_layer_color) {
                 rgblight_enable_noeeprom();
                 rgblight_mode_noeeprom(1);
-                rgblight_sethsv_noeeprom(255,0,50);
+                rgblight_sethsv_noeeprom(255,30,255);
             }
             break;
         case _MS_TEST:
