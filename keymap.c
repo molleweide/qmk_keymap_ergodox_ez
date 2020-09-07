@@ -95,11 +95,11 @@ enum layer_names {
     _MS_TEST, // this is where I do my mouse testing
 };
 
-enum tapdance_keycodes {
-    TD_MMODE,       // switch mouse mode
-    //TD_ESC_LCO,    // esc or move to L mouse complement
-    TD_QUOTE_RCO,  // esc or move to R mouse complement
-};
+//enum tapdance_keycodes {
+//    //TD_MMODE,       // switch mouse mode
+//    //TD_ESC_LCO,    // esc or move to L mouse complement
+//    //TD_QUOTE_RCO,  // esc or move to R mouse complement
+//};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         KC_ESC,         MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        TD(TD_MMODE),   MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        xxxxxxxx,   MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -222,9 +222,9 @@ void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
     reset_pointer();
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished),
-};
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished),
+// };
 
 
 
