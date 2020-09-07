@@ -134,15 +134,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                         ________,       ________,       ________,       /**/            ________,      ________,        ________),
 
     [_RNU] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            oooooooo,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BAS),
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            oooooooo,       oooooooo,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       KC_F12,
+        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BAS),
+        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            xxxxxxxx,       xxxxxxxx,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       KC_F12,
         oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            /**/            /**/            KC_0,           KC_4,           KC_5,           KC_6,           KC_PLUS,        KC_KP_SLASH,
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            oooooooo,       KC_ASTR,        KC_1,           KC_2,           KC_3,           KC_MINUS,       KC_UNDS,
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,                                       /**/                                            KC_LPRN,        oooooooo,       oooooooo,       KC_RPRN,        oooooooo,
+        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            xxxxxxxx,       KC_ASTR,        KC_1,           KC_2,           KC_3,           KC_MINUS,       KC_UNDS,
+        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,                                       /**/                                            KC_LPRN,        KC_COM,         KC_DOT,       KC_RPRN,        oooooooo,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        oooooooo,       oooooooo,       /**/            oooooooo,       oooooooo,
-                                                                                                        oooooooo,       /**/            oooooooo,
-                                                                        oooooooo,       oooooooo,       oooooooo,       /**/            oooooooo,       oooooooo,       oooooooo),
+                                                                                        oooooooo,       oooooooo,       /**/            xxxxxxxx,       xxxxxxxx,
+                                                                                                        oooooooo,       /**/            xxxxxxxx,
+                                                                        oooooooo,       oooooooo,       oooooooo,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 
     /**
      * MOUSE_LEFT_AND_RIGHT ------------------------------------------- MOUSE_LEFT_AND_RIGHT ------------------------------------------ MOUSE_LEFT_AND_RIGHT ---------------------------------------------------------- MOUSE_LEFT_AND_RIGHT -----------
@@ -238,7 +238,7 @@ uint8_t mouseState = 0; // 0 = set magnitude; 1 = set direction; 2 = enter layer
 int mag = 0;
 double rad = PI / 180;
 
-void set_mag_deg(int m, int d){
+void set_mag_deg(int m, double d){
   if (mouseState == 0 || mouseState == 2) {
     mag = m; mouseState = 1;
   } else {
@@ -256,33 +256,33 @@ void mouse_keys(keyrecord_t *record) { /////////////////////////////////////////
     if (record->event.key.col == 3) {
       switch (record->event.key.row) {
         case 1: set_mag_deg(5,  0); break;
-        case 2: set_mag_deg(10, 30); break;
-        case 3: set_mag_deg(15, 60); break;
-        case 4: set_mag_deg(20, 90); break;
+        case 2: set_mag_deg(10, 22.5); break;
+        case 3: set_mag_deg(15, 45); break;
+        case 4: set_mag_deg(20, 67.5); break;
       }
     }
     if (record->event.key.col == 2) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(25, 120); break;
-        case 2: set_mag_deg(30, 150); break;
-        case 3: set_mag_deg(35, 180); break;
-        case 4: set_mag_deg(40, 210); break;
+        case 1: set_mag_deg(25, 90); break;
+        case 2: set_mag_deg(30, 112.5); break;
+        case 3: set_mag_deg(35, 135); break;
+        case 4: set_mag_deg(40, 157.5); break;
       }
     }
     if (record->event.key.col == 1) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(45, 240); break;
-        case 2: set_mag_deg(50, 270); break;
-        case 3: set_mag_deg(55, 300); break;
-        case 4: set_mag_deg(60, 330); break;
+        case 1: set_mag_deg(45, 180); break;
+        case 2: set_mag_deg(50, 202.5); break;
+        case 3: set_mag_deg(55, 225); break;
+        case 4: set_mag_deg(60, 247.5); break;
       }
     }
     if (record->event.key.col == 0) {
       switch (record->event.key.row) {
-        case 1: set_mag_deg(5,  0); break;
-        case 2: set_mag_deg(10, 30); break;
-        case 3: set_mag_deg(15, 60); break;
-        case 4: set_mag_deg(20, 90); break;
+        case 1: set_mag_deg(65,  270); break;
+        case 2: set_mag_deg(70, 292.5); break;
+        case 3: set_mag_deg(75, 315); break;
+        case 4: set_mag_deg(240, 337.5); break;
       }
     }
   }
