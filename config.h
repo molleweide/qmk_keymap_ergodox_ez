@@ -27,8 +27,8 @@
 #define TAPPING_TERM 200
 
 // right hand upper left corner
-#define BOOTMAGIC_LITE_COLUMN 0 // col is row
-#define BOOTMAGIC_LITE_ROW 7    // row is col
+//#define BOOTMAGIC_LITE_COLUMN 0 // col is row
+//#define BOOTMAGIC_LITE_ROW 1    // row is col
 
 
 // Fillers to make layering more clear
