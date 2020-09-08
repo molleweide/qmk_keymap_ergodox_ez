@@ -14,12 +14,11 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
    #endif
 2. run `./hid_listen.mac` in commandline to start logging
 
-# todo autoflash
+# flash
 
-1. add bootm lite to keymap.c
-2. run `teensy_loader_cli command` then hit reset button.
-
----
+1. build
+2. flash
+3. reset
 
 # todo ---------------------------------------------------------
 
@@ -29,6 +28,8 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 - spacing keys
   enter, space, backspace, tab
+
+- where put `RESET`
 
 ---
 
