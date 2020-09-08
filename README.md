@@ -18,8 +18,6 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
-- reset mouse on ESC so that I can escape r-click menu
-
 - Index_finger layer?
 
 - mod keys in all layers
