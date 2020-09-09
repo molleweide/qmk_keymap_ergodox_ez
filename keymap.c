@@ -8,19 +8,6 @@
 #include "pointing_device.h"
 
 #define PI 3.14159265
-//#define KC_MAC_UNDO LGUI(KC_Z)
-//#define KC_MAC_CUT LGUI(KC_X)
-//#define KC_MAC_COPY LGUI(KC_C)
-//#define KC_MAC_PASTE LGUI(KC_V)
-//#define KC_PC_UNDO LCTL(KC_Z)
-//#define KC_PC_CUT LCTL(KC_X)
-//#define KC_PC_COPY LCTL(KC_C)
-//#define KC_PC_PASTE LCTL(KC_V)
-//#define ES_LESS_MAC KC_GRAVE
-//#define ES_GRTR_MAC LSFT(KC_GRAVE)
-//#define ES_BSLS_MAC ALGR(KC_6)
-//#define NO_PIPE_ALT KC_GRAVE
-//#define NO_BSLS_ALT KC_EQUAL
 
 //////////////////////////////////////
 // my custom keynames
@@ -34,43 +21,15 @@
 #define KC_SCOL     KC_SCOLON
 #define KC_COM      KC_COMMA
 
-#define WEBUSB      WEBUSB_PAIR
-
-// audio
-#define KC_AU_M     KC_AUDIO_MUTE
-#define KC_AU_U     KC_AUDIO_VOL_UP
-#define KC_AU_D     KC_AUDIO_VOL_DOWN
-
-// mouse keys
-#define KC_MU      KC_MS_UP
-#define KC_MD      KC_MS_DOWN
-#define KC_ML      KC_MS_LEFT
-#define KC_MR      KC_MS_RIGHT
-
-#define KC_MWHU    KC_MS_WH_UP
-#define KC_MWHD    KC_MS_WH_DOWN
-#define KC_MWHL    KC_MS_WH_LEFT
-#define KC_MWHR    KC_MS_WH_RIGHT
-
-#define KC_MACC0    KC_MS_ACCEL0
-#define KC_MACC1    KC_MS_ACCEL1
-#define KC_MACC2    KC_MS_ACCEL2
-
-#define KC_MB1     KC_MS_BTN1
-#define KC_MB2     KC_MS_BTN2
-#define KC_MB3     KC_MS_BTN3
-#define KC_MB4     KC_MS_BTN4
-#define KC_MB5     KC_MS_BTN5
-
 // media keys
-#define KC_YPP      KC_MEDIA_PLAY_PAUSE
-#define KC_YST      KC_MEDIA_STOP
-#define KC_YNT      KC_MEDIA_NEXT_TRACK
-#define KC_YPT      KC_MEDIA_PREV_TRACK
-#define KC_YFF      KC_MEDIA_FAST_FORWARD
-#define KC_YRW      KC_MEDIA_REWIND
-#define KC_YEJ      KC_MEDIA_EJECT
-#define KC_YSE      KC_MEDIA_SELECT
+//#define KC_YPP      KC_MEDIA_PLAY_PAUSE
+//#define KC_YST      KC_MEDIA_STOP
+//#define KC_YNT      KC_MEDIA_NEXT_TRACK
+//#define KC_YPT      KC_MEDIA_PREV_TRACK
+//#define KC_YFF      KC_MEDIA_FAST_FORWARD
+//#define KC_YRW      KC_MEDIA_REWIND
+//#define KC_YEJ      KC_MEDIA_EJECT
+//#define KC_YSE      KC_MEDIA_SELECT
 
 /*
  * NOTES
@@ -105,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [_BAS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        TO(_TEST),      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB,         /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
+        TO(_TEST),      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB_PAIR,    /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
         KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), KC_QUOTE,
         TO(_LMS),       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COM),LT(_SYM,KC_DOT),LT(_LMS,KC_SLSH),TO(_RMS),
@@ -147,25 +106,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN3,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN4,     /**/            xxxxxxxx,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       xxxxxxxx,       oooooooo,
-        KC_ESC,         MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,       xxxxxxxx,       oooooooo,
+        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN4,     /**/            xxxxxxxx,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       xxxxxxxx,       xxxxxxxx,
+        KC_ESC,         MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        xxxxxxxx,       xxxxxxxx,
         TO(_BAS),       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN5,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       KC_ML,          KC_MD,          KC_MU,          KC_MR,                                          /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       oooooooo,
+        xxxxxxxx,       KC_MS_UP,       KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,                                    /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        oooooooo,       oooooooo,       /**/            oooooooo,       oooooooo,
-                                                                                                        oooooooo,       /**/            oooooooo,
+                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+                                                                                                        xxxxxxxx,       /**/            xxxxxxxx,
                                                                         KC_MS_BTN1,     KC_MS_BTN2,     xxxxxxxx,       /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_ENT),
 
     [_RMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            KC_AU_M,        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_TRNS,        KC_TRNS,        /**/            KC_AU_U,        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          KC_TRNS,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_TRNS,                        /**/                            xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          KC_ESC,
-        TO(_BAS),       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_TRNS,        KC_TRNS,        /**/            KC_AU_D,        xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                        /**/                                            KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          TO(_BAS),
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,
+        xxxxxxxx,       xxxxxxxx,       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,                        /**/                            xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          KC_ESC,
+        TO(_BAS),       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          TO(_BAS),
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                       /**/                                            KC_MS_UP,       KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-                                                                                        KC_TRNS,        KC_TRNS,        /**/            KC_TRNS,        KC_TRNS,
-                                                                                                        KC_TRNS,        /**/            KC_TRNS,
-                                                                        KC_ENT,         KC_MS_BTN2,     KC_TRNS,        /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_MS_BTN3),
+                                                                                        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+                                                                                                        xxxxxxxx,       /**/            xxxxxxxx,
+                                                                        KC_ENT,         KC_MS_BTN2,     xxxxxxxx,       /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_MS_BTN3),
 
 
     /**
@@ -197,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                         /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-                                                                        KC_MS_BTN1,     KC_MS_BTN2,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+                                                                        xxxxxxxx,       xxxxxxxx,     xxxxxxxx,         /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 // VARIABLES ----------------------------------------
@@ -225,22 +184,22 @@ void custom_pointer(keyrecord_t *record) { /////////////////////////////////////
   if (record->event.pressed) { // key pressed
     if (record->event.key.col == 0) {
       switch (record->event.key.row) {
-        case 1: setp(70, 202.5); break;    case 2: setp(100, 112.5); break;    case 3: setp(112, 292.5); break;    case 4:setp(125,22.5);break;
+        case 1: setp(60, 202.5); break;    case 2: setp(75, 112.5); break;    case 3: setp(90, 292.5); break;    case 4:setp(127,22.5);break;
       }
     }
     if (record->event.key.col == 1) {
       switch (record->event.key.row) {
-        case 1: setp(45, 247.5); break;    case 2: setp(50, 157.5); break;    case 3: setp(55, 337.5); break;    case 4:setp(60, 67.5);break;
+        case 1: setp(40, 247.5); break;    case 2: setp(45, 157.5); break;    case 3: setp(50, 337.5); break;    case 4:setp(55, 67.5);break;
       }
     }
     if (record->event.key.col == 2) {
       switch (record->event.key.row) {
-        case 1: setp(25, 180); break;     case 2: setp(30, 90); break;    case 3: setp(35, 270); break;      case 4:setp(40, 0);break;
+        case 1: setp(20, 180); break;     case 2: setp(25, 90); break;    case 3: setp(30, 270); break;      case 4:setp(35, 0);break;
       }
     }
     if (record->event.key.col == 3) {
       switch (record->event.key.row) {
-        case 1: setp(3,  225); break;      case 2: setp(6, 135); break;     case 3: setp(10, 315); break;   case 4:setp(20, 45);break;
+        case 1: setp(3,  225); break;      case 2: setp(6, 135); break;     case 3: setp(10, 315); break;   case 4:setp(15, 45);break;
       }
     }
 
