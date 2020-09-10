@@ -165,15 +165,15 @@ bool disable_layer_color = 0;
 
 int stateMouseSequence = 0; // 0 = enter; 1 = mag; 2 = set dirA; 3 = set dirB
 int mag = 0;
-int d = 0;
+int dirSum = 0;
 int dirA = 0;
 int dirB = 0;
-double angle = 360/4*12;
+double angleStep = 7.5;
 double rad = PI / 180;
 
 void update_pointer(void){
-  d = 12 * dirA + dirB;
-  double trig = d * angle * rad;
+  dirSum = 12 * dirA + dirB;
+  double trig = dirSum * angleStep * rad;
   report_mouse_t report = pointing_device_get_report();
   report.x = round(mag * cos(trig));
   report.y = round(mag * sin(trig));
@@ -183,21 +183,16 @@ void update_pointer(void){
 
 void custom_pointer(keyrecord_t *record) { /////////////////////////////////////////////////
   if (record->event.pressed) {
-    // M
     if (stateMouseSequence == 0 || stateMouseSequence == 1) {
-      if (record->event.key.col == 0) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
-      if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
-      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
-      if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
+      if (record->event.key.col == 0) { switch (record->event.key.row) { case 1: mag = 50; break;    case 2: mag = 70; break;    case 3: mag = 90; break;    case 4: mag = 127;break;}}
+      if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: mag = 30; break;    case 2: mag = 35; break;    case 3: mag = 40; break;    case 4: mag = 45;break;}}
+      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: mag = 10; break;    case 2: mag = 15; break;    case 3: mag = 20; break;    case 4: mag = 25;break;}}
+      if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: mag = 2; break;    case 2: mag = 4; break;    case 3: mag = 6; break;    case 4: mag = 8;break;}}
       stateMouseSequence = 2;
-    }
-    // A
-    if (stateMouseSequence == 2) {
+    } else if (stateMouseSequence == 2) {
       if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirA = 2; break;    case 2: dirA = 1; break;    case 3: dirA = 3; break;    case 4: dirA = 0;break;}}
       stateMouseSequence = 3;
-    }
-    // B
-    if (stateMouseSequence == 3) {
+    } else if (stateMouseSequence == 3) {
       if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: dirB = 8; break;    case 2: dirB = 9; break;    case 3: dirB = 10; break;   case 4: dirB = 11;break;}}
       if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirB = 4; break;    case 2: dirB = 5; break;    case 3: dirB = 6; break;    case 4: dirB = 7;break;}}
       if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: dirB = 0; break;    case 2: dirB = 1; break;    case 3: dirB = 2; break;    case 4: dirB = 3;break;}}
