@@ -163,46 +163,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
-uint8_t stateMouseSequence = 0; // 0 = set magnitude; 1 = set direction; 2 = enter layer
+int stateMouseSequence = 0; // 0 = enter; 1 = mag; 2 = set dirA; 3 = set dirB
 int mag = 0;
+int d = 0;
+int dirA = 0;
+int dirB = 0;
+double angle = 360/4*12;
 double rad = PI / 180;
 
-void setp(int m, double d){
-  if (stateMouseSequence == 0 || stateMouseSequence == 2) {
-    mag = m; stateMouseSequence = 1;
-  } else {
-    report_mouse_t report = pointing_device_get_report();
-    report.x = round(mag * cos(d * rad));
-    report.y = round(mag * sin(d * rad));
-    pointing_device_set_report(report);
-    pointing_device_send();
-    stateMouseSequence = 0;
-  }
+void update_pointer(void){
+  d = 12 * dirA + dirB;
+  double trig = d * angle * rad;
+  report_mouse_t report = pointing_device_get_report();
+  report.x = round(mag * cos(trig));
+  report.y = round(mag * sin(trig));
+  pointing_device_set_report(report);
+  pointing_device_send();
 }
 
 void custom_pointer(keyrecord_t *record) { /////////////////////////////////////////////////
-  if (record->event.pressed) { // key pressed
-    if (record->event.key.col == 0) {
-      switch (record->event.key.row) {
-        case 1: setp(60, 202.5); break;    case 2: setp(75, 112.5); break;    case 3: setp(90, 292.5); break;    case 4:setp(127,22.5);break;
-      }
+  if (record->event.pressed) {
+    // M
+    if (stateMouseSequence == 0 || stateMouseSequence == 1) {
+      if (record->event.key.col == 0) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
+      if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
+      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
+      if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: mag = 60; break;    case 2: mag = 10; break;    case 3: mag = 45; break;    case 4: mag = 68;break;}}
+      stateMouseSequence = 2;
     }
-    if (record->event.key.col == 1) {
-      switch (record->event.key.row) {
-        case 1: setp(40, 247.5); break;    case 2: setp(45, 157.5); break;    case 3: setp(50, 337.5); break;    case 4:setp(55, 67.5);break;
-      }
+    // A
+    if (stateMouseSequence == 2) {
+      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirA = 2; break;    case 2: dirA = 1; break;    case 3: dirA = 3; break;    case 4: dirA = 0;break;}}
+      stateMouseSequence = 3;
     }
-    if (record->event.key.col == 2) {
-      switch (record->event.key.row) {
-        case 1: setp(20, 180); break;     case 2: setp(25, 90); break;    case 3: setp(30, 270); break;      case 4:setp(35, 0);break;
-      }
+    // B
+    if (stateMouseSequence == 3) {
+      if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: dirB = 8; break;    case 2: dirB = 9; break;    case 3: dirB = 10; break;   case 4: dirB = 11;break;}}
+      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirB = 4; break;    case 2: dirB = 5; break;    case 3: dirB = 6; break;    case 4: dirB = 7;break;}}
+      if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: dirB = 0; break;    case 2: dirB = 1; break;    case 3: dirB = 2; break;    case 4: dirB = 3;break;}}
+      update_pointer();
+      stateMouseSequence = 1;
     }
-    if (record->event.key.col == 3) {
-      switch (record->event.key.row) {
-        case 1: setp(3,  225); break;      case 2: setp(6, 135); break;     case 3: setp(10, 315); break;   case 4:setp(15, 45);break;
-      }
-    }
-
   }
 }
 
@@ -222,7 +223,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       custom_pointer(record);
       break;
     case KC_ESC:
-      stateMouseSequence = 0; // reset mouse pointer
+      stateMouseSequence = 1; // reset mouse pointer
       break;
   }
   return true;
@@ -248,14 +249,14 @@ uint32_t layer_state_set_user(uint32_t state) {
           break;
         case _LMS:
         case _RMS:
-          stateMouseSequence = 2;
+          stateMouseSequence = 0;
           rgblight_sethsv_noeeprom(10,90,40);
           break;
         case _FUN:
           rgblight_sethsv_noeeprom(70,0,50);
           break;
         case _TEST:
-          stateMouseSequence = 2;
+          stateMouseSequence = 0;
           rgblight_sethsv_noeeprom(100,150,100);
           break;
         default:
