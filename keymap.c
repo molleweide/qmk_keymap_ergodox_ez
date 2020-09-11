@@ -41,6 +41,8 @@
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   MGRID,
+  MREPEAT,
+  MRESET,
 };
 
 enum layer_names {
@@ -107,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN3,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN4,     /**/            xxxxxxxx,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       xxxxxxxx,       xxxxxxxx,
-        KC_ESC,         MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        xxxxxxxx,       xxxxxxxx,
+        MRESET,         MGRID,          MGRID,          MGRID,          MGRID,          MREPEAT,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        xxxxxxxx,       xxxxxxxx,
         TO(_BAS),       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN5,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       KC_MS_UP,       KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,                                    /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
@@ -165,23 +167,44 @@ bool disable_layer_color = 0;
 
 int stateMouseSequence = 0; // 0 = enter; 1 = mag; 2 = set dirA; 3 = set dirB
 int mag = 0;
-int dirSum = 0;
 int dirA = 0;
 int dirB = 0;
+int dirSum = 0;
 double angleStep = 7.5;
 double rad = PI / 180;
+int prevX = 0;
+int prevY = 0;
+
 
 void update_pointer(void){
+  int x, y;
   dirSum = 12 * dirA + dirB;
   double trig = dirSum * angleStep * rad;
   report_mouse_t report = pointing_device_get_report();
-  report.x = round(mag * cos(trig));
-  report.y = round(mag * sin(trig));
+  x = round(mag * cos(trig));
+  y = round(mag * cos(trig));
+  report.x = x;
+  report.y = y;
   pointing_device_set_report(report);
   pointing_device_send();
+  prevX = x;
+  prevY = y;
 }
 
+void repeat_last_move(void) {
+  stateMouseSequence = 0;
+  report_mouse_t report = pointing_device_get_report();
+  report.x = prevX;
+  report.y = prevY;
+  pointing_device_set_report(report);
+  pointing_device_send();
+  stateMouseSequence = 1;
+}
+
+// user -> grid -> record_sequence_part ->
+
 void custom_pointer(keyrecord_t *record) { /////////////////////////////////////////////////
+  // the if statements aren't bulletproofed enough. it passes through in some cases.
   if (record->event.pressed) {
     if (stateMouseSequence == 0 || stateMouseSequence == 1) {
       if (record->event.key.col == 0) { switch (record->event.key.row) { case 1: mag = 50; break;    case 2: mag = 70; break;    case 3: mag = 90; break;    case 4: mag = 127;break;}}
@@ -189,15 +212,14 @@ void custom_pointer(keyrecord_t *record) { /////////////////////////////////////
       if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: mag = 10; break;    case 2: mag = 15; break;    case 3: mag = 20; break;    case 4: mag = 25;break;}}
       if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: mag = 2; break;    case 2: mag = 4; break;    case 3: mag = 6; break;    case 4: mag = 8;break;}}
       stateMouseSequence = 2;
-    } else if (stateMouseSequence == 2) {
-      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirA = 2; break;    case 2: dirA = 1; break;    case 3: dirA = 3; break;    case 4: dirA = 0;break;}}
+    } else if (stateMouseSequence == 2 && record->event.key.col == 2) {
+      switch (record->event.key.row) { case 1: dirA = 2; break;    case 2: dirA = 1; break;    case 3: dirA = 3; break;    case 4: dirA = 0;break;}
       stateMouseSequence = 3;
     } else if (stateMouseSequence == 3) {
       if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: dirB = 8; break;    case 2: dirB = 9; break;    case 3: dirB = 10; break;   case 4: dirB = 11;break;}}
       if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirB = 4; break;    case 2: dirB = 5; break;    case 3: dirB = 6; break;    case 4: dirB = 7;break;}}
       if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: dirB = 0; break;    case 2: dirB = 1; break;    case 3: dirB = 2; break;    case 4: dirB = 3;break;}}
       update_pointer();
-      stateMouseSequence = 1;
     }
   }
 }
@@ -217,8 +239,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MGRID:
       custom_pointer(record);
       break;
-    case KC_ESC:
-      stateMouseSequence = 1; // reset mouse pointer
+    case MRESET:
+      stateMouseSequence = 0; // reset mouse pointer
+      break;
+    case MREPEAT:
+      repeat_last_move();
       break;
   }
   return true;
