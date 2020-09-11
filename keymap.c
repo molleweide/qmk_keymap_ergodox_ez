@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN4,     /**/            xxxxxxxx,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       xxxxxxxx,       xxxxxxxx,
         MRESET,         MGRID,          MGRID,          MGRID,          MGRID,          MREPEAT,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        xxxxxxxx,       xxxxxxxx,
         TO(_BAS),       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN5,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       KC_MS_UP,       KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,                                    /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+        xxxxxxxx,       KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,                                    /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                                                         xxxxxxxx,       /**/            xxxxxxxx,
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,
         xxxxxxxx,       xxxxxxxx,       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,                        /**/                            xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          KC_ESC,
         TO(_BAS),       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          TO(_BAS),
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                       /**/                                            KC_MS_UP,       KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    xxxxxxxx,
+        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,                                       /**/                                            KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                                                         xxxxxxxx,       /**/            xxxxxxxx,
@@ -166,33 +166,47 @@ rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
 int stateMouseSequence = 0; // 0 = enter; 1 = mag; 2 = set dirA; 3 = set dirB
-int mag = 0;
+
+int magA = 0;
+int magB = 0;
 int dirA = 0;
 int dirB = 0;
-int dirSum = 0;
-double angleStep = 7.5;
+
+int dirStepsTot = 0;
+double angleStep = 2.5;
 double rad = PI / 180;
+
+int currMag = 0;
+int currX = 0;
+int currY = 0;
+
+int prevMag = 0;
 int prevX = 0;
 int prevY = 0;
 
-
+void set_mag_curr(void){
+  currMag = (magA * magB < 128) ? magA * magB : 127;
+}
+void set_dir_curr(void){
+  dirStepsTot = 12 * (dirA-1) + (dirB-1); // first compute macro step -> then add micro step
+#ifdef CONSOLE_ENABLE
+  uprintf("dirStepsTot: %u, dirA: %u, dirB: %u\n\n", dirStepsTot, dirA, dirB);
+#endif
+  double trig = dirStepsTot * angleStep * rad;
+  currX = round(currMag * cos(trig));
+  currY = round(currMag * sin(trig));
+}
 void update_pointer(void){
-  int x, y;
-  dirSum = 12 * dirA + dirB;
-  double trig = dirSum * angleStep * rad;
   report_mouse_t report = pointing_device_get_report();
-  x = round(mag * cos(trig));
-  y = round(mag * cos(trig));
-  report.x = x;
-  report.y = y;
+  report.x = currX;
+  report.y = currY;
   pointing_device_set_report(report);
   pointing_device_send();
-  prevX = x;
-  prevY = y;
+  prevMag = currMag;
+  prevX = currX;
+  prevY = currY;
 }
-
 void repeat_last_move(void) {
-  stateMouseSequence = 0;
   report_mouse_t report = pointing_device_get_report();
   report.x = prevX;
   report.y = prevY;
@@ -200,26 +214,49 @@ void repeat_last_move(void) {
   pointing_device_send();
   stateMouseSequence = 1;
 }
-
-// user -> grid -> record_sequence_part ->
-
+void set_move_components(int gridStep) {
+  if ( stateMouseSequence == 0 || stateMouseSequence == 1 ) {
+    magA = gridStep;
+    stateMouseSequence = 2;
+  } else if ( stateMouseSequence == 2 ) {
+    magB = gridStep;
+    set_mag_curr();
+    stateMouseSequence = 3;
+  } else if ( stateMouseSequence == 3 ) {
+    dirA = gridStep;
+    stateMouseSequence = 4;
+  } else if ( stateMouseSequence == 4 ) {
+    dirB = gridStep;
+    set_dir_curr();
+    update_pointer();
+    stateMouseSequence = 1;
+  }
+}
 void custom_pointer(keyrecord_t *record) { /////////////////////////////////////////////////
-  // the if statements aren't bulletproofed enough. it passes through in some cases.
   if (record->event.pressed) {
-    if (stateMouseSequence == 0 || stateMouseSequence == 1) {
-      if (record->event.key.col == 0) { switch (record->event.key.row) { case 1: mag = 50; break;    case 2: mag = 70; break;    case 3: mag = 90; break;    case 4: mag = 127;break;}}
-      if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: mag = 30; break;    case 2: mag = 35; break;    case 3: mag = 40; break;    case 4: mag = 45;break;}}
-      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: mag = 10; break;    case 2: mag = 15; break;    case 3: mag = 20; break;    case 4: mag = 25;break;}}
-      if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: mag = 2; break;    case 2: mag = 4; break;    case 3: mag = 6; break;    case 4: mag = 8;break;}}
-      stateMouseSequence = 2;
-    } else if (stateMouseSequence == 2 && record->event.key.col == 2) {
-      switch (record->event.key.row) { case 1: dirA = 2; break;    case 2: dirA = 1; break;    case 3: dirA = 3; break;    case 4: dirA = 0;break;}
-      stateMouseSequence = 3;
-    } else if (stateMouseSequence == 3) {
-      if (record->event.key.col == 1) { switch (record->event.key.row) { case 1: dirB = 8; break;    case 2: dirB = 9; break;    case 3: dirB = 10; break;   case 4: dirB = 11;break;}}
-      if (record->event.key.col == 2) { switch (record->event.key.row) { case 1: dirB = 4; break;    case 2: dirB = 5; break;    case 3: dirB = 6; break;    case 4: dirB = 7;break;}}
-      if (record->event.key.col == 3) { switch (record->event.key.row) { case 1: dirB = 0; break;    case 2: dirB = 1; break;    case 3: dirB = 2; break;    case 4: dirB = 3;break;}}
-      update_pointer();
+    if (record->event.key.col == 1) {
+      switch (record->event.key.row) {
+        case 1: set_move_components(9);  break;
+        case 2: set_move_components(10); break;
+        case 3: set_move_components(11); break;
+        case 4: set_move_components(12); break;
+      }
+    }
+    if (record->event.key.col == 2) {
+      switch (record->event.key.row) {
+        case 1: set_move_components(5); break;
+        case 2: set_move_components(6); break;
+        case 3: set_move_components(7); break;
+        case 4: set_move_components(8); break;
+      }
+    }
+    if (record->event.key.col == 3) {
+      switch (record->event.key.row) {
+        case 1: set_move_components(1); break;
+        case 2: set_move_components(2); break;
+        case 3: set_move_components(3); break;
+        case 4: set_move_components(4); break;
+      }
     }
   }
 }
@@ -240,10 +277,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       custom_pointer(record);
       break;
     case MRESET:
-      stateMouseSequence = 0; // reset mouse pointer
+      stateMouseSequence = 0;
       break;
     case MREPEAT:
-      repeat_last_move();
+      if (record->event.pressed) {
+        repeat_last_move();
+      }
       break;
   }
   return true;
