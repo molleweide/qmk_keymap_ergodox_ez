@@ -39,6 +39,8 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 - add show mouse key >> make moure spin in cicles.
 
+- reverse repeat.
+
 ---
 
 # general thoughts and todos
@@ -55,3 +57,6 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
   this will make the thumb clusters into monsters
 
 # RNDM
+
+the best thing about the reset button is that it allows you to learn much better.
+since you can test every scenario as many times as you want.

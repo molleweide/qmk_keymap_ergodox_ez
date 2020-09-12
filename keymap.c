@@ -42,6 +42,7 @@ enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   MGRID,
   MREPEAT,
+  MREPEAT_REV,
   MRESET,
 };
 
@@ -109,8 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_LMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN3,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN4,     /**/            xxxxxxxx,       KC_RGUI,        KC_RALT,        KC_RSHIFT,      KC_RCTRL,       xxxxxxxx,       xxxxxxxx,
-        MRESET,         MGRID,          MGRID,          MGRID,          MGRID,          MREPEAT,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        xxxxxxxx,       xxxxxxxx,
-        TO(_BAS),       MGRID,          MGRID,          MGRID,          MGRID,          xxxxxxxx,       KC_MS_BTN5,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
+        MRESET,         MGRID,          MGRID,          MGRID,          MGRID,          MREPEAT,        /**/            /**/            /**/            KC_LEFT,        KC_DOWN,        KC_UP,          KC_RGHT,        xxxxxxxx,       xxxxxxxx,
+        TO(_BAS),       MGRID,          MGRID,          MGRID,          MGRID,          MREPEAT_REV,    KC_MS_BTN5,     /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
         xxxxxxxx,       KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,                                    /**/                                            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -207,10 +208,15 @@ void update_pointer(void){
   prevX = currX;
   prevY = currY;
 }
-void repeat_last_move(void) {
+void repeat_last_move(int rev) {
   report_mouse_t report = pointing_device_get_report();
-  report.x = prevX;
-  report.y = prevY;
+  if (rev) {
+    report.x = prevX;
+    report.y = prevY;
+  } else {
+    report.x = -prevX;
+    report.y = -prevY;
+  }
   pointing_device_set_report(report);
   pointing_device_send();
   stateMouseSequence = 1;
@@ -282,7 +288,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case MREPEAT:
       if (record->event.pressed) {
-        repeat_last_move();
+        repeat_last_move(1);
+      }
+      break;
+    case MREPEAT_REV:
+      if (record->event.pressed) {
+        repeat_last_move(0);
       }
       break;
   }
