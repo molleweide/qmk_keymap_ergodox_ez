@@ -22,6 +22,10 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
+- make 12 directions like the clock > 1 in upper right
+  all the numbers can be the same positions but I have to create a shift
+  in the trig funcs so that 1 becomes 1 on a clock.
+
 - `_BAS` add symbols to bottom layer.
 
 - Index_finger layer?
@@ -32,6 +36,8 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
   enter, space, backspace, tab
 
 - where put `RESET`
+
+- add show mouse key >> make moure spin in cicles.
 
 ---
 

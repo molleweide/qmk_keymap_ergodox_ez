@@ -175,6 +175,7 @@ int dirB = 0;
 int dirStepsTot = 0;
 double angleStep = 2.5;
 double rad = PI / 180;
+double shift = - PI / 3;
 
 int currMag = 0;
 int currX = 0;
@@ -192,9 +193,9 @@ void set_dir_curr(void){
 #ifdef CONSOLE_ENABLE
   uprintf("dirStepsTot: %u, dirA: %u, dirB: %u\n\n", dirStepsTot, dirA, dirB);
 #endif
-  double trig = dirStepsTot * angleStep * rad;
-  currX = round(currMag * cos(trig));
-  currY = round(currMag * sin(trig));
+  double trig = dirStepsTot * angleStep * rad; // -60 to shift circle backwards?
+  currX = round(currMag * cos(trig + shift));
+  currY = round(currMag * sin(trig + shift));
 }
 void update_pointer(void){
   report_mouse_t report = pointing_device_get_report();
