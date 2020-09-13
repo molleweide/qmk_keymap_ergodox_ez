@@ -187,16 +187,19 @@ int prevX = 0;
 int prevY = 0;
 
 void set_mag_curr(void){
-  currMag = (magA * magB < 128) ? magA * magB : 127;
+  currMag = ((magA * magB) < 128) ? (magA * magB) : 127;
+#ifdef CONSOLE_ENABLE
+  uprintf("currMag: %u\n\n", currMag);
+#endif
 }
 void set_dir_curr(void){
-  dirStepsTot = 12 * (dirA-1) + (dirB-1); // first compute macro step -> then add micro step
-#ifdef CONSOLE_ENABLE
-  uprintf("dirStepsTot: %u, dirA: %u, dirB: %u\n\n", dirStepsTot, dirA, dirB);
-#endif
-  double trig = dirStepsTot * angleStep * rad; // -60 to shift circle backwards?
+  dirStepsTot = 12 * (dirA-1) + (dirB-1);
+  double trig = dirStepsTot * angleStep * rad;
   currX = round(currMag * cos(trig + shift));
   currY = round(currMag * sin(trig + shift));
+#ifdef CONSOLE_ENABLE
+  uprintf("currX: %u, currY: %u\n\n", currX, currY);
+#endif
 }
 void update_pointer(void){
   report_mouse_t report = pointing_device_get_report();
@@ -248,16 +251,14 @@ void custom_pointer(keyrecord_t *record) { /////////////////////////////////////
         case 3: set_move_components(11); break;
         case 4: set_move_components(12); break;
       }
-    }
-    if (record->event.key.col == 2) {
+    } else if (record->event.key.col == 2) {
       switch (record->event.key.row) {
         case 1: set_move_components(5); break;
         case 2: set_move_components(6); break;
         case 3: set_move_components(7); break;
         case 4: set_move_components(8); break;
       }
-    }
-    if (record->event.key.col == 3) {
+    } else if (record->event.key.col == 3) {
       switch (record->event.key.row) {
         case 1: set_move_components(1); break;
         case 2: set_move_components(2); break;

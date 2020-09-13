@@ -22,6 +22,7 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
+- why are the steps of the mouse pointer not linear.
 - make 12 directions like the clock > 1 in upper right
   all the numbers can be the same positions but I have to create a shift
   in the trig funcs so that 1 becomes 1 on a clock.
