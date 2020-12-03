@@ -22,27 +22,38 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
-- why are the steps of the mouse pointer not linear.
-- make 12 directions like the clock > 1 in upper right
-  all the numbers can be the same positions but I have to create a shift
-  in the trig funcs so that 1 becomes 1 on a clock.
+- add new modular file from which I import functions that I can use with marcus.
 
-- `_BAS` add symbols to bottom layer.
+- VIM TABULAR >>> can I use this to more easilly manage the qmk syntax in code???
 
-- Index_finger layer?
+- key > turn off rgb lights
 
-- mod keys in all layers
+* add / to numpad!!!
 
-- spacing keys
+* switch disc/cont.
+
+* add a repeat button > that makes it possible to repeat a char without double hitting it.
+
+* mirror mouse mode for right hand.
+
+* why are the steps of the mouse pointer not linear.
+
+* `_BAS` add symbols to bottom layer.
+
+* Index_finger layer?
+
+* mod keys in all layers
+
+* spacing keys
   enter, space, backspace, tab
 
-- where put `RESET`
+* where put `RESET`
 
-- add show mouse key >> make moure spin in cicles.
+* add show mouse key >> make moure spin in cicles.
 
-- reverse repeat.
+* reverse repeat.
 
----
+  ---
 
 # general thoughts and todos
 
