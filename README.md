@@ -24,6 +24,11 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 - add new modular file from which I import functions that I can use with marcus.
 
+  import new mouse function?
+
+- custom syntax / prettier ?
+  ignore syntax between comments??? so that I can structure my layers freely.
+
 - VIM TABULAR >>> can I use this to more easilly manage the qmk syntax in code???
 
 - key > turn off rgb lights
