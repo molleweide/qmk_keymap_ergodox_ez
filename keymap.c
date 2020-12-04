@@ -1,42 +1,9 @@
 #include QMK_KEYBOARD_H
 
-//#ifdef CONSOLE_ENABLE
-//  uprintf("xxx: %u, yyy: %u\n\n", xxx, yyy);
-//#endif
-
 #include <math.h>
 #include "pointing_device.h"
 
 #define PI 3.14159265
-
-//////////////////////////////////////
-// my custom keynames
-////////////////////////////////////////
-
-#define KC_SPC      KC_SPACE
-#define KC_BSPC     KC_BSPACE
-#define KC_ENT      KC_ENTER
-#define KC_SLSH     KC_SLASH
-#define KC_BSLSH    KC_BSLASH
-#define KC_SCOL     KC_SCOLON
-#define KC_COM      KC_COMMA
-
-// media keys
-//#define KC_YPP      KC_MEDIA_PLAY_PAUSE
-//#define KC_YST      KC_MEDIA_STOP
-//#define KC_YNT      KC_MEDIA_NEXT_TRACK
-//#define KC_YPT      KC_MEDIA_PREV_TRACK
-//#define KC_YFF      KC_MEDIA_FAST_FORWARD
-//#define KC_YRW      KC_MEDIA_REWIND
-//#define KC_YEJ      KC_MEDIA_EJECT
-//#define KC_YSE      KC_MEDIA_SELECT
-
-/*
- * NOTES
- *
- *  all keycodes:   https://docs.qmk.fm/#/keycodes
- */
-
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -48,16 +15,12 @@ enum custom_keycodes {
 
 enum layer_names {
     _BAS = 0,
-
     _SYM,
     _NUM,
-
     _LMS,
     _RMS,
-
     _FUN,
-
-    _TEST, // this is where I do my mouse testing
+    _TEST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -68,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BAS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         TO(_TEST),      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB_PAIR,    /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
-        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLSH,
-        KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOL), KC_QUOTE,
-        TO(_LMS),       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COM),LT(_SYM,KC_DOT),LT(_LMS,KC_SLSH),TO(_RMS),
+        KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,
+        KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOLON), KC_QUOTE,
+        TO(_LMS),       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYM,KC_DOT),LT(_LMS,KC_SLASH),TO(_RMS),
         KC_GRAVE,       CTL_T(KC_LEFT), KC_DOWN,        KC_UP,          KC_RGHT,        /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT), xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                         /***************/               xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-                                                                        LSFT_T(KC_SPC), KC_BSPC,        KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENT)),
+                                                                        LSFT_T(KC_SPACE),KC_BSPACE,        KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENTER)),
 
     /**
      * SYMBOLS / NUMBERS ---------------------------
@@ -97,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            xxxxxxxx,       xxxxxxxx,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       KC_F12,
         oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            /**/            /**/            KC_0,           KC_4,           KC_5,           KC_6,           KC_PLUS,        KC_KP_SLASH,
         oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,       /**/            xxxxxxxx,       KC_ASTR,        KC_1,           KC_2,           KC_3,           KC_MINUS,       KC_UNDS,
-        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,                                       /**/                                            KC_LPRN,        KC_COM,         KC_DOT,       KC_RPRN,        oooooooo,
+        oooooooo,       oooooooo,       oooooooo,       oooooooo,       oooooooo,                                       /**/                                            KC_LPRN,        KC_COMMA,       KC_DOT,       KC_RPRN,        oooooooo,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         oooooooo,       oooooooo,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                                                         oooooooo,       /**/            xxxxxxxx,
@@ -116,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                                                         xxxxxxxx,       /**/            xxxxxxxx,
-                                                                        KC_MS_BTN1,     KC_MS_BTN2,     xxxxxxxx,       /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_ENT),
+                                                                        KC_MS_BTN1,     KC_MS_BTN2,     xxxxxxxx,       /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_ENTER),
 
     [_RMS] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
         xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       MGRID,          MGRID,          MGRID,          MGRID,          TO(_BAS),
@@ -127,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
                                                                                                         xxxxxxxx,       /**/            xxxxxxxx,
-                                                                        KC_ENT,         KC_MS_BTN2,     xxxxxxxx,       /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_MS_BTN3),
+                                                                        KC_ENTER,       KC_MS_BTN2,     xxxxxxxx,       /**/            KC_MS_BTN5,     KC_MS_BTN4,     KC_MS_BTN3),
 
 
     /**
@@ -346,3 +309,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     return state;
 };
+
+void keyboard_post_init_user(void) {
+  layer_state_set_user(layer_state);
+}

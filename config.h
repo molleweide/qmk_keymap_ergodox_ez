@@ -31,11 +31,31 @@
 //#define BOOTMAGIC_LITE_ROW 1    // row is col
 
 
-// Fillers to make layering more clear
-#define ________    KC_TRANSPARENT
+
+
+////////////////////////////////////////
+// my custom keynames
+////////////////////////////////////////
+
+#define ________    KC_TRANSPARENT // Fillers to make layering more clear
 #define oooooooo    KC_TRANSPARENT
 #define xxxxxxxx    KC_NO
 
-
-
+// #define KC_SPC      KC_SPACE
+// #define KC_BSPC     KC_BSPACE
+// #define KC_ENT    KC_ENTERER
+// #define KC_SLSH     KC_SLASH
+// #define KC_BSLSH    KC_BSLASH
+// #define KC_SCOL     KC_SCOLON
+// #define KC_COM      KC_COMMAMA
+//
+// media keys
+//#define KC_YPP      KC_MEDIA_PLAY_PAUSE
+//#define KC_YST      KC_MEDIA_STOP
+//#define KC_YNT      KC_MEDIA_NEXT_TRACK
+//#define KC_YPT      KC_MEDIA_PREV_TRACK
+//#define KC_YFF      KC_MEDIA_FAST_FORWARD
+//#define KC_YRW      KC_MEDIA_REWIND
+//#define KC_YEJ      KC_MEDIA_EJECT
+//#define KC_YSE      KC_MEDIA_SELECT
 

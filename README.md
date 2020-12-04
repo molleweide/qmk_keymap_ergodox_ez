@@ -6,21 +6,26 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 ---
 
-# debugging
+# debugging macos
 
 1. use this to create log statements
    #ifdef CONSOLE_ENABLE
    uprintf("set direction");
    #endif
-2. run `./hid_listen.mac` in commandline to start logging
+2. get hid_listen app.
+3. run `./hid_listen.mac` in commandline to start logging
 
-# flash
+# flash w/KB
 
-1. build
-2. flash
-3. reset
+1. qmk build : `make <keyboard>:<keymap>`
+2. flash : zshrc > alias tfl="teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_myergo.hex"
+3. hit RESET kc in safe layer.
 
 # todo ---------------------------------------------------------
+
+- if grid and layer === \_TEST
+
+  so that I can test different things with the grid.
 
 - add new modular file from which I import functions that I can use with marcus.
 
