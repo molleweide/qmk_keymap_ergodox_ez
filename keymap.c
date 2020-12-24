@@ -2,7 +2,6 @@
 
 #include <math.h>
 #include "pointing_device.h"
-
 #define PI 3.14159265
 
 enum custom_keycodes {
@@ -23,6 +22,11 @@ enum layer_names {
     _TEST,
 };
 
+enum tapdance_keycodes {
+    TD_MMODE,       // switch mouse mode
+    TD_ESC_LCO,    // esc or move to L mouse complement
+    TD_QUOTE_RCO,  // esc or move to R mouse complement
+};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /**
@@ -33,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TO(_TEST),      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB_PAIR,    /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
         KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,
         KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOLON), KC_QUOTE,
-        TO(_LMS),       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYM,KC_DOT),LT(_LMS,KC_SLASH),TO(_RMS),
+        ________,       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYM,KC_DOT),LT(_LMS,KC_SLASH),________,
         KC_GRAVE,       CTL_T(KC_LEFT), KC_DOWN,        KC_UP,          KC_RGHT,        /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT), xxxxxxxx,
         //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
                                                                                         KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -148,6 +152,36 @@ int currY = 0;
 int prevMag = 0;
 int prevX = 0;
 int prevY = 0;
+
+/* void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) { */
+/*     mouseMode = state->count; */
+/*     reset_pointer(); */
+/* } */
+/*  */
+/* void dance_esc_lco (qk_tap_dance_state_t *state, void *user_data) { */
+/*     if (state->count == 1) { */
+/*         register_code (KC_ESC); */
+/*         unregister_code (KC_ESC); */
+/*     } else { */
+/*         // set layer left compl */
+/*         layer_move(_LCO); */
+/*     } */
+/* } */
+/* void dance_quote_rco (qk_tap_dance_state_t *state, void *user_data) { */
+/*     if (state->count == 1) { */
+/*         register_code (KC_QUOTE); */
+/*         unregister_code (KC_QUOTE); */
+/*     } else { */
+/*         // set layer right comp */
+/*         layer_move(_RCO); */
+/*     } */
+/* } */
+/*  */
+/* qk_tap_dance_action_t tap_dance_actions[] = { */
+/*     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished), */
+/*     [TD_ESC_LCO]   = ACTION_TAP_DANCE_FN (dance_esc_lco), */
+/*     [TD_QUOTE_RCO] = ACTION_TAP_DANCE_FN (dance_quote_rco), */
+/* }; */
 
 void set_mag_curr(void){
   currMag = ((magA * magB) < 128) ? (magA * magB) : 127;
