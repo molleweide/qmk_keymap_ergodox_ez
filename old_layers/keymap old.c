@@ -1,76 +1,9 @@
-#include QMK_KEYBOARD_H
-
-#include "pointing_device.h"
-
-#define KC_MAC_UNDO LGUI(KC_Z)
-#define KC_MAC_CUT LGUI(KC_X)
-#define KC_MAC_COPY LGUI(KC_C)
-#define KC_MAC_PASTE LGUI(KC_V)
-#define KC_PC_UNDO LCTL(KC_Z)
-#define KC_PC_CUT LCTL(KC_X)
-#define KC_PC_COPY LCTL(KC_C)
-#define KC_PC_PASTE LCTL(KC_V)
-#define ES_LESS_MAC KC_GRAVE
-#define ES_GRTR_MAC LSFT(KC_GRAVE)
-#define ES_BSLS_MAC ALGR(KC_6)
-#define NO_PIPE_ALT KC_GRAVE
-#define NO_BSLS_ALT KC_EQUAL
-
-//////////////////////////////////////
-// my custom keynames
-////////////////////////////////////////
-
-#define KC_SPC      KC_SPACE
-#define KC_BSPC     KC_BSPACE
-#define KC_ENT      KC_ENTER
-#define KC_SLSH     KC_SLASH
-#define KC_BSLSH    KC_BSLASH
-#define KC_SCOL     KC_SCOLON
-
-#define WEBUSB      WEBUSB_PAIR
-
-// audio
-#define KC_AU_M     KC_AUDIO_MUTE
-#define KC_AU_U     KC_AUDIO_VOL_UP
-#define KC_AU_D     KC_AUDIO_VOL_DOWN
-
-// mouse keys
-#define KC_MU      KC_MS_UP
-#define KC_MD      KC_MS_DOWN
-#define KC_ML      KC_MS_LEFT
-#define KC_MR      KC_MS_RIGHT
-
-#define KC_MWHU    KC_MS_WH_UP
-#define KC_MWHD    KC_MS_WH_DOWN
-#define KC_MWHL    KC_MS_WH_LEFT
-#define KC_MWHR    KC_MS_WH_RIGHT
-
-#define KC_MACC0    KC_MS_ACCEL0
-#define KC_MACC1    KC_MS_ACCEL1
-#define KC_MACC2    KC_MS_ACCEL2
-
-#define KC_MB1     KC_MS_BTN1
-#define KC_MB2     KC_MS_BTN2
-#define KC_MB3     KC_MS_BTN3
-#define KC_MB4     KC_MS_BTN4
-#define KC_MB5     KC_MS_BTN5
-
-// media keys
-#define KC_YPP      KC_MEDIA_PLAY_PAUSE
-#define KC_YST      KC_MEDIA_STOP
-#define KC_YNT      KC_MEDIA_NEXT_TRACK
-#define KC_YPT      KC_MEDIA_PREV_TRACK
-#define KC_YFF      KC_MEDIA_FAST_FORWARD
-#define KC_YRW      KC_MEDIA_REWIND
-#define KC_YEJ      KC_MEDIA_EJECT
-#define KC_YSE      KC_MEDIA_SELECT
-
 // tap dance functions rename
-#define TD_LMV      ACTION_TAP_DANCE_LAYER_MOVE
+//#define TD_LMV      ACTION_TAP_DANCE_LAYER_MOVE
 
 
 enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
+  /* RGB_SLD = EZ_SAFE_RANGE, */
   MOVE_U,
   MOVE_D,
   MOVE_L,
@@ -296,8 +229,8 @@ bool suspended = false;
 bool moveToggle = false;
 bool moveState = false;
 uint8_t moveDirection = 0;
-uint8_t cursorTimeout = 10;
-uint16_t lastCursor = 0;
+uint8_t cont_move_step_time_interval = 10;
+uint16_t timestamp_prev_move_cont = 0;
 uint8_t stateMove = 0;
 uint8_t mouseMode = 1;
 
@@ -306,9 +239,6 @@ uint8_t contMagnitude = 10;
 uint8_t discMagnitude = 10;
 
 void reset_pointer(void) {
-#ifdef CONSOLE_ENABLE
-    uprintf("reset pointer\n");
-#endif
 }
 
 void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -341,8 +271,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_QUOTE_RCO] = ACTION_TAP_DANCE_FN (dance_quote_rco),
 };
 
-void mouse_mode_basic(keyrecord_t *record) {
-    // change speed by altering the report OR the cursorTimeout.
+void mouse_mode_cont(keyrecord_t *record) {
+    // change speed by altering the report OR the cont_move_step_time_interval.
     moveToggle = true;
     // note that the rows and cols are inverted for some reason?!
     if (record->event.key.col == 2 && record->event.pressed) {
@@ -361,13 +291,10 @@ void mouse_mode_basic(keyrecord_t *record) {
     }
 }
 
-void mouse_mode_basic_discrete(keyrecord_t *record) {
+void mouse_mode_disc(keyrecord_t *record) {
     // change magnitude by changing report below
     report_mouse_t report = pointing_device_get_report();
 
-// ifdef CONSOLE_ENABLE
-//    uprintf("x: %u, y: %u\n", report.x, report.y);
-// endif
     if (record->event.key.col == 2 && record->event.pressed) {
         if (record->event.key.row == 1){
                 report.x = -5;
@@ -387,18 +314,18 @@ void mouse_mode_basic_discrete(keyrecord_t *record) {
 }
 
 
-void handle_mvim_grid_event(keyrecord_t *record) {
-    switch (mouseMode) {
-        case 1:
-            mouse_mode_basic(record);
-            // set continuous mode
-            break;
-        case 2:
-            mouse_mode_basic_discrete(record);
-            // set discrete mode
-            break;
-    }
-}
+/* void handle_mvim_grid_event(keyrecord_t *record) { */
+/*     switch (mouseMode) { */
+/*         case 1: */
+/*             mouse_mode_cont(record); */
+/*             // set continuous mode */
+/*             break; */
+/*         case 2: */
+/*             mouse_mode_disc(record); */
+/*             // set discrete mode */
+/*             break; */
+/*     } */
+/* } */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -417,30 +344,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 moveToggle = false;
             }
             break;
-        case MOVE_U:
-            if(record->event.pressed) {
-                moveDirection = 0;
-                moveToggle = true;
-            }
-            break;
-        case MOVE_D:
-            if(record->event.pressed) {
-                moveDirection = 2;
-                moveToggle = true;
-            }
-            break;
-        case MOVE_L:
-            if(record->event.pressed) {
-                moveDirection = 3;
-                moveToggle = true;
-            }
-            break;
-        case MOVE_R:
-            if(record->event.pressed) {
-                moveDirection = 1;
-                moveToggle = true;
-            }
-            break;
+        /* case MOVE_U: */
+        /*     if(record->event.pressed) { */
+        /*         moveDirection = 0; */
+        /*         moveToggle = true; */
+        /*     } */
+        /*     break; */
+        /* case MOVE_D: */
+        /*     if(record->event.pressed) { */
+        /*         moveDirection = 2; */
+        /*         moveToggle = true; */
+        /*     } */
+        /*     break; */
+        /* case MOVE_L: */
+        /*     if(record->event.pressed) { */
+        /*         moveDirection = 3; */
+        /*         moveToggle = true; */
+        /*     } */
+        /*     break; */
+        /* case MOVE_R: */
+        /*     if(record->event.pressed) { */
+        /*         moveDirection = 1; */
+        /*         moveToggle = true; */
+        /*     } */
+        /*     break; */
         case MGRID:
             handle_mvim_grid_event(record);
             break;
@@ -450,8 +377,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void pointing_device_task(void) {
     report_mouse_t report = pointing_device_get_report();
-    if (timer_elapsed(lastCursor) > cursorTimeout && moveToggle) {
-        lastCursor = timer_read();
+    if (timer_elapsed(timestamp_prev_move_cont) > cont_move_step_time_interval && moveToggle) {
+        timestamp_prev_move_cont = timer_read();
         switch (moveDirection) {
             case 0:
                 report.x = -contMagnitude; // replace the integer with contMagnitude
