@@ -1,9 +1,9 @@
 /*
-  Set any config.h overrides for your specific keymap here.
-  See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
+   Set any config.h overrides for your specific keymap here.
+   See config.h options at https://docs.qmk.fm/#/config_options?id=the-configh-file
 
-  Key repeat rate is determined by OS, not qmk.
-*/
+   Key repeat rate is determined by OS, not qmk.
+   */
 #define ORYX_CONFIGURATOR
 #undef MOUSEKEY_INTERVAL
 #define MOUSEKEY_INTERVAL 40
@@ -59,3 +59,42 @@
 //#define KC_YEJ      KC_MEDIA_EJECT
 //#define KC_YSE      KC_MEDIA_SELECT
 
+
+
+
+
+
+
+////////////////////////////////////////
+// config.k from satan
+////////////////////////////////////////
+
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include "../../config.h"
+
+/*
+ * MIDI options
+ */
+
+/* Prevent use of disabled MIDI features in the keymap */
+#define MIDI_ENABLE_STRICT 1
+
+/* enable basic MIDI features:
+   - MIDI notes can be sent when in Music mode is on
+*/
+#define MIDI_BASIC
+
+/* enable advanced MIDI features:
+   - MIDI notes can be added to the keymap
+   - Octave shift and transpose
+   - Virtual sustain, portamento, and modulation wheel
+   - etc.
+*/
+#define MIDI_ADVANCED
+
+/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
+#define MIDI_TONE_KEYCODE_OCTAVES 2
+
+#endif
