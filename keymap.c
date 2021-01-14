@@ -45,7 +45,7 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_ergodox_pretty(//--|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      TO(_TEST),      xxxxxxxx,        xxxxxxxx,       xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+      TO(_TEST),      xxxxxxxx,       xxxxxxxx,       TO(_MIDI),     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,             KC_O,             KC_P,             KC_BSLASH,
       KC_ESC, /*****/ CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),      SFT_T(KC_L),      CTL_T(KC_SCOLON), KC_QUOTE,
       KC_MINUS,       LT(_MOVE,KC_Z), LT(_SYMB,KC_X), LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYMB,KC_DOT), KC_SLASH ,        KC_UNDS,
@@ -95,15 +95,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ KC_LALT,        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_RALT),
   [_MIDI] = LAYOUT_ergodox_pretty(//---|--------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       TO(_BASE),
-      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
-      ________,       ________,        ________,       ________,      ________,       ________,       /**/            /**/            /**/            ________,       ________,       ________,       ________,       ________,       ________,
-      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
-      ________,       ________,        ________,       ________,      ________,       /*-------------*/               /**/            /*-------------*/               ________,       ________,       ________,       ________,       ________,
+      xxxxxxxx,       xxxxxxxx,        xxxxxxxx,       xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),      xxxxxxxx,       xxxxxxxx,       TO(_BASE),
+      xxxxxxxx,       MI_VEL_1,        MI_VEL_2,       MI_VEL_3,      MI_VEL_4,       MI_VEL_5,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+      xxxxxxxx,       MI_C,            MI_D,           MI_E,          MI_F,           MI_G,           /**/            /**/            /**/            MI_A,           MI_B,           MI_C_1,         MI_D_1,         MI_E_1,         xxxxxxxx,
+      xxxxxxxx,       xxxxxxxx,        MI_Cs,          xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       MI_Cs_1,        MI_Ds_1,        xxxxxxxx,       xxxxxxxx,
+      xxxxxxxx,       xxxxxxxx,        xxxxxxxx,       MI_TRNSD,      MI_OCTD,        /*-------------*/               /**/            /*-------------*/               MI_OCTU,        MI_TRNSU,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-      /*---------------------------------------------------------------------------*/ ________,       ________,       /**/            ________,       ________,
-      /*-------------------------------------------------------------------------------------------*/ ________,       /**/            ________,       /***************/
-      /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
+      /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+      /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
+      /*-----------------------------------------------------------*/ MI_TRNS_0,      xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,         MI_ALLOFF),
   [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -115,6 +115,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
+
+
+
+//  Keymap _ML: MIDI Layer (Advanced)
+//  ,------------------------------------------------------------------------.
+//  | Exit |    |    |    |    |    |    |    |    |    |    |    |    |     |
+//  |------------------------------------------------------------------------|
+//  |  Ch+ |    | C# | D# |    | F# | G# | A# |    | C# | D# |    |    |     |
+//  |------------------------------------------------------------------------|
+//  |  Mod  | C  | D  | E  | F  | G  | A  | B  | C  | D  | E  | F  |         |
+//  |------------------------------------------------------------------------|
+//  | Sustain |Oct-|Oct+|Mod-|Mod+|    |    |    |Tns-|Tns+|Tns0|   Sustain  |
+//  |------------------------------------------------------------------------|
+//  |     |     |     |         All notes off        |     |     |     |     |
+//  `------------------------------------------------------------------------'
+//    TG(_ML), MI_VEL_1, MI_VEL_2, MI_VEL_3,  MI_VEL_4, MI_VEL_5, MI_VEL_6, MI_VEL_7, MI_VEL_8, MI_VEL_9, MI_VEL_10, XXXXXXX,   XXXXXXX, XXXXXXX,
+//    MI_CHU,  XXXXXXX,  MI_Cs,    MI_Ds,     XXXXXXX,  MI_Fs,    MI_Gs,    MI_As,    XXXXXXX,  MI_Cs_1,  MI_Ds_1,   XXXXXXX,   XXXXXXX, XXXXXXX,
+//    MI_MOD,  MI_C,     MI_D,     MI_E,      MI_F,     MI_G,     MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,    MI_F_1,             _______,
+//    MI_SUS,            MI_OCTD,  MI_OCTU,   MI_MODSD, MI_MODSU, XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRNSD, MI_TRNSU,  MI_TRNS_0,          MI_SUS,
+//    MI_ALLOFF
+
+
+
 
 // VARIABLES ----------------------------------------
 rgblight_config_t rgblight_config;
@@ -221,11 +244,18 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_sethsv_noeeprom(0,252,255);
         break;
       case _SYMB:
+        rgblight_sethsv_noeeprom(10,90,40);
+      case _MOVE:
+        rgblight_sethsv_noeeprom(100,30,40);
+        break;
       case _POINT:
         rgblight_sethsv_noeeprom(10,90,40);
         break;
       case _FUN:
         rgblight_sethsv_noeeprom(70,0,50);
+        break;
+      case _MIDI:
+        rgblight_sethsv_noeeprom(56,0,150);
         break;
       case _TEST:
         rgblight_sethsv_noeeprom(100,150,100);

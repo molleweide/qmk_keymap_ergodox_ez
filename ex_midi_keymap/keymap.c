@@ -30,6 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, KC_RGUI, TG(_ML), KC_RCTL
   ),
 
+  #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
   /* Keymap _ML: MIDI Layer (Advanced)
    * ,------------------------------------------------------------------------.
    * | Exit |    |    |    |    |    |    |    |    |    |    |    |    |     |
@@ -72,4 +73,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,          MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, _______,          _______,
     _______, _______, _______,                   _______,                                     _______, _______, _______, _______
   ),
+  #endif
 };
