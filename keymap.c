@@ -6,8 +6,7 @@
 
 // TODO
 //
-// - split my enums into more logical semantic chunks
-//
+// subtract by lowest enum p var in order to get a low zero botom range
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -312,6 +311,20 @@ void set_move_components(int gridStep) {
     }
   }
 }
+
+
+
+/*
+ *  HANDS
+ *
+ *
+ *  todo
+ *
+ *    - rename keycode to lefthand / righthand value.
+ *
+ *
+ */
+
 void handle_left_hand(uint16_t keycode, keyrecord_t *record) { /////////////////////////////////////////////////
   // this is simple but it should work i think
   if (pmode == 0){
@@ -357,7 +370,6 @@ void handle_left_hand(uint16_t keycode, keyrecord_t *record) { /////////////////
     }
   }
 }
-
 void handle_right_hand(uint16_t keycode, keyrecord_t *record) { /////////////////////////////////////////////////
   // TODO
   //
@@ -388,6 +400,8 @@ void handle_right_hand(uint16_t keycode, keyrecord_t *record) { ////////////////
   /*             break; */
   /*     } */
 }
+
+
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
 
@@ -463,7 +477,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PDIR10:
     case PDIR11:
     case PDIR12:
-      handle_left_hand(keycode, record);
+      handle_left_hand(keycode - PDIR1, record);
       break;
     case PVEL1:
     case PVEL2:
@@ -477,7 +491,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PVEL10:
     case PVEL11:
     case PVEL12:
-      handle_right_hand(keycode, record);
+      handle_right_hand(keycode - PVEL1, record);
       break;
   }
   return true;
