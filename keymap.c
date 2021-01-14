@@ -155,20 +155,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
 #endif
 
-      /**
-       * MOUSE TESTING
-       */
+  /**
+   * MOUSE TESTING
+   */
 
-      [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
-        xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR12,         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL12,         PVEL10,         PVEL11,         PVEL12,           xxxxxxxx,
-        KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       PVEL5,          PVEL6,          PVEL7,          PVEL8,           xxxxxxxx,
-        xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,           xxxxxxxx,
-        xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-        //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-        /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
-        /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
-        /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,         /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+  [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BAS),
+      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR12,         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL12,         PVEL10,         PVEL11,         PVEL12,           xxxxxxxx,
+      KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       PVEL5,          PVEL6,          PVEL7,          PVEL8,           xxxxxxxx,
+      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,           xxxxxxxx,
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+      //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+      /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+      /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
+      /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,         /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 // VARIABLES ----------------------------------------
@@ -183,8 +183,9 @@ int pmode = 0; // pointer mode // use enum here as well, as I do w/layer name in
 // pmode 0
 int last_pressed_dir_key = 0;
 int last_pressed_vel_key = 0;
+int last_pressed_pointer_key = 0;
 uint16_t timestamp_prev_move_cont = 0;
-uint8_t cont_move_step_time_interval = 10;
+uint8_t cont_move_step_time_interval = 3;
 
 // pmode 1
 int stateMouseSequence = 0; // 0 = enter; 1 = mag; 2 = set dirA; 3 = set dirB
@@ -285,6 +286,15 @@ void repeat_last_move(int rev) {
   pointing_device_send();
   stateMouseSequence = 1;
 }
+
+
+/*
+ *  why is the arg called gridStep?
+ *
+ *  it doesnt really make sense the name now that ri have a different mouse mode
+ *
+ *  ˚
+ */
 void set_move_components(int gridStep) {
   // cont mode
   if (pmode == 0) {
@@ -313,37 +323,36 @@ void set_move_components(int gridStep) {
 }
 
 
-
 /*
- *  HANDS
- *
- *
  *  todo
  *
- *    - rename keycode to lefthand / righthand value.
- *
+ *    MGRID should actually be handled as a grid function.
  *
  */
 
-void handle_left_hand(uint16_t keycode, keyrecord_t *record) { /////////////////////////////////////////////////
+void handle_mgrid(uint16_t keycode, keyrecord_t *record) { /////////////////////////////////////////////////
   // this is simple but it should work i think
-  if (pmode == 0){
-    if (record->event.pressed) {
-      set_move_components(keycode); // should be mapped enum to degree value
+  /* if (pmode == 0){ */
+  /*   #<{(| if ( keycode inside PDIR1...12 ) {} |)}># */
+  /*   if (record->event.pressed) { */
+  /*     // receive pdir value here */
+  /*     set_move_components(keycode); // should be mapped enum to degree value */
+  /*  */
+  /*     last_pressed_dir_key = keycode; */
+  /*     // TODO */
+  /*     //    set move components from here. what arguments? */
+  /*   } else { */
+  /*     if (last_pressed_dir_key == keycode) { */
+  /*       last_pressed_dir_key = 0; */
+  /*     } */
+  /*   } */
+  /*   #<{(| if ( keycode inside PVEL1...12 ) {} |)}># */
+  /*  */
+  /*  */
+  /* } */
 
-      last_pressed_dir_key = keycode;
-      // TODO
-      //    set move components from here. what arguments?
-    } else {
-      if (last_pressed_dir_key == keycode) {
-        last_pressed_dir_key = 0;
-      }
-    }
 
-  }
-
-
-  // old
+  // old / vim sequential mode
 
   if (record->event.pressed && pmode == 1) {
     if (record->event.key.col == 1) {
@@ -375,18 +384,18 @@ void handle_right_hand(uint16_t keycode, keyrecord_t *record) { ////////////////
   //
   //  - set current magnitude
 
-  if (pmode == 0) {
-    if (record->event.pressed) {
-      // set curr
-      currMag = keycode;
-
-      last_pressed_vel_key = keycode;
-    } else {
-      if (last_pressed_vel_key == keycode) {
-        last_pressed_vel_key = 0;
-      }
-    }
-  }
+  /* if (pmode == 0) { */
+  /*   if (record->event.pressed) { */
+  /*     // set curr */
+  /*     currMag = keycode; */
+  /*  */
+  /*     last_pressed_vel_key = keycode; */
+  /*   } else { */
+  /*     if (last_pressed_vel_key == keycode) { */
+  /*       last_pressed_vel_key = 0; */
+  /*     } */
+  /*   } */
+  /* } */
 
   /* void handle_mvim_grid_event(keyrecord_t *record) { */
   /*     switch (mouseMode) { */
@@ -401,42 +410,54 @@ void handle_right_hand(uint16_t keycode, keyrecord_t *record) { ////////////////
   /*     } */
 }
 
+void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
+  if (pmode == 0){
+    if ( keycode < PVEL1 ) { // DIRECTION -----------------------------------------
+      if (record->event.pressed) {
+
+        set_move_components(keycode - PDIR1); // should be mapped enum to degree value
+        last_pressed_dir_key = keycode;
+
+        // release -------------------------------
+      } else {
+        if (last_pressed_dir_key == keycode) {
+          last_pressed_dir_key = 0;
+        }
+      }
+
+    }
+    if ( keycode > PDIR1 ) { // VELOCITY ------------------------------------------
+      if (record->event.pressed) {
+        // mag is unsigned right???
+        currMag = (keycode - PVEL1) * 3; // last num is sensitivity scalar
+        last_pressed_vel_key = keycode;
+
+      } else {
+        if (last_pressed_vel_key == keycode) {
+          last_pressed_vel_key = 0;
+        }
+      }
+    }
+
+    last_pressed_pointer_key = keycode;
+  }
+}
 
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
 
-  // 1. isContMoveFlag
-  // 2. > step_time_interval
-  // 3. DIR && ACC // bool flags L/R hand is pressed
-  // 4. contCurrentDirection
-  // 5. contCurrentSpeed
   if (timer_elapsed(timestamp_prev_move_cont) > cont_move_step_time_interval
       && last_pressed_dir_key > 0
       && last_pressed_vel_key > 0
      ) {
     timestamp_prev_move_cont = timer_read();
-    // first
-    // compute currX and currY w/ dir * mag
     report.x = currX;
     report.y =  currY;
-    /* switch (moveDirection) { */
-    /*     case 0: */
-    /*         report.x = -contMagnitude; // replace the integer with contMagnitude */
-    /*         break; */
-    /*     case 1: */
-    /*         report.y = contMagnitude; */
-    /*         break; */
-    /*     case 2: */
-    /*         report.y = -contMagnitude; */
-    /*         break; */
-    /*     case 3: */
-    /*         report.x = contMagnitude; */
-    /*         break; */
-    /* } */
   }
   pointing_device_set_report(report);
   pointing_device_send();
 }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case RGB_SLD:
@@ -450,7 +471,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case MGRID:
-      handle_left_hand(keycode, record);
+      handle_mgrid(keycode, record);
       break;
     case MRESET:
       stateMouseSequence = 0;
@@ -465,34 +486,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         repeat_last_move(0);
       }
       break;
-    case PDIR1:
-    case PDIR2:
-    case PDIR3:
-    case PDIR4:
-    case PDIR5:
-    case PDIR6:
-    case PDIR7:
-    case PDIR8:
-    case PDIR9:
-    case PDIR10:
-    case PDIR11:
-    case PDIR12:
-      handle_left_hand(keycode - PDIR1, record);
-      break;
-    case PVEL1:
-    case PVEL2:
-    case PVEL3:
-    case PVEL4:
-    case PVEL5:
-    case PVEL6:
-    case PVEL7:
-    case PVEL8:
-    case PVEL9:
-    case PVEL10:
-    case PVEL11:
-    case PVEL12:
-      handle_right_hand(keycode - PVEL1, record);
-      break;
+
+
+      // pointer handling --------------------------------------
+
+    case PDIR1 ... PVEL12:
+      handle_pointer_keycodes(keycode, record)
   }
   return true;
 }
@@ -541,7 +540,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
   }
   return state;
-};
+}
 
 void keyboard_post_init_user(void) {
   layer_state_set_user(layer_state);
