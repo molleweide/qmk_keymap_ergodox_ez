@@ -25,6 +25,8 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
+- need to add capslock
+
 - move control to pinky on row below
 
 - mouse right click -> enter base???

@@ -42,11 +42,6 @@ enum layer_names {
   _TEST,
 };
 
-enum tapdance_keycodes {
-  TD_MMODE,       // switch mouse mode
-  TD_ESC_LCO,    // esc or move to L mouse complement
-  TD_QUOTE_RCO,  // esc or move to R mouse complement
-};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_ergodox_pretty(//--|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
@@ -80,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ ________,       /**/            ________,       /***************/
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(0),
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR12,         xxxxxxxx,       /**/            xxxxxxxx,       PVEL12,         PVEL10,         PVEL11,         PVEL12,         xxxxxxxx,       xxxxxxxx,
       xxxxxxxx,       PDIR5,          PDIR6,          PDIR7,          PDIR8,          TO(_BASE),      /**/            /**/            /**/            TO(_BASE),      PVEL5,          PVEL6,          PVEL7,          PVEL8,          xxxxxxxx,
       xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,          xxxxxxxx,
@@ -90,18 +85,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ KC_MS_BTN3,     KC_MS_BTN4,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_MS_BTN5),
   [_FUN] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(0),
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       KC_F9,          KC_F10,         KC_F11,         KC_F12,         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_F21,         KC_F22,         KC_F23,         KC_F24,         xxxxxxxx,
       xxxxxxxx,       KC_F5,          KC_F6,          KC_F7,          CMD_T(KC_F8),   xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       CMD_T(KC_F17),  KC_F18,         KC_F19,         KC_F20,         xxxxxxxx,
       xxxxxxxx,       CTL_T(KC_F1),   SFT_T(KC_F2),   KC_F3,          KC_F4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_F13,         KC_F14,         SFT_T(KC_F15),  CTL_T(KC_F16),  xxxxxxxx,
-      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(0),
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ KC_LALT,        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_RALT),
-#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
   [_MIDI] = LAYOUT_ergodox_pretty(//---|--------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
+      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       TO(_BASE),
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       /**/            /**/            /**/            ________,       ________,       ________,       ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
@@ -110,7 +104,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*---------------------------------------------------------------------------*/ ________,       ________,       /**/            ________,       ________,
       /*-------------------------------------------------------------------------------------------*/ ________,       /**/            ________,       /***************/
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
-#endif
   [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -129,50 +122,23 @@ bool disable_layer_color = 0;
 
 int last_pressed_dir_key = 0;
 int last_pressed_vel_key = 0;
-uint16_t TIMESTAMP_PREV_POINTER = 0;
-uint8_t POINTER_UPDATE_INTERVAL = 15; // millisec
+int POINTER_V = 0;
+int POINTER_X = 0;
+int POINTER_Y = 0;
 
 float rad = PI / 180;
 float CLOCK_SHIFT = - PI / 3;
 
-int currMag = 0;
-int currX = 0;
-int currY = 0;
+int POINTER_UPDATE_INTERVAL = 15; // milliseconds
+uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
-/* void dance_mousemode_finished (qk_tap_dance_state_t *state, void *user_data) { */
-/*     mouseMode = state->count; */
-/*     reset_pointer(); */
-/* } */
-/*  */
-/* void dance_esc_lco (qk_tap_dance_state_t *state, void *user_data) { */
-/*     if (state->count == 1) { */
-/*         register_code (KC_ESC); */
-/*         unregister_code (KC_ESC); */
-/*     } else { */
-/*         // set layer left compl */
-/*         layer_move(_LCO); */
-/*     } */
-/* } */
-/* void dance_quote_rco (qk_tap_dance_state_t *state, void *user_data) { */
-/*     if (state->count == 1) { */
-/*         register_code (KC_QUOTE); */
-/*         unregister_code (KC_QUOTE); */
-/*     } else { */
-/*         // set layer right comp */
-/*         layer_move(_RCO); */
-/*     } */
-/* } */
-/*  */
-/* qk_tap_dance_action_t tap_dance_actions[] = { */
-/*     [TD_MMODE] = ACTION_TAP_DANCE_FN (dance_mousemode_finished), */
-/*     [TD_ESC_LCO]   = ACTION_TAP_DANCE_FN (dance_esc_lco), */
-/*     [TD_QUOTE_RCO] = ACTION_TAP_DANCE_FN (dance_quote_rco), */
-/* }; */
+// TODO
+// how can I shift the valus so that U/D/L/R becomes as smooth as possible
 
 void set_dir_curr(int steps){
-  float trig = (steps-1) * 30 * rad; // 12 * degrees * rad
-  currX = round(currMag * cos(trig + CLOCK_SHIFT));
-  currY = round(currMag * sin(trig + CLOCK_SHIFT));
+  float direction_in_radians = (steps-1) * 30 * rad; // 12 * degrees * rad
+  POINTER_X = round(POINTER_V * cos(direction_in_radians + CLOCK_SHIFT));
+  POINTER_Y = round(POINTER_V * sin(direction_in_radians + CLOCK_SHIFT));
 }
 
 // TODO
@@ -196,7 +162,7 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   if ( 13 <= pk && pk <= 24 ) {
     if (record->event.pressed) {
 
-      currMag = pk - 12; last_pressed_vel_key = keycode;
+      POINTER_V = pk - 12; last_pressed_vel_key = keycode;
 
     } else {
       // release...
@@ -215,8 +181,8 @@ void pointing_device_task(void) {
       && last_pressed_vel_key > 0
      ) {
     TIMESTAMP_PREV_POINTER = timer_read();
-    report.x = currX;
-    report.y =  currY;
+    report.x = POINTER_X;
+    report.y =  POINTER_Y;
   }
   pointing_device_set_report(report);
   pointing_device_send();
