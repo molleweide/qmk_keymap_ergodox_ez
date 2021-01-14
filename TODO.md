@@ -25,55 +25,20 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
+- mouse release is not perfect yet
+
+- having to(BASE) next to index finger is not good. it should be on thumbs for sure.
+  i could also have a hold down both thumbs to ender \_BASE.
+
+  1. hold down left thumb(goToNewLayer). and press right thumb key(go back to base)
+
 - need to add capslock
 
 - move control to pinky on row below
 
-- mouse right click -> enter base???
+- mouse right click > enter base???
 
-- if grid and layer === \_TEST
-
-  so that I can test different things with the grid.
-
-- add new modular file from which I import functions that I can use with marcus.
-
-  import new mouse function?
-
-- custom syntax / prettier ?
-  ignore syntax between comments??? so that I can structure my layers freely.
-
-- VIM TABULAR >>> can I use this to more easilly manage the qmk syntax in code???
-
-- key > turn off rgb lights
-
-* add / to numpad!!!
-
-* switch disc/cont.
-
-* add a repeat button > that makes it possible to repeat a char without double hitting it.
-
-* mirror mouse mode for right hand.
-
-* why are the steps of the mouse pointer not linear.
-
-* `_BAS` add symbols to bottom layer.
-
-* Index_finger layer?
-
-* mod keys in all layers
-
-* spacing keys
-  enter, space, backspace, tab
-
-* where put `RESET`
-
-* add show mouse key >> make moure spin in cicles.
-
-* reverse repeat.
-
-  ---
-
-# general thoughts and todos
+## general thoughts and todos
 
 - how should I do with the CMD key
 

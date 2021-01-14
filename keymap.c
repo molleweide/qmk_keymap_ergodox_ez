@@ -122,12 +122,14 @@ bool disable_layer_color = 0;
 
 int last_pressed_dir_key = 0;
 int last_pressed_vel_key = 0;
+
+int POINTER_DIR_STEP = 0;
 int POINTER_V = 0;
 int POINTER_X = 0;
 int POINTER_Y = 0;
 
 float rad = PI / 180;
-float CLOCK_SHIFT = - PI / 3;
+float CLOCK_SHIFT = - PI / 3; // ?
 
 int POINTER_UPDATE_INTERVAL = 15; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
@@ -135,8 +137,8 @@ uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 // TODO
 // how can I shift the valus so that U/D/L/R becomes as smooth as possible
 
-void set_dir_curr(int steps){
-  float direction_in_radians = (steps-1) * 30 * rad; // 12 * degrees * rad
+void update_pointer_xy(int dummy){
+  float direction_in_radians = POINTER_DIR_STEP * 30 * rad;
   POINTER_X = round(POINTER_V * cos(direction_in_radians + CLOCK_SHIFT));
   POINTER_Y = round(POINTER_V * sin(direction_in_radians + CLOCK_SHIFT));
 }
@@ -148,25 +150,24 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   // normalize pointer
   int pk = keycode - PDIR1 + 1;
   if ( 1 <= pk && pk <= 12 ) {
-    if (record->event.pressed) {
+    if (record->event.pressed) { // && keycode != prev
 
-      set_dir_curr(pk); last_pressed_dir_key = keycode;
-
+      POINTER_DIR_STEP = pk; last_pressed_dir_key = keycode;
+      update_pointer_xy(1);
     } else {
-      // release...
-      if (last_pressed_dir_key == keycode) {
+      if (last_pressed_dir_key == keycode) { // == prev
         last_pressed_dir_key = 0;
       }
     }
   }
   if ( 13 <= pk && pk <= 24 ) {
-    if (record->event.pressed) {
+    if (record->event.pressed) { // && keycode != prev
 
       POINTER_V = pk - 12; last_pressed_vel_key = keycode;
+      update_pointer_xy(1);
 
     } else {
-      // release...
-      if (last_pressed_vel_key == keycode) {
+      if (last_pressed_vel_key == keycode) { // == prev
         last_pressed_vel_key = 0;
       }
     }
