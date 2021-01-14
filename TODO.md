@@ -25,25 +25,9 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
-- shift pointer keys so that I never have to move the hand for pointing.
+- move control to pinky on row below
 
-* mouse booster key??
-
-- remove put underscore on outer right sides
-
-- I need to add new mouse move that only moves when a directional key is pressed down
-  right hand just updates the speed variable. this should be easy by reusing the code I already have.
-
-  1. go back copy code mouse cont.
-  2. paste function in current
-  3. change state variables
-  4. point my custom_pointer function to this new function. > I could even have a switch for shifting the move modality.
-
-- \_TEST layer >> reset safety: hold down keys with left hand > make RESET button available
-
-- put thumb space etc. on the lowest row.
-
-- how do I mouse scroll
+- mouse right click -> enter base???
 
 - if grid and layer === \_TEST
 
