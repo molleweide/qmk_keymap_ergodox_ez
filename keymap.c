@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TO(_TEST),      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           WEBUSB_PAIR,    /**/            xxxxxxxx,       KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_TRNS,
       KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLASH,
       KC_ESC,         CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),    SFT_T(KC_L),    CTL_T(KC_SCOLON), KC_QUOTE,
-      ________,       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYM,KC_DOT),LT(_LMS,KC_SLASH),KC_MINUS,
+      KC_MINUS,       LT(_RMS,KC_Z),  LT(_NUM,KC_X),  LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYM,KC_DOT),LT(_LMS,KC_SLASH),KC_UNDS,
       KC_GRAVE,       CTL_T(KC_LEFT), KC_DOWN,        KC_UP,          KC_RGHT,        /*-------------*/               /**/            /*-------------*/               KC_LEFT,        KC_DOWN,        KC_UP,          CTL_T(KC_RGHT), xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
-      /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,         /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
+      /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
 // VARIABLES ----------------------------------------
@@ -185,7 +185,7 @@ int last_pressed_dir_key = 0;
 int last_pressed_vel_key = 0;
 int last_pressed_pointer_key = 0;
 uint16_t timestamp_prev_move_cont = 0;
-uint8_t cont_move_step_time_interval = 3;
+uint8_t cont_move_step_time_interval = 20; // millisec update interval
 
 // pmode 1
 int stateMouseSequence = 0; // 0 = enter; 1 = mag; 2 = set dirA; 3 = set dirB
@@ -245,10 +245,18 @@ void set_mag_curr(void){
   /*   uprintf("currMag: %u\n\n", currMag); */
   /* #endif */
 }
-void set_dir_curr(void){
 
+
+
+
+/*
+ *
+ * radians
+ * apply clock shift
+ */
+void set_dir_curr(int twelve_stepts){
   if (pmode == 0 ) {
-    float trig = last_pressed_dir_key * 30 * rad; // 12 * degrees * rad
+    float trig = (twelve_stepts-1) * 30 * rad; // 12 * degrees * rad
     currX = round(currMag * cos(trig + shift));
     currY = round(currMag * sin(trig + shift));
   }
@@ -298,7 +306,7 @@ void repeat_last_move(int rev) {
 void set_move_components(int gridStep) {
   // cont mode
   if (pmode == 0) {
-    set_dir_curr();
+    set_dir_curr(gridStep);
   }
   // discrete mode sequences
   // wrap in mode==?
@@ -315,7 +323,7 @@ void set_move_components(int gridStep) {
       stateMouseSequence = 4;
     } else if ( stateMouseSequence == 4 ) {
       dirB = gridStep;
-      set_dir_curr();
+      set_dir_curr(gridStep);
       update_pointer();
       stateMouseSequence = 1;
     }
@@ -412,10 +420,14 @@ void handle_right_hand(uint16_t keycode, keyrecord_t *record) { ////////////////
 
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   if (pmode == 0){
-    if ( keycode < PVEL1 ) { // DIRECTION -----------------------------------------
+    int pk = keycode - PDIR1 + 1; // pointer key normalized
+    if ( 1 <= pk && pk <= 12 ) { // DIRECTION -----------------------------------------
       if (record->event.pressed) {
 
-        set_move_components(keycode - PDIR1); // should be mapped enum to degree value
+#ifdef CONSOLE_ENABLE
+    uprintf("keycode: %u\n\n", pk);
+#endif
+        set_move_components(pk); // should be mapped enum to degree value
         last_pressed_dir_key = keycode;
 
         // release -------------------------------
@@ -426,10 +438,13 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
       }
 
     }
-    if ( keycode > PDIR1 ) { // VELOCITY ------------------------------------------
+    if ( 13 <= pk && pk <= 24 ) { // VELOCITY ------------------------------------------
       if (record->event.pressed) {
         // mag is unsigned right???
-        currMag = (keycode - PVEL1) * 3; // last num is sensitivity scalar
+#ifdef CONSOLE_ENABLE
+    uprintf("keycode: %u\n\n", pk);
+#endif
+        currMag = pk - 12; // last num is sensitivity scalar
         last_pressed_vel_key = keycode;
 
       } else {
@@ -443,6 +458,12 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
+/*
+ *
+ * loop that updates the pointer. runs all the time.
+ * only it true will the pointer update.
+ *
+ */
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
 
@@ -491,7 +512,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // pointer handling --------------------------------------
 
     case PDIR1 ... PVEL12:
-      handle_pointer_keycodes(keycode, record)
+      handle_pointer_keycodes(keycode, record);
   }
   return true;
 }
