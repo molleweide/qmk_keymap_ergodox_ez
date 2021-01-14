@@ -25,7 +25,9 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
 
 # todo ---------------------------------------------------------
 
-- move sym/num into same layer?? size...
+- shift pointer keys so that I never have to move the hand for pointing.
+
+* mouse booster key??
 
 - remove put underscore on outer right sides
 
