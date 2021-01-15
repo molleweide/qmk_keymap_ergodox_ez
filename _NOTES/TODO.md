@@ -1,89 +1,45 @@
-# KB LAYOUT ----------------------------------------------------
+# KB LAYOUT
 
-# reduce firmware size
+## RNDM
 
-https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
-
----
-
-# debugging macos
+# debugging macos ----------------------------------
 
 1. use this to create log statements
-   #ifdef CONSOLE_ENABLE
-   uprintf("set direction");
-   #endif
+
+```C
+#ifdef
+CONSOLE_ENABLE uprintf("set direction");
+#endif
+```
+
 2. get hid_listen app.
 3. run `./hid_listen.mac` in commandline to start logging
 
-# flash w/KB
+# flash w/KB ---------------------------------------
 
 1. qmk build : `make <keyboard>:<keymap>`
 2. flash : zshrc > alias tfl="teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_myergo.hex"
-   (3). hit RESET kc in safe layer.
-   this is only necessary if you load the keymap manually into teensy app.
-   then, hitting RESET is the same as pressing the reset button with paperclip
+3. hit RESET kc in safe layer. wait for 5 seconds...
 
-# todo ---------------------------------------------------------
+## todo --------------------------------------------
 
-- remove put underscore on outer right sides
+- pointer direction
 
-- I need to add new mouse move that only moves when a directional key is pressed down
-  right hand just updates the speed variable. this should be easy by reusing the code I already have.
+  add back pinky keys for
 
-  1. go back copy code mouse cont.
-  2. paste function in current
-  3. change state variables
-  4. point my custom_pointer function to this new function. > I could even have a switch for shifting the move modality.
+- mouse release is not perfect yet
 
-- \_TEST layer >> reset safety: hold down keys with left hand > make RESET button available
+- having to(BASE) next to index finger is not good. it should be on thumbs for sure.
+  i could also have a hold down both thumbs to ender BASE.
+  hold down left thumb(goToNewLayer). and press right thumb keygo back to base
 
-- put thumb space etc. on the lowest row.
+- need to add capslock
 
-- how do I mouse scroll
+- move control to pinky on row below
 
-- if grid and layer === \_TEST
+- mouse right click enter base???
 
-  so that I can test different things with the grid.
-
-- add new modular file from which I import functions that I can use with marcus.
-
-  import new mouse function?
-
-- custom syntax / prettier ?
-  ignore syntax between comments??? so that I can structure my layers freely.
-
-- VIM TABULAR >>> can I use this to more easilly manage the qmk syntax in code???
-
-- key > turn off rgb lights
-
-* add / to numpad!!!
-
-* switch disc/cont.
-
-* add a repeat button > that makes it possible to repeat a char without double hitting it.
-
-* mirror mouse mode for right hand.
-
-* why are the steps of the mouse pointer not linear.
-
-* `_BAS` add symbols to bottom layer.
-
-* Index_finger layer?
-
-* mod keys in all layers
-
-* spacing keys
-  enter, space, backspace, tab
-
-* where put `RESET`
-
-* add show mouse key >> make moure spin in cicles.
-
-* reverse repeat.
-
-  ---
-
-# general thoughts and todos
+## general thoughts and todos
 
 - how should I do with the CMD key
 
@@ -96,9 +52,3 @@ https://thomasbaart.nl/2018/12/01/reducing-firmware-size-in-qmk/
   main kc, tap kc, and hold down kc.
   this will make the thumb clusters into monsters
 
-# RNDM
-
-so it seems that the enum keys are mapped to an integer and therefore the switch case complains.
-So I have to fix this now. but this is a good foundation for the controller pointer.
-now ri will just figure out how to modify it a little bit so that it can work with the new
-rule or whatever.
