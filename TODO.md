@@ -2,12 +2,7 @@
 
 ## RNDM
 
-det kommer ju bli so mycket roligare att jobba med datorer naer det haer goes as fast
-as you can imagine.
-
-the importance is that you know what the fuck you are doing. then there will be a magical path.
-
-# debugging macos
+# debugging macos ----------------------------------
 
 1. use this to create log statements
 
@@ -20,13 +15,18 @@ CONSOLE_ENABLE uprintf("set direction");
 2. get hid_listen app.
 3. run `./hid_listen.mac` in commandline to start logging
 
-# flash w/KB
+# flash w/KB ---------------------------------------
 
 1. qmk build : `make <keyboard>:<keymap>`
 2. flash : zshrc > alias tfl="teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_myergo.hex"
 3. hit RESET kc in safe layer. wait for 5 seconds...
 
-## todo
+## todo --------------------------------------------
+
+- pointer direction
+
+  add back pinky keys for
+  make variable mouse keys. i want to test out 8 keys. and 16 keys
 
 - mouse release is not perfect yet
 
