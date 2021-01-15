@@ -4,6 +4,10 @@
 #include "pointing_device.h"
 #define PI 3.14159265
 
+// TODO
+//
+//  make pointer keys variaple
+
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   PDIR1,
@@ -29,8 +33,12 @@ enum custom_keycodes {
   PVEL9,
   PVEL10,
   PVEL11,
-  PVEL12,
+  PVEL12
 };
+
+// TODO
+//
+//  layer ideas?
 
 enum layer_names {
   _BASE = 0,
@@ -43,7 +51,6 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
   [_BASE] = LAYOUT_ergodox_pretty(//--|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       TO(_TEST),      xxxxxxxx,       xxxxxxxx,       TO(_MIDI),     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,             KC_O,             KC_P,             KC_BSLASH,
@@ -75,15 +82,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ ________,       /**/            ________,       /***************/
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR12,         xxxxxxxx,       /**/            xxxxxxxx,       PVEL12,         PVEL10,         PVEL11,         PVEL12,         xxxxxxxx,       xxxxxxxx,
-      xxxxxxxx,       PDIR5,          PDIR6,          PDIR7,          PDIR8,          TO(_BASE),      /**/            /**/            /**/            TO(_BASE),      PVEL5,          PVEL6,          PVEL7,          PVEL8,          xxxxxxxx,
+      xxxxxxxx,       PDIR5,          PDIR6,          PDIR7,          PDIR8,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       PVEL5,          PVEL6,          PVEL7,          PVEL8,          xxxxxxxx,
       xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,          xxxxxxxx,
-      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),      KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,     TO(_BASE),      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
-      /*-----------------------------------------------------------*/ KC_MS_BTN3,     KC_MS_BTN4,     xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_MS_BTN5),
+      /*-----------------------------------------------------------*/ TO(_BASE),      KC_MS_BTN3,     KC_MS_BTN4,     /**/            xxxxxxxx,       KC_MS_BTN5,     TO(_BASE)),
   [_FUN] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       KC_F9,          KC_F10,         KC_F11,         KC_F12,         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_F21,         KC_F22,         KC_F23,         KC_F24,         xxxxxxxx,
@@ -116,8 +123,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
-
-
 //  Keymap _ML: MIDI Layer (Advanced)
 //  ,------------------------------------------------------------------------.
 //  | Exit |    |    |    |    |    |    |    |    |    |    |    |    |     |
@@ -135,9 +140,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //    MI_MOD,  MI_C,     MI_D,     MI_E,      MI_F,     MI_G,     MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,    MI_F_1,             _______,
 //    MI_SUS,            MI_OCTD,  MI_OCTU,   MI_MODSD, MI_MODSU, XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRNSD, MI_TRNSU,  MI_TRNS_0,          MI_SUS,
 //    MI_ALLOFF
-
-
-
 
 // VARIABLES ----------------------------------------
 rgblight_config_t rgblight_config;
@@ -173,24 +175,21 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   // normalize pointer
   int pk = keycode - PDIR1 + 1;
   if ( 1 <= pk && pk <= 12 ) {
-    if (record->event.pressed) { // && keycode != prev
-
+    if (record->event.pressed) {
       POINTER_DIR_STEP = pk; last_pressed_dir_key = keycode;
       update_pointer_xy(1);
     } else {
-      if (last_pressed_dir_key == keycode) { // == prev
+      if (last_pressed_dir_key == keycode) {
         last_pressed_dir_key = 0;
       }
     }
   }
   if ( 13 <= pk && pk <= 24 ) {
-    if (record->event.pressed) { // && keycode != prev
-
+    if (record->event.pressed) {
       POINTER_V = pk - 12; last_pressed_vel_key = keycode;
       update_pointer_xy(1);
-
     } else {
-      if (last_pressed_vel_key == keycode) { // == prev
+      if (last_pressed_vel_key == keycode) {
         last_pressed_vel_key = 0;
       }
     }
