@@ -4,10 +4,6 @@
 #include "pointing_device.h"
 #define PI 3.14159265
 
-// TODO
-//
-//  make pointer keys variaple
-
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   PDIR1,
@@ -21,7 +17,7 @@ enum custom_keycodes {
   PDIR9,
   PDIR10,
   PDIR11,
-  PDIR12,
+  PDIR_LAST,
   PVEL1,
   PVEL2,
   PVEL3,
@@ -33,12 +29,11 @@ enum custom_keycodes {
   PVEL9,
   PVEL10,
   PVEL11,
-  PVEL12
+  PVEL12,
+  PVEL13,
+  PVEL14,
+  PVEL_LAST,
 };
-
-// TODO
-//
-//  layer ideas?
 
 enum layer_names {
   _BASE = 0,
@@ -83,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-      xxxxxxxx,       xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR12,         xxxxxxxx,       /**/            xxxxxxxx,       PVEL12,         PVEL10,         PVEL11,         PVEL12,         xxxxxxxx,       xxxxxxxx,
-      xxxxxxxx,       PDIR5,          PDIR6,          PDIR7,          PDIR8,          xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       PVEL5,          PVEL6,          PVEL7,          PVEL8,          xxxxxxxx,
-      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,          xxxxxxxx,
+      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL11,         PVEL12,         PVEL13,         PVEL14,         PVEL_LAST,      xxxxxxxx,
+      xxxxxxxx,       PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            PVEL6,          PVEL7,          PVEL8,          PVEL9,          PVEL10,         xxxxxxxx,
+      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,          PVEL5,          xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -145,16 +140,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
+// TODO
+//
+//  rename the last keycode `P_DIR_LAST`
+
+int POINTER_DIR_COUNT =  PDIR_LAST - PDIR1 + 1;
+int POINTER_VEL_COUNT =  PVEL_LAST - PVEL1 + 1;
+
 int last_pressed_dir_key = 0;
 int last_pressed_vel_key = 0;
 
-int POINTER_DIR_STEP = 0;
+int POINTER_CURR_DIR = 0;
 int POINTER_V = 0;
 int POINTER_X = 0;
 int POINTER_Y = 0;
 
 float rad = PI / 180;
-float CLOCK_SHIFT = - PI / 3; // ?
+float CLOCK_SHIFT = - PI / 3; // 0 == 12 o'clock ?
 
 int POINTER_UPDATE_INTERVAL = 15; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
@@ -163,7 +165,7 @@ uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 // how can I shift the valus so that U/D/L/R becomes as smooth as possible
 
 void update_pointer_xy(int dummy){
-  float direction_in_radians = POINTER_DIR_STEP * 30 * rad;
+  float direction_in_radians = POINTER_CURR_DIR * 360/POINTER_DIR_COUNT * rad; // replace 30 by 360/POINTER_DIR_COUNT
   POINTER_X = round(POINTER_V * cos(direction_in_radians + CLOCK_SHIFT));
   POINTER_Y = round(POINTER_V * sin(direction_in_radians + CLOCK_SHIFT));
 }
@@ -174,9 +176,9 @@ void update_pointer_xy(int dummy){
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   // normalize pointer
   int pk = keycode - PDIR1 + 1;
-  if ( 1 <= pk && pk <= 12 ) {
+  if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) { // poin
     if (record->event.pressed) {
-      POINTER_DIR_STEP = pk; last_pressed_dir_key = keycode;
+      POINTER_CURR_DIR = pk; last_pressed_dir_key = keycode;
       update_pointer_xy(1);
     } else {
       if (last_pressed_dir_key == keycode) {
@@ -184,9 +186,9 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
       }
     }
   }
-  if ( 13 <= pk && pk <= 24 ) {
+  if ( POINTER_DIR_COUNT < pk && pk <= POINTER_DIR_COUNT + POINTER_VEL_COUNT ) {
     if (record->event.pressed) {
-      POINTER_V = pk - 12; last_pressed_vel_key = keycode;
+      POINTER_V = pk - POINTER_DIR_COUNT; last_pressed_vel_key = keycode;
       update_pointer_xy(1);
     } else {
       if (last_pressed_vel_key == keycode) {
@@ -223,7 +225,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         disable_layer_color ^= 1;
       }
       return false;
-    case PDIR1 ... PVEL12:
+
+    // first P direction ... last p velocity
+    case PDIR1 ... PVEL_LAST:
       handle_pointer_keycodes(keycode, record);
   }
   return true;
