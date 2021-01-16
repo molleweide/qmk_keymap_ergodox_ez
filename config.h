@@ -41,59 +41,28 @@
 #define oooooooo    KC_TRANSPARENT
 #define xxxxxxxx    KC_NO
 
-// #define KC_SPC      KC_SPACE
-// #define KC_BSPC     KC_BSPACE
-// #define KC_ENT    KC_ENTERER
-// #define KC_SLSH     KC_SLASH
-// #define KC_BSLSH    KC_BSLASH
-// #define KC_SCOL     KC_SCOLON
-// #define KC_COM      KC_COMMAMA
-//
-// media keys
-//#define KC_YPP      KC_MEDIA_PLAY_PAUSE
-//#define KC_YST      KC_MEDIA_STOP
-//#define KC_YNT      KC_MEDIA_NEXT_TRACK
-//#define KC_YPT      KC_MEDIA_PREV_TRACK
-//#define KC_YFF      KC_MEDIA_FAST_FORWARD
-//#define KC_YRW      KC_MEDIA_REWIND
-//#define KC_YEJ      KC_MEDIA_EJECT
-//#define KC_YSE      KC_MEDIA_SELECT
 
 
+/*
+ * MIDI options
+ */
 
-
-
-
-
-// ////////////////////////////////////////
-// // config.k from satan
-// ////////////////////////////////////////
-//
-// // #ifndef CONFIG_USER_H
-// // #define CONFIG_USER_H
-//
-// // #include "../../config.h"
-//
-// /*
-//  * MIDI options
-//  */
-//
-// /* Prevent use of disabled MIDI features in the keymap */
+/* Prevent use of disabled MIDI features in the keymap */
  #define MIDI_ENABLE_STRICT 1
-//
-// /* enable basic MIDI features:
-//    - MIDI notes can be sent when in Music mode is on
-// */
-// #define MIDI_BASIC
-//
-// /* enable advanced MIDI features:
-//    - MIDI notes can be added to the keymap
-//    - Octave shift and transpose
-//    - Virtual sustain, portamento, and modulation wheel
-//    - etc.
-// */
- #define MIDI_ADVANCED
-//
-// /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
- #define MIDI_TONE_KEYCODE_OCTAVES 2
+
+/* enable basic MIDI features:
+   - MIDI notes can be sent when in Music mode is on
+*/
+#define MIDI_BASIC
+
+/* enable advanced MIDI features:
+   - MIDI notes can be added to the keymap
+   - Octave shift and transpose
+   - Virtual sustain, portamento, and modulation wheel
+   - etc.
+*/
+#define MIDI_ADVANCED
+
+/* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
+#define MIDI_TONE_KEYCODE_OCTAVES 3
 

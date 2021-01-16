@@ -32,6 +32,16 @@ enum custom_keycodes {
   PVEL12,
   PVEL13,
   PVEL14,
+  PVEL15,
+  PVEL16,
+  PVEL17,
+  PVEL18,
+  PVEL19,
+  PVEL20,
+  PVEL21,
+  PVEL22,
+  PVEL23,
+  PVEL24,
   PVEL_LAST,
 };
 
@@ -46,27 +56,27 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_ergodox_pretty(//--|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      TO(_TEST),      xxxxxxxx,       xxxxxxxx,       TO(_MIDI),     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-      KC_TAB,         KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,             KC_O,             KC_P,             KC_BSLASH,
-      KC_ESC, /*****/ CTL_T(KC_A),    SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),    ALT_T(KC_K),      SFT_T(KC_L),      CTL_T(KC_SCOLON), KC_QUOTE,
-      KC_MINUS,       LT(_MOVE,KC_Z), LT(_SYMB,KC_X), LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYMB,KC_DOT), KC_SLASH ,        KC_UNDS,
-      xxxxxxxx,       CTL_T(KC_LEFT), xxxxxxxx,        KC_ESC,         TO(_POINT),     /*-------------*/              /**/            /*-------------*/               TO(_POINT),     KC_QUOTE,        xxxxxxxx,         CTL_T(KC_RGHT),   xxxxxxxx,
+  [_BASE] = LAYOUT_ergodox_pretty(//------|-----------------|---------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+      TO(_TEST),        xxxxxxxx,         xxxxxxxx,         TO(_MIDI),     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+      KC_MINUS,         KC_Q,             LT(_SYMB,KC_W), KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           LT(_SYMB,KC_O), KC_P,             KC_BSLASH,
+      KC_ESC,   /***/   CTL_T(KC_A),      SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),   ALT_T(KC_K),      SFT_T(KC_L),   CTL_T(KC_SCOLON),KC_UNDS,
+      xxxxxxxx,         LT(_MOVE,KC_Z),   LT(_SYMB,KC_X), LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYMB,KC_DOT), KC_SLASH ,        KC_UNDS,
+      xxxxxxxx,         CTL_T(KC_LEFT),   xxxxxxxx,       KC_ESC,        TO(_POINT),      /*-------------*/              /**/            /*-------------*/                TO(_POINT),     KC_QUOTE,        xxxxxxxx,         CTL_T(KC_RGHT),   xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-      /*---------------------------------------------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
-      /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*-----------------------------------------------------------*/ LSFT_T(KC_SPACE),KC_BSPACE,     KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENTER)),
-  [_SYMB] = LAYOUT_ergodox_pretty(//---------------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      ________,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          ________,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
-      ________,       KC_EXLM,        KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        ________,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       KC_F12,
-      ________,       KC_HASH,        KC_DLR,         KC_LPRN,        KC_RPRN,        KC_GRAVE,                       /**/            /**/            KC_0,           KC_4,           KC_5,           KC_6,           KC_PLUS,        KC_KP_SLASH,
-      KC_AMPR,        KC_PERC,        KC_CIRC,        KC_LBRACKET,    KC_RBRACKET,    KC_TILD,        ________,       /**/            xxxxxxxx,       KC_ASTR,        KC_1,           KC_2,           KC_3,           KC_MINUS,       KC_UNDS,
-      ________,       ________,       ________,       ________,       ________,       /***************/               /**/            /***************/               KC_LPRN,        KC_COMMA,       KC_DOT,         CTL_T(KC_RPRN),        oooooooo,
+      /*----------------------------------|----------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+      /*----------------------------------|--------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
+      /*----------------------------------|------------------------*/ LSFT_T(KC_SPACE),KC_BSPACE,     KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENTER)),
+  [_SYMB] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+      xxxxxxxx,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          ________,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
+      xxxxxxxx,       KC_EXLM,          KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        ________,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       xxxxxxxx,
+      xxxxxxxx,       CTL_T(KC_HASH),   KC_DLR,         KC_LPRN,        KC_RPRN,        KC_GRAVE,                       /**/            /**/            KC_0,           KC_4,           KC_5,           KC_6,           CTL_T(KC_PLUS), xxxxxxxx,
+      KC_AMPR,        KC_PERC,          KC_CIRC,        KC_LBRACKET,    KC_RBRACKET,    KC_TILD,        ________,       /**/            xxxxxxxx,       KC_ASTR,        KC_1,           KC_2,           KC_3,           KC_MINUS,       xxxxxxxx,
+      ________,       ________,       ________,       ________,       ________,       /***************/               /**/            /***************/               KC_LPRN,        KC_COMMA,       KC_DOT,         KC_RPRN,        oooooooo,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
-      /*---------------------------------------------------------------------------*/ ________,       ________,       /**/            ________,      ________,
-      /*-------------------------------------------------------------------------------------------*/ ________,       /**/            ________,
-      /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,      ________,        ________),
-  [_MOVE] = LAYOUT_ergodox_pretty(//---|-----------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+      /*----------------------------------|----------------------------------------*/ ________,       ________,       /**/            ________,      ________,
+      /*----------------------------------|--------------------------------------------------------*/ ________,       /**/            ________,
+      /*----------------------------------|------------------------*/ ________,       ________,       ________,       /**/            ________,      ________,        ________),
+  [_MOVE] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,       KC_UP,       KC_RIGHT,       ________,       ________,
@@ -78,8 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL11,         PVEL12,         PVEL13,         PVEL14,         PVEL_LAST,      xxxxxxxx,
-      xxxxxxxx,       PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            PVEL6,          PVEL7,          PVEL8,          PVEL9,          PVEL10,         xxxxxxxx,
+      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL11,         PVEL15,         PVEL18,         PVEL_LAST,      PVEL_LAST,      xxxxxxxx,
+      KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            PVEL2,          PVEL4,          PVEL8,          PVEL12,         PVEL20,         xxxxxxxx,
       xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,          PVEL5,          xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
@@ -92,13 +102,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxxx,       KC_F5,          KC_F6,          KC_F7,          CMD_T(KC_F8),   xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       CMD_T(KC_F17),  KC_F18,         KC_F19,         KC_F20,         xxxxxxxx,
       xxxxxxxx,       CTL_T(KC_F1),   SFT_T(KC_F2),   KC_F3,          KC_F4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_F13,         KC_F14,         SFT_T(KC_F15),  CTL_T(KC_F16),  xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
-      //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+     //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ KC_LALT,        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_RALT),
   [_MIDI] = LAYOUT_ergodox_pretty(//---|--------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,        xxxxxxxx,       xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),      xxxxxxxx,       xxxxxxxx,       TO(_BASE),
-      xxxxxxxx,       MI_Gs_1,         MI_A_1,         MI_As_1,       MI_B_1,         MI_VEL_1,       xxxxxxxx,       /**/            xxxxxxxx,       MI_VEL_2,       MI_VEL_3,       MI_VEL_4,       MI_VEL_5,       MI_VEL_6,       xxxxxxxx,
+      xxxxxxxx,       MI_Gs_1,         MI_A_1,         MI_As_1,       MI_B_1,         MI_C_2,         xxxxxxxx,       /**/            xxxxxxxx,       MI_Cs_2,        MI_D_2,         MI_Ds_2,        MI_E_2,         MI_F_2,         xxxxxxxx,
       xxxxxxxx,       MI_As,           MI_B,           MI_C_1,        MI_Cs_1,        MI_D_1,         /*******/       /**/            /*******/       MI_Ds_1,        MI_E_1,         MI_F_1,         MI_Fs_1,        MI_G_1,         xxxxxxxx,
       xxxxxxxx,       MI_C,            MI_Cs,          MI_D,          MI_Ds,          MI_E,           xxxxxxxx,       /**/            xxxxxxxx,       MI_F,           MI_Fs,          MI_G,           MI_Gs,          MI_A,           xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,        xxxxxxxx,       MI_TRNSD,      MI_OCTD,        /*-------------*/               /**/            /*-------------*/               MI_OCTU,        MI_TRNSU,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -107,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
       /*-----------------------------------------------------------*/ MI_TRNS_0,      xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,         MI_ALLOFF),
   [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -158,7 +168,7 @@ int POINTER_Y = 0;
 float rad = PI / 180;
 float CLOCK_SHIFT = - PI / 3; // 0 == 12 o'clock ?
 
-int POINTER_UPDATE_INTERVAL = 15; // milliseconds
+int POINTER_UPDATE_INTERVAL = 10; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
 // TODO

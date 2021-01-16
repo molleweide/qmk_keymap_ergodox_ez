@@ -23,11 +23,33 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
-- pointer direction
+- move up escape to tab pos.
 
-  add back pinky keys for
+- would it make sense to put layer shift to symbols on ring finger upper row?
+- so that I can access control more easilly.
 
-- mouse release is not perfect yet
+- transition away from thumb keys completely > only use for special stuff. > it
+- is too straining to use a lot.
+
+  try:
+
+  1. use double tap to enter mouse mode || or release thumbs at the same time. tmux mode could be really nice.
+
+  > > creating a tmux mode should not be that difficult i think.
+
+  2. move space and enter up and then but backspace and tab on first thumb keys.
+  3. when I have this setup with the mouse keys show marcus with my modifier keys > show marcus
+
+- do some recording with midi >> how switch fast MIDI<->BASE?
+
+- new colors. faded.
+
+- does painting work with \_ep = off??
+
+- hold down thumb keys >> enter mouse mode.
+
+- ooh if I use only home row for mod keys in mouse layer >>> then I can use other keys for holding down mod keys
+  which would make it possible to use various pencil tools in reaper.
 
 - having to(BASE) next to index finger is not good. it should be on thumbs for sure.
   i could also have a hold down both thumbs to ender BASE.
@@ -38,17 +60,3 @@ CONSOLE_ENABLE uprintf("set direction");
 - move control to pinky on row below
 
 - mouse right click enter base???
-
-## general thoughts and todos
-
-- how should I do with the CMD key
-
-  - dual with SPACE and ENTER?
-  - add it to the outermost thumb keys?
-
-## THUMBCLUSTER
-
-- tap dance in combination with hold
-  main kc, tap kc, and hold down kc.
-  this will make the thumb clusters into monsters
-
