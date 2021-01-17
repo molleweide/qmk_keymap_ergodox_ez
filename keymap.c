@@ -6,6 +6,8 @@
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
+  BASE_THUMB_L,
+  BASE_THUMB_R,
   PDIR1,
   PDIR2,
   PDIR3,
@@ -38,11 +40,11 @@ enum custom_keycodes {
   PVEL18,
   PVEL19,
   PVEL20,
-  PVEL21,
-  PVEL22,
-  PVEL23,
-  PVEL24,
-  PVEL_LAST,
+  /* PVEL21, */
+  /* PVEL22, */
+  /* PVEL23, */
+  /* PVEL24, */
+  PVEL_LAST = PVEL20+5,
 };
 
 enum layer_names {
@@ -69,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_SYMB] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          ________,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
       xxxxxxxx,       KC_EXLM,          KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        ________,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       xxxxxxxx,
-      xxxxxxxx,       CTL_T(KC_HASH),   KC_DLR,         KC_LPRN,        KC_RPRN,        KC_GRAVE,                       /**/            /**/            KC_0,           KC_4,           KC_5,           KC_6,           CTL_T(KC_PLUS), xxxxxxxx,
+      xxxxxxxx,       CTL_T(KC_HASH),   KC_DLR,         KC_LPRN,        KC_RPRN,        KC_GRAVE,                       /**/            /**/            KC_0,           KC_4,           KC_5,           KC_6,           CTL_T(KC_PLUS), KC_PLUS,
       KC_AMPR,        KC_PERC,          KC_CIRC,        KC_LBRACKET,    KC_RBRACKET,    KC_TILD,        ________,       /**/            xxxxxxxx,       KC_ASTR,        KC_1,           KC_2,           KC_3,           KC_MINUS,       xxxxxxxx,
       ________,       ________,       ________,       ________,       ________,       /***************/               /**/            /***************/               KC_LPRN,        KC_COMMA,       KC_DOT,         KC_RPRN,        oooooooo,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
@@ -88,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL11,         PVEL15,         PVEL18,         PVEL_LAST,      PVEL_LAST,      xxxxxxxx,
-      KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            PVEL2,          PVEL4,          PVEL8,          PVEL12,         PVEL20,         xxxxxxxx,
-      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL4,          PVEL5,          xxxxxxxx,
+      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN5,     KC_MS_WH_DOWN,  KC_MS_BTN3,     KC_MS_BTN4,     KC_MS_WH_UP,    xxxxxxxx,
+      KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            PVEL2,          PVEL2,          PVEL5,          PVEL10,         PVEL20,         xxxxxxxx,
+      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL1,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,     xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -102,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       xxxxxxxx,       KC_F5,          KC_F6,          KC_F7,          CMD_T(KC_F8),   xxxxxxxx,       /**/            /**/            /**/            xxxxxxxx,       CMD_T(KC_F17),  KC_F18,         KC_F19,         KC_F20,         xxxxxxxx,
       xxxxxxxx,       CTL_T(KC_F1),   SFT_T(KC_F2),   KC_F3,          KC_F4,          xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_F13,         KC_F14,         SFT_T(KC_F15),  CTL_T(KC_F16),  xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            /**/            /**/            /**/            /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
-     //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+      //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ KC_LALT,        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_RALT),
@@ -128,20 +130,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx),
 };
 
-//  Keymap _ML: MIDI Layer (Advanced)
-//  ,------------------------------------------------------------------------.
-//  | Exit |    |    |    |    |    |    |    |    |    |    |    |    |     |
-//  |------------------------------------------------------------------------|
-//  |  Ch+ |    | C# | D# |    | F# | G# | A# |    | C# | D# |    |    |     |
-//  |------------------------------------------------------------------------|
-//  |  Mod  | C  | D  | E  | F  | G  | A  | B  | C  | D  | E  | F  |         |
-//  |------------------------------------------------------------------------|
-//  | Sustain |Oct-|Oct+|Mod-|Mod+|    |    |    |Tns-|Tns+|Tns0|   Sustain  |
-//  |------------------------------------------------------------------------|
-//  |     |     |     |         All notes off        |     |     |     |     |
-//  `------------------------------------------------------------------------'
-//    TG(_ML), MI_VEL_1, MI_VEL_2, MI_VEL_3,  MI_VEL_4, MI_VEL_5, MI_VEL_6, MI_VEL_7, MI_VEL_8, MI_VEL_9, MI_VEL_10, XXXXXXX,   XXXXXXX, XXXXXXX,
-//    MI_CHU,  XXXXXXX,  MI_Cs,    MI_Ds,     XXXXXXX,  MI_Fs,    MI_Gs,    MI_As,    XXXXXXX,  MI_Cs_1,  MI_Ds_1,   XXXXXXX,   XXXXXXX, XXXXXXX,
+//    MI_VEL_1,
+//    MI_CHU, MI_Cs,    MI_Ds,     MI_Fs,    MI_Gs,    MI_As,    XXXXXXX,  MI_Cs_1,  MI_Ds_1,   XXXXXXX,   XXXXXXX, XXXXXXX,
 //    MI_MOD,  MI_C,     MI_D,     MI_E,      MI_F,     MI_G,     MI_A,     MI_B,     MI_C_1,   MI_D_1,   MI_E_1,    MI_F_1,             _______,
 //    MI_SUS,            MI_OCTD,  MI_OCTU,   MI_MODSD, MI_MODSU, XXXXXXX,  XXXXXXX,  XXXXXXX,  MI_TRNSD, MI_TRNSU,  MI_TRNS_0,          MI_SUS,
 //    MI_ALLOFF
@@ -171,6 +161,8 @@ float CLOCK_SHIFT = - PI / 3; // 0 == 12 o'clock ?
 int POINTER_UPDATE_INTERVAL = 10; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
+bool THUMB_IS_DOWN = false;
+
 // TODO
 // how can I shift the valus so that U/D/L/R becomes as smooth as possible
 
@@ -184,8 +176,7 @@ void update_pointer_xy(int dummy){
 //   add and not = prev keycode!!!
 
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
-  // normalize pointer
-  int pk = keycode - PDIR1 + 1;
+  int pk = keycode - PDIR1 + 1; // important !!!
   if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) { // poin
     if (record->event.pressed) {
       POINTER_CURR_DIR = pk; last_pressed_dir_key = keycode;
@@ -208,6 +199,27 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
+/* void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record, bool *is_down, send_layer) { */
+/*   // bool needs to be a pointer!!! */
+/*   if (*is_down) { */
+/*     // second press */
+/*     if (record.pressed) { */
+/*       // do stuff .... */
+/*       // */
+/*       // */
+/*       // */
+/*       // */
+/*       // */
+/*       // */
+/*     } else { */
+/*       *is_down = false; */
+/*     } */
+/*   } else { */
+/*     // first press */
+/*     *is_down = true; // poinger */
+/*   } */
+/* } */
+
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
 
@@ -223,6 +235,15 @@ void pointing_device_task(void) {
   pointing_device_send();
 }
 
+/*
+ * todo
+ *
+ *  add case if mode = _base && both thumb keys held down at the same time.
+ *  tmuxThumb_L, tmuxThumb_R
+ *
+ * case thumbs
+ *
+ */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case RGB_SLD:
@@ -236,9 +257,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    // first P direction ... last p velocity
+    /* case BASE_THUMB_L ... BASE_THUMB_R: */
+    /*   kc_down_at_same_time(keycode, record, THUMB_IS_DOWN, _POINT); */
+
     case PDIR1 ... PVEL_LAST:
-      handle_pointer_keycodes(keycode, record);
+        // first P direction ... last p velocity
+        handle_pointer_keycodes(keycode, record);
   }
   return true;
 }
