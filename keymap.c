@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+include QMK_KEYBOARD_H
 
 #include <math.h>
 #include "pointing_device.h"
@@ -20,7 +20,7 @@ enum custom_keycodes {
   PDIR10,
   PDIR11,
   PDIR_LAST,
-  PVEL1,
+  PVEL1, // how can I reduce this. looks dumb
   PVEL2,
   PVEL3,
   PVEL4,
@@ -63,11 +63,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_MINUS,         KC_Q,             LT(_SYMB,KC_W), KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           LT(_SYMB,KC_O), KC_P,             KC_BSLASH,
       KC_ESC,   /***/   CTL_T(KC_A),      SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),   ALT_T(KC_K),      SFT_T(KC_L),   CTL_T(KC_SCOLON),KC_UNDS,
       xxxxxxxx,         LT(_MOVE,KC_Z),   LT(_SYMB,KC_X), LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYMB,KC_DOT), KC_SLASH ,        KC_UNDS,
-      xxxxxxxx,         CTL_T(KC_LEFT),   xxxxxxxx,       KC_ESC,        TO(_POINT),      /*-------------*/              /**/            /*-------------*/                TO(_POINT),     KC_QUOTE,        xxxxxxxx,         CTL_T(KC_RGHT),   xxxxxxxx,
+      xxxxxxxx,         CTL_T(KC_LEFT),   xxxxxxxx,       TO(_POINT),    KC_SPACE,        /*-------------*/              /**/            /*-------------*/                KC_ENTER,       TO(_POINT),      xxxxxxxx,         CTL_T(KC_RGHT),   xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*----------------------------------|----------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*----------------------------------|--------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*----------------------------------|------------------------*/ LSFT_T(KC_SPACE),KC_BSPACE,     KC_TRNS,        /**/            KC_TRNS,        KC_TAB,         RSFT_T(KC_ENTER)),
+      /*----------------------------------|------------------------*/ KC_BSPACE,      xxxxxxxx,       KC_TRNS,        /**/            xxxxxxxx,        xxxxxxxx,         KC_TAB),
   [_SYMB] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          ________,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
       xxxxxxxx,       KC_EXLM,          KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        ________,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       xxxxxxxx,
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
-      /*-----------------------------------------------------------*/ TO(_BASE),      KC_MS_BTN3,     KC_MS_BTN4,     /**/            xxxxxxxx,       KC_MS_BTN5,     TO(_BASE)),
+      /*-----------------------------------------------------------*/ xxxxxxxx,      xxxxxxxx,     xxxxxxxx,     /**/            xxxxxxxx,       xxxxxxxx,     xxxxxxxx),
   [_FUN] = LAYOUT_ergodox_pretty(//---|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       KC_F9,          KC_F10,         KC_F11,         KC_F12,         xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_F21,         KC_F22,         KC_F23,         KC_F24,         xxxxxxxx,
