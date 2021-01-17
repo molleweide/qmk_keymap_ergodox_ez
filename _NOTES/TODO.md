@@ -23,8 +23,6 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
-need scroll w mouse
-
 - need to splig up my qmk configs as much as possible.
   https://beta.docs.qmk.fm/developing-qmk/qmk-reference/config_options
 
