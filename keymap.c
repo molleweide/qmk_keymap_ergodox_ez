@@ -7,8 +7,8 @@
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   DUMMY,
-  BASE_THUMB_L,
-  BASE_THUMB_R,
+  BTL_INNER,
+  BTR_INNER,
   PDIR1,
   PDIR2,
   PDIR3,
@@ -43,11 +43,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_MINUS,         KC_Q,             LT(_SYMB,KC_W), KC_E,           KC_R,           KC_T,           KC__VOLUP,      /**/            KC_MS_WH_UP,    KC_Y,           KC_U,           KC_I,           LT(_SYMB,KC_O), KC_P,             KC_BSLASH,
       KC_ESC,   /***/   CTL_T(KC_A),      SFT_T(KC_S),    ALT_T(KC_D),    CMD_T(KC_F),    KC_G,           /**/            /**/            /**/            KC_H,           CMD_T(KC_J),   ALT_T(KC_K),      SFT_T(KC_L),   CTL_T(KC_SCOLON),KC_UNDS,
       xxxxxxxx,         LT(_MOVE,KC_Z),   LT(_SYMB,KC_X), LT(_FUN,KC_C),  KC_V,           KC_B,           KC__VOLDOWN,    /**/            KC_MS_WH_DOWN,  KC_N,           KC_M,           LT(_FUN,KC_COMMA),LT(_SYMB,KC_DOT), KC_SLASH ,        KC_UNDS,
-      xxxxxxxx,         CTL_T(KC_LEFT),   xxxxxxxx,       TO(_POINT),        KC_SPACE,      /*-------------*/              /**/            /*-------------*/                KC_ENTER,     TO(_POINT),        xxxxxxxx,         CTL_T(KC_RGHT),   xxxxxxxx,
+      xxxxxxxx,         CTL_T(KC_LEFT),   xxxxxxxx,       TO(_POINT),     BTL_INNER,      /*-------------*/             /**/            /*-------------*/                 BTR_INNER,     TO(_POINT),        xxxxxxxx,         CTL_T(KC_RGHT),   xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*----------------------------------|----------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*----------------------------------|--------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*----------------------------------|------------------------*/ KC_BSPACE,       BASE_THUMB_L,   xxxxxxxx,       /**/            xxxxxxxx,      BASE_THUMB_R,    KC_TAB),
+      /*----------------------------------|------------------------*/ KC_BSPACE,       BTL_INNER,   xxxxxxxx,       /**/            xxxxxxxx,      BTR_INNER,    KC_TAB),
   [_SYMB] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          xxxxxxxx,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
       xxxxxxxx,       KC_EXLM,          KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        xxxxxxxx,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       xxxxxxxx,
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*-----------------------------------------------------------*/ MI_TRNS_0,      BASE_THUMB_L,   xxxxxxxx,       /**/            xxxxxxxx,       BASE_THUMB_R,   MI_ALLOFF),
+      /*-----------------------------------------------------------*/ MI_TRNS_0,      BTL_INNER,   xxxxxxxx,       /**/            xxxxxxxx,       BTR_INNER,   MI_ALLOFF),
   [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -143,7 +143,7 @@ float CLOCK_SHIFT = - PI / 3; // 0 == 12 o'clock ?
 int POINTER_UPDATE_INTERVAL = 15; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
-bool THUMB_IS_DOWN = false;
+bool INNER_THUMB_IS_DOWN = false;
 
 // TODO
 // how can I shift the valus so that U/D/L/R becomes as smooth as possible
@@ -182,46 +182,34 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
 }
 
 
-void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down, send_layer*/) {
+
+void inner_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
   if (record->event.pressed) {
 
     // down second -----------------------------------
-    if (THUMB_IS_DOWN) {
+    if (INNER_THUMB_IS_DOWN) {
       if (IS_LAYER_ON(_BASE)) {
-        layer_move(_MIDI);
-        LAYER_JUST_CHANGED = true;
-        return;
+        layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
       }
-      if (IS_LAYER_ON(_MIDI)) {
-        layer_move(_BASE);
-        LAYER_JUST_CHANGED = true;
-        return;
+      if (IS_LAYER_ON(_POINT)) {
+        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
       }
 
       // down first -----------------------------------
     } else {
-      THUMB_IS_DOWN = true;
-      LAYER_JUST_CHANGED = false;
+      INNER_THUMB_IS_DOWN = true; LAYER_JUST_CHANGED = false;
     }
 
     // RELEASE //////////////////////////////////////////////////////
-    //
-    // if key was pressed in layer midi >> dont release
-    //  
-    //  create bool
-    //
-    //  bool LAYER_JUST_SWITCHED = false;
 
   } else {
-    THUMB_IS_DOWN = false;
+    INNER_THUMB_IS_DOWN = false;
     if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
-      if (keycode == BASE_THUMB_L) {
-        register_code(KC_SPACE);
-        unregister_code(KC_SPACE);
+      if (keycode == BTL_INNER) {
+        register_code(KC_SPACE); unregister_code(KC_SPACE); // I am not sure that I even need to unregister here???
       }
-      if (keycode == BASE_THUMB_R) {
-        register_code(KC_ENTER);
-        unregister_code(KC_ENTER);
+      if (keycode == BTR_INNER) {
+        register_code(KC_ENTER); unregister_code(KC_ENTER);
       }
     }
 
@@ -265,8 +253,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case BASE_THUMB_L ... BASE_THUMB_R:
-      kc_down_at_same_time(keycode, record/*, THUMB_IS_DOWN, _POINT*/);
+    case BTL_INNER ... BTR_INNER:
+      inner_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
 
     case PDIR1 ... PVEL_LAST:
       // first P direction ... last p velocity
