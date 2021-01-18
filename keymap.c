@@ -124,6 +124,8 @@ bool disable_layer_color = 0;
 //
 //  rename the last keycode `P_DIR_LAST`
 
+bool LAYER_JUST_CHANGED = true;
+
 int POINTER_DIR_COUNT =  PDIR_LAST - PDIR1 + 1;
 int POINTER_VEL_COUNT =  PVEL_LAST - PVEL1 + 1;
 
@@ -180,34 +182,39 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
 }
 
 
-//  todo
-//
-//    press            down true
-//    release          down = false
-//    press && down    change layer
-
 void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down, send_layer*/) {
   if (record->event.pressed) {
 
     // down second -----------------------------------
     if (THUMB_IS_DOWN) {
       if (IS_LAYER_ON(_BASE)) {
-        layer_move(_MIDI); return;
+        layer_move(_MIDI);
+        LAYER_JUST_CHANGED = true;
+        return;
       }
       if (IS_LAYER_ON(_MIDI)) {
-        layer_move(_BASE); return;
+        layer_move(_BASE);
+        LAYER_JUST_CHANGED = true;
+        return;
       }
 
       // down first -----------------------------------
     } else {
       THUMB_IS_DOWN = true;
+      LAYER_JUST_CHANGED = false;
     }
 
     // RELEASE //////////////////////////////////////////////////////
+    //
+    // if key was pressed in layer midi >> dont release
+    //  
+    //  create bool
+    //
+    //  bool LAYER_JUST_SWITCHED = false;
 
   } else {
     THUMB_IS_DOWN = false;
-    if (IS_LAYER_ON(_BASE)) {
+    if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
       if (keycode == BASE_THUMB_L) {
         register_code(KC_SPACE);
         unregister_code(KC_SPACE);

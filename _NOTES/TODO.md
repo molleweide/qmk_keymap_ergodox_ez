@@ -21,7 +21,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
-- i need to be able to escape space/enter chars. AND also escape them if I enter next layer.
+- hold down thumbs and put mouse left/right buttons on index fingers to avoid accidental
+  clicks on layer shift?? let's see first if this is even necessary...
 
 - where put .ccles, qmk root?
 
