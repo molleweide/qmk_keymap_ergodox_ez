@@ -21,6 +21,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
+- i need to be able to escape space/enter chars. AND also escape them if I enter next layer.
+
 - where put .ccles, qmk root?
 
 - need to splig up my qmk configs as much as possible.
@@ -32,26 +34,6 @@ CONSOLE_ENABLE uprintf("set direction");
 
 - would it make sense to put layer shift to symbols on ring finger upper row?
 - so that I can access control more easilly.
-
-- transition away from thumb keys completely > only use for special stuff. > it
-- is too straining to use a lot.
-
-  try:
-
-  1. use double tap to enter mouse mode || or release thumbs at the same time. tmux mode could be really nice.
-
-  > > creating a tmux mode should not be that difficult i think.
-
-  2. move space and enter up and then but backspace and tab on first thumb keys.
-  3. when I have this setup with the mouse keys show marcus with my modifier keys > show marcus
-
-- do some recording with midi >> how switch fast MIDI<->BASE?
-
-- new colors. faded.
-
-- does painting work with \_ep = off??
-
-- hold down thumb keys >> enter mouse mode.
 
 - ooh if I use only home row for mod keys in mouse layer >>> then I can use other keys for holding down mod keys
   which would make it possible to use various pencil tools in reaper.

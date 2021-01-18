@@ -207,15 +207,17 @@ void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down
 
   } else {
     THUMB_IS_DOWN = false;
+    if (IS_LAYER_ON(_BASE)) {
+      if (keycode == BASE_THUMB_L) {
+        register_code(KC_SPACE);
+        unregister_code(KC_SPACE);
+      }
+      if (keycode == BASE_THUMB_R) {
+        register_code(KC_ENTER);
+        unregister_code(KC_ENTER);
+      }
+    }
 
-    if (keycode == BASE_THUMB_L) {
-      register_code(KC_SPACE);
-      unregister_code(KC_SPACE);
-    }
-    if (keycode == BASE_THUMB_R) {
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
   }
 }
 
