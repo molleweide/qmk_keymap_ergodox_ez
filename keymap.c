@@ -9,6 +9,8 @@ enum custom_keycodes {
   DUMMY,
   BTL_INNER,
   BTR_INNER,
+  BTL_OUTER,
+  BTR_OUTER,
   PDIR1,
   PDIR2,
   PDIR3,
@@ -47,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*----------------------------------|----------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*----------------------------------|--------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*----------------------------------|------------------------*/ KC_BSPACE,       BTL_INNER,   xxxxxxxx,       /**/            xxxxxxxx,      BTR_INNER,    KC_TAB),
+      /*----------------------------------|------------------------*/ BTL_OUTER,       xxxxxxxx,   xxxxxxxx,       /**/            xxxxxxxx,      xxxxxxxx,    BTR_OUTER),
   [_SYMB] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          xxxxxxxx,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
       xxxxxxxx,       KC_EXLM,          KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        xxxxxxxx,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       xxxxxxxx,
@@ -59,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*----------------------------------|--------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*----------------------------------|------------------------*/ KC_LCTL,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,      xxxxxxxx,        KC_RCTL),
   [_MOVE] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
+      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       TO(_BASE),
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       KC_MS_WH_DOWN,  KC_MS_WH_UP,    ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,       KC_UP,       KC_RIGHT,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
@@ -69,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ ________,       /**/            ________,       /***************/
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN3,     KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_BTN4,     KC_MS_BTN5,     xxxxxxxx,
       KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL_LAST,      xxxxxxxx,
       xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       xxxxxxxx,
@@ -89,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
       /*-----------------------------------------------------------*/ KC_LALT,        xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_RALT),
   [_MIDI] = LAYOUT_ergodox_pretty(//---|--------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
-      xxxxxxxx,       xxxxxxxx,        xxxxxxxx,       xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),      xxxxxxxx,       xxxxxxxx,       TO(_BASE),
+      xxxxxxxx,       xxxxxxxx,        xxxxxxxx,       xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       MI_Gs_1,         MI_A_1,         MI_As_1,       MI_B_1,         MI_C_2,         xxxxxxxx,       /**/            xxxxxxxx,       MI_Cs_2,        MI_D_2,         MI_Ds_2,        MI_E_2,         MI_F_2,         xxxxxxxx,
       MI_TRNSD,       MI_As,           MI_B,           MI_C_1,        MI_Cs_1,        MI_D_1,         /*******/       /**/            /*******/       MI_Ds_1,        MI_E_1,         MI_F_1,         MI_Fs_1,        MI_G_1,         MI_TRNSU,
       xxxxxxxx,       MI_C,            MI_Cs,          MI_D,          MI_Ds,          MI_E,           xxxxxxxx,       /**/            xxxxxxxx,       MI_F,           MI_Fs,          MI_G,           MI_Gs,          MI_A,           xxxxxxxx,
@@ -97,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*-----------------------------------------------------------*/ MI_TRNS_0,      BTL_INNER,   xxxxxxxx,       /**/            xxxxxxxx,       BTR_INNER,   MI_ALLOFF),
+      /*-----------------------------------------------------------*/ BTL_OUTER,      MI_TRNS_0,   xxxxxxxx,       /**/            xxxxxxxx,       MI_ALLOFF,   BTR_OUTER),
   [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -144,6 +146,7 @@ int POINTER_UPDATE_INTERVAL = 15; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
 bool INNER_THUMB_IS_DOWN = false;
+bool OUTER_THUMB_IS_DOWN = false;
 
 // TODO
 // how can I shift the valus so that U/D/L/R becomes as smooth as possible
@@ -216,6 +219,39 @@ void inner_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
   }
 }
 
+void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
+  if (record->event.pressed) {
+
+    // down second -----------------------------------
+    if (OUTER_THUMB_IS_DOWN) {
+      if (IS_LAYER_ON(_BASE)) {
+        layer_move(_MIDI); LAYER_JUST_CHANGED = true; return;
+      }
+      if (IS_LAYER_ON(_MIDI)) {
+        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
+      }
+
+      // down first -----------------------------------
+    } else {
+      OUTER_THUMB_IS_DOWN = true; LAYER_JUST_CHANGED = false;
+    }
+
+    // RELEASE //////////////////////////////////////////////////////
+
+  } else {
+    OUTER_THUMB_IS_DOWN = false;
+    if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
+      if (keycode == BTL_OUTER) {
+        register_code(KC_BSPACE); unregister_code(KC_BSPACE); // I am not sure that I even need to unregister here???
+      }
+      if (keycode == BTR_OUTER) {
+        register_code(KC_TAB); unregister_code(KC_TAB);
+      }
+    }
+
+  }
+}
+
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
 
@@ -255,6 +291,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case BTL_INNER ... BTR_INNER:
       inner_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
+
+    case BTL_OUTER ... BTR_OUTER:
+      outer_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
 
     case PDIR1 ... PVEL_LAST:
       // first P direction ... last p velocity
