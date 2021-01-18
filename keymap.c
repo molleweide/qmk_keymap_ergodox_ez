@@ -6,6 +6,7 @@
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
+  DUMMY,
   BASE_THUMB_L,
   BASE_THUMB_R,
   PDIR1,
@@ -187,51 +188,35 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
 
 void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down, send_layer*/) {
   if (record->event.pressed) {
-    /* if (THUMB_IS_DOWN) { */
-    /*   // move layer */
-    /*   layer_move(_MIDI); */
-    /* } else { */
-    /*   THUMB_IS_DOWN = true; */
-    /* } */
 
-    if (IS_LAYER_ON(_BASE)) {
-      layer_move(_MIDI);
-      return;
+    // down second -----------------------------------
+    if (THUMB_IS_DOWN) {
+      if (IS_LAYER_ON(_BASE)) {
+        layer_move(_MIDI);
+      }
+      if (IS_LAYER_ON(_MIDI)) {
+        layer_move(_BASE);
+      }
+
+      // down first -----------------------------------
+    } else {
+      THUMB_IS_DOWN = true;
     }
-    if (IS_LAYER_ON(_MIDI)) {
-      layer_move(_BASE);
-      return;
-    }
+
+    // RELEASE //////////////////////////////////////////////////////
+
   } else {
-    /* THUMB_IS_DOWN = false; */
-    /* if (keycode == BASE_THUMB_L) { */
-    /*   // emmit keycode left */
-    /* } */
-    /* if (keycode == BASE_THUMB_R) { */
-    /*   // emmit keycode right */
-    /* } */
+    THUMB_IS_DOWN = false;
+
+    if (keycode == BASE_THUMB_L) {
+      register_code(KC_SPACE);
+      unregister_code(KC_SPACE);
+    }
+    if (keycode == BASE_THUMB_R) {
+      register_code(KC_ENTER);
+      unregister_code(KC_ENTER);
+    }
   }
-
-
-
-
-  /* if (*is_down) { */
-  /*   // second press */
-  /*   if (record->pressed) { */
-  /*     // do stuff .... */
-  /*     // */
-  /*     // */
-  /*     // */
-  /*     // */
-  /*     // */
-  /*     // */
-  /*   } else { */
-  /*     *is_down = false; */
-  /*   } */
-  /* } else { */
-  /*   // first press */
-  /*   *is_down = true; // poinger */
-  /* } */
 }
 
 void pointing_device_task(void) {
@@ -277,6 +262,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PDIR1 ... PVEL_LAST:
       // first P direction ... last p velocity
       handle_pointer_keycodes(keycode, record);
+      return false; // this shouldn't do anything
   }
   return true;
 }
