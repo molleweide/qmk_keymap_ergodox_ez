@@ -21,6 +21,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
+- i create a new dev branch because i had an issue merging... into old dev
+
 - change to mouse by double press thumbs AND enter midi layer by double press outer thumbs
 
   can refactor the function to make this easy?
