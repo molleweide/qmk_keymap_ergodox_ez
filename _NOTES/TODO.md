@@ -2,8 +2,6 @@
 
 ## RNDM
 
-# debugging macos ----------------------------------
-
 1. use this to create log statements
 
 ```C
@@ -24,6 +22,8 @@ CONSOLE_ENABLE uprintf("set direction");
 ## todo --------------------------------------------
 
 - how do I switch fast to midi layer? index finger tmux release? same time?
+
+  now I can do this!! just make the bool check. i believe i need to watch the pointer videos first?!
 
 - need to splig up my qmk configs as much as possible.
   https://beta.docs.qmk.fm/developing-qmk/qmk-reference/config_options

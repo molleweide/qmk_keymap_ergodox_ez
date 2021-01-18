@@ -27,13 +27,13 @@ enum custom_keycodes {
 };
 
 enum layer_names {
-  _BASE = 0,
-  _SYMB,
-  _MOVE,
-  _POINT,
-  _FUN,
-  _MIDI,
-  _TEST,
+  _BASE = 0,  // red
+  _SYMB,      //    same, slightly changed just so that ri can percieve a change
+  _MOVE,      // green
+  _POINT,     // blue
+  _FUN,       // turquoise
+  _MIDI,      // purple
+  _TEST,      // grey
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -178,8 +178,22 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
+
+//  todo
+//
+//    press            down true
+//    release          down = false
+//    press && down    change layer
+
 void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down, send_layer*/) {
   if (record->event.pressed) {
+    /* if (THUMB_IS_DOWN) { */
+    /*   // move layer */
+    /*   layer_move(_MIDI); */
+    /* } else { */
+    /*   THUMB_IS_DOWN = true; */
+    /* } */
+
     if (IS_LAYER_ON(_BASE)) {
       layer_move(_MIDI);
       return;
@@ -188,10 +202,19 @@ void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down
       layer_move(_BASE);
       return;
     }
+  } else {
+    /* THUMB_IS_DOWN = false; */
+    /* if (keycode == BASE_THUMB_L) { */
+    /*   // emmit keycode left */
+    /* } */
+    /* if (keycode == BASE_THUMB_R) { */
+    /*   // emmit keycode right */
+    /* } */
   }
 
 
-  /* // bool needs to be a pointer!!! */
+
+
   /* if (*is_down) { */
   /*   // second press */
   /*   if (record->pressed) { */
@@ -268,23 +291,35 @@ uint32_t layer_state_set_user(uint32_t state) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     switch (layer) {
+      // red
       case _BASE:
         rgblight_sethsv_noeeprom(0,252,255);
         break;
       case _SYMB:
         rgblight_sethsv_noeeprom(10,90,40);
+
+
+        // green
       case _MOVE:
         rgblight_sethsv_noeeprom(100,30,40);
         break;
+
+        // blue
       case _POINT:
         rgblight_sethsv_noeeprom(10,90,40);
         break;
+
+        // turquoise
       case _FUN:
         rgblight_sethsv_noeeprom(70,0,50);
         break;
+
+        // purple
       case _MIDI:
         rgblight_sethsv_noeeprom(56,0,150);
         break;
+
+        // grey
       case _TEST:
         rgblight_sethsv_noeeprom(100,150,100);
         break;
