@@ -23,6 +23,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
+- how do I switch fast to midi layer?
+
 - need to splig up my qmk configs as much as possible.
   https://beta.docs.qmk.fm/developing-qmk/qmk-reference/config_options
 
