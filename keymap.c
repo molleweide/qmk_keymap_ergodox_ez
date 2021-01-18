@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*-----------------------------------------------------------*/ MI_TRNS_0,      xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,         MI_ALLOFF),
+      /*-----------------------------------------------------------*/ MI_TRNS_0,      BASE_THUMB_L,   xxxxxxxx,       /**/            xxxxxxxx,       BASE_THUMB_R,   MI_ALLOFF),
   [_TEST] = LAYOUT_ergodox_pretty(//------------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       RESET,          xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
@@ -178,17 +178,23 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
-
-// todo
-//
-//    now that I am testing the thumbs I could use this as an opportunity to
-//    add to(midi layer) on thumb test keys now during the development
-
 void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down, send_layer*/) {
+  if (record->event.pressed) {
+    if (IS_LAYER_ON(_BASE)) {
+      layer_move(_MIDI);
+      return;
+    }
+    if (IS_LAYER_ON(_MIDI)) {
+      layer_move(_BASE);
+      return;
+    }
+  }
+
+
   /* // bool needs to be a pointer!!! */
   /* if (*is_down) { */
   /*   // second press */
-  /*   if (record.pressed) { */
+  /*   if (record->pressed) { */
   /*     // do stuff .... */
   /*     // */
   /*     // */
@@ -246,8 +252,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       kc_down_at_same_time(keycode, record/*, THUMB_IS_DOWN, _POINT*/);
 
     case PDIR1 ... PVEL_LAST:
-        // first P direction ... last p velocity
-        handle_pointer_keycodes(keycode, record);
+      // first P direction ... last p velocity
+      handle_pointer_keycodes(keycode, record);
   }
   return true;
 }
