@@ -23,6 +23,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
+- how do I get the pointer to move really slow. I lose direction with PVEL1?!
+
 - how do I switch fast to midi layer?
 
 - need to splig up my qmk configs as much as possible.

@@ -21,30 +21,9 @@ enum custom_keycodes {
   PDIR11,
   PDIR_LAST,
   PVEL1,
-  PVEL2,
-  PVEL3,
-  PVEL4,
-  PVEL5,
-  PVEL6,
-  PVEL7,
-  PVEL8,
-  PVEL9,
-  PVEL10,
-  PVEL11,
-  PVEL12,
-  PVEL13,
-  PVEL14,
-  PVEL15,
-  PVEL16,
-  PVEL17,
-  PVEL18,
-  PVEL19,
-  PVEL20,
-  /* PVEL21, */
-  /* PVEL22, */
-  /* PVEL23, */
-  /* PVEL24, */
-  PVEL_LAST = PVEL20+5,
+  PVEL2 = PVEL1 + 3,
+  PVEL3 = PVEL2 + 6,
+  PVEL_LAST = PVEL3 + 10,
 };
 
 enum layer_names {
@@ -80,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*----------------------------------|------------------------*/ KC_LCTL,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,      xxxxxxxx,        KC_RCTL),
   [_MOVE] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
-      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
+      ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       KC_MS_WH_DOWN,  KC_MS_WH_UP,    ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       /**/            /**/            /**/            KC_LEFT,        KC_DOWN,       KC_UP,       KC_RIGHT,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       ________,       ________,       /**/            ________,       ________,       ________,       ________,       ________,       ________,       ________,
       ________,       ________,        ________,       ________,      ________,       /*-------------*/               /**/            /*-------------*/               ________,       ________,       ________,       ________,       ________,
@@ -90,9 +69,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*-----------------------------------------------------------*/ ________,       ________,       ________,       /**/            ________,       ________,         ________),
   [_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
-      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN5,     KC_MS_WH_DOWN,  KC_MS_BTN3,     KC_MS_BTN4,     KC_MS_WH_UP,    xxxxxxxx,
-      KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            PVEL1,          PVEL1,          PVEL5,          PVEL10,         PVEL20,         xxxxxxxx,
-      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       PVEL1,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       xxxxxxxx,
+      xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN5,     KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_BTN3,     KC_MS_BTN4,     xxxxxxxx,
+      KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL_LAST,      xxxxxxxx,
+      xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       xxxxxxxx,
       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),      KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,     TO(_BASE),      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
@@ -158,7 +137,7 @@ int POINTER_Y = 0;
 float rad = PI / 180;
 float CLOCK_SHIFT = - PI / 3; // 0 == 12 o'clock ?
 
-int POINTER_UPDATE_INTERVAL = 10; // milliseconds
+int POINTER_UPDATE_INTERVAL = 15; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
 bool THUMB_IS_DOWN = false;
