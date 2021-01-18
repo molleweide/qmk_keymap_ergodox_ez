@@ -192,10 +192,10 @@ void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down
     // down second -----------------------------------
     if (THUMB_IS_DOWN) {
       if (IS_LAYER_ON(_BASE)) {
-        layer_move(_MIDI);
+        layer_move(_MIDI); return;
       }
       if (IS_LAYER_ON(_MIDI)) {
-        layer_move(_BASE);
+        layer_move(_BASE); return;
       }
 
       // down first -----------------------------------
