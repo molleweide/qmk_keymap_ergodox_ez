@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
       /*----------------------------------|----------------------------------------*/ KC__MUTE,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
       /*----------------------------------|--------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,       /***************/
-      /*----------------------------------|------------------------*/ KC_BSPACE,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,      xxxxxxxx,        KC_TAB),
+      /*----------------------------------|------------------------*/ KC_BSPACE,       BASE_THUMB_L,   xxxxxxxx,       /**/            xxxxxxxx,      BASE_THUMB_R,    KC_TAB),
   [_SYMB] = LAYOUT_ergodox_pretty(//------|--------|---------------X---------------|---------------$------------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
       xxxxxxxx,       KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          xxxxxxxx,       /**/            xxxxxxxx,       KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         TO(_BASE),
       xxxxxxxx,       KC_EXLM,          KC_AT,          KC_LCBR,        KC_RCBR,        KC_PIPE,        xxxxxxxx,       /**/            xxxxxxxx,       KC_QUOTE,       KC_7,           KC_8,           KC_9,           KC_EQUAL,       xxxxxxxx,
@@ -178,26 +178,32 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
-/* void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record, bool *is_down, send_layer) { */
-/*   // bool needs to be a pointer!!! */
-/*   if (*is_down) { */
-/*     // second press */
-/*     if (record.pressed) { */
-/*       // do stuff .... */
-/*       // */
-/*       // */
-/*       // */
-/*       // */
-/*       // */
-/*       // */
-/*     } else { */
-/*       *is_down = false; */
-/*     } */
-/*   } else { */
-/*     // first press */
-/*     *is_down = true; // poinger */
-/*   } */
-/* } */
+
+// todo
+//
+//    now that I am testing the thumbs I could use this as an opportunity to
+//    add to(midi layer) on thumb test keys now during the development
+
+void kc_down_at_same_time(uint16_t keycode, keyrecord_t *record/*, bool *is_down, send_layer*/) {
+  /* // bool needs to be a pointer!!! */
+  /* if (*is_down) { */
+  /*   // second press */
+  /*   if (record.pressed) { */
+  /*     // do stuff .... */
+  /*     // */
+  /*     // */
+  /*     // */
+  /*     // */
+  /*     // */
+  /*     // */
+  /*   } else { */
+  /*     *is_down = false; */
+  /*   } */
+  /* } else { */
+  /*   // first press */
+  /*   *is_down = true; // poinger */
+  /* } */
+}
 
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
@@ -236,8 +242,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    /* case BASE_THUMB_L ... BASE_THUMB_R: */
-    /*   kc_down_at_same_time(keycode, record, THUMB_IS_DOWN, _POINT); */
+    case BASE_THUMB_L ... BASE_THUMB_R:
+      kc_down_at_same_time(keycode, record/*, THUMB_IS_DOWN, _POINT*/);
 
     case PDIR1 ... PVEL_LAST:
         // first P direction ... last p velocity
