@@ -21,31 +21,6 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
-- put my personal enum codes in other file
+- where put .ccls, qmk root?
 
-- if I look at the hacker_dvorak keymap I will learn everything about how to modularize a keymap.
-
-* where put .ccles, qmk root?
-
-* need to splig up my qmk configs as much as possible.
-  https://beta.docs.qmk.fm/developing-qmk/qmk-reference/config_options
-
-* why is KC_PLUS broken in symb layer with CTL_T()
-
-* move up escape to tab pos.
-
-* would it make sense to put layer shift to symbols on ring finger upper row?
-* so that I can access control more easilly.
-
-* ooh if I use only home row for mod keys in mouse layer >>> then I can use other keys for holding down mod keys
-  which would make it possible to use various pencil tools in reaper.
-
-* having to(BASE) next to index finger is not good. it should be on thumbs for sure.
-  i could also have a hold down both thumbs to ender BASE.
-  hold down left thumb(goToNewLayer). and press right thumb keygo back to base
-
-* need to add capslock
-
-* move control to pinky on row below
-
-* mouse right click enter base???
+- need to add capslock
