@@ -18,9 +18,9 @@ enum custom_keycodes {
   PDIR11,
   PDIR_LAST,
   PVEL1,
-  PVEL2 = PVEL1 + 3,
-  PVEL3 = PVEL2 + 6,
-  PVEL_LAST = PVEL3 + 10,
+  PVEL2 = PVEL1+3,
+  PVEL3 = PVEL2 + 4,
+  PVEL_LAST = PVEL3 + 5,
 };
 
 ////Hacker Dvorak below

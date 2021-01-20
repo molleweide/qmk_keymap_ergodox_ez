@@ -3,8 +3,8 @@
 
 void update_pointer_xy(int dummy){
   float direction_in_radians = POINTER_CURR_DIR * 360/POINTER_DIR_COUNT * rad; // replace 30 by 360/POINTER_DIR_COUNT
-  POINTER_X = round(POINTER_V * cos(direction_in_radians + CLOCK_SHIFT));
-  POINTER_Y = round(POINTER_V * sin(direction_in_radians + CLOCK_SHIFT));
+  POINTER_X = round((POINTER_V+1) * cos(direction_in_radians + CLOCK_SHIFT));
+  POINTER_Y = round((POINTER_V+1) * sin(direction_in_radians + CLOCK_SHIFT));
 }
 
 //   add and not = prev keycode!!!
@@ -13,7 +13,8 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   int pk = keycode - PDIR1 + 1; // important !!! but does this work when I have non linear variuables??
   if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) { // poin
     if (record->event.pressed) {
-      POINTER_CURR_DIR = pk; last_pressed_dir_key = keycode;
+      POINTER_CURR_DIR = pk;
+      last_pressed_dir_key = keycode;
       update_pointer_xy(1);
     } else {
       if (last_pressed_dir_key == keycode) {
@@ -23,7 +24,8 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
   if ( POINTER_DIR_COUNT < pk && pk <= POINTER_DIR_COUNT + POINTER_VEL_COUNT ) {
     if (record->event.pressed) {
-      POINTER_V = pk - POINTER_DIR_COUNT; last_pressed_vel_key = keycode;
+      POINTER_V = pk - POINTER_DIR_COUNT;
+      last_pressed_vel_key = keycode;
       update_pointer_xy(1);
     } else {
       if (last_pressed_vel_key == keycode) {
