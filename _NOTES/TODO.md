@@ -21,7 +21,9 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## todo --------------------------------------------
 
-- make outer thumbs.
+- put my personal enum codes in other file
+
+- if I look at the hacker_dvorak keymap I will learn everything about how to modularize a keymap.
 
 * where put .ccles, qmk root?
 

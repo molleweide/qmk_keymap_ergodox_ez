@@ -2,42 +2,12 @@
 
 #include <math.h>
 #include "pointing_device.h"
+
 #define PI 3.14159265
 
-enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
-  DUMMY,
-  BTL_INNER,
-  BTR_INNER,
-  BTL_OUTER,
-  BTR_OUTER,
-  PDIR1,
-  PDIR2,
-  PDIR3,
-  PDIR4,
-  PDIR5,
-  PDIR6,
-  PDIR7,
-  PDIR8,
-  PDIR9,
-  PDIR10,
-  PDIR11,
-  PDIR_LAST,
-  PVEL1,
-  PVEL2 = PVEL1 + 3,
-  PVEL3 = PVEL2 + 6,
-  PVEL_LAST = PVEL3 + 10,
-};
-
-enum layer_names {
-  _BASE = 0,  // red
-  _SYMB,      //    same, slightly changed just so that ri can percieve a change
-  _MOVE,      // green
-  _POINT,     // blue
-  _FUN,       // turquoise
-  _MIDI,      // purple
-  _TEST,      // grey
-};
+#include "keycodes/aliases_definitions.c"
+#include "keycodes/custom_keycodes.c"
+#include "layers/layer_definitions.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_ergodox_pretty(//------|-----------------|---------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
@@ -122,13 +92,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 rgblight_config_t rgblight_config;
 bool disable_layer_color = 0;
 
-// TODO
-//
-//  rename the last keycode `P_DIR_LAST`
-
 bool LAYER_JUST_CHANGED = true;
 
 int POINTER_DIR_COUNT =  PDIR_LAST - PDIR1 + 1;
+ // since I am now using variable vel keycodes, not linear, i should rename it to pointer_vel_max??;
 int POINTER_VEL_COUNT =  PVEL_LAST - PVEL1 + 1;
 
 int last_pressed_dir_key = 0;
@@ -148,8 +115,8 @@ uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 bool INNER_THUMB_IS_DOWN = false;
 bool OUTER_THUMB_IS_DOWN = false;
 
-// TODO
-// how can I shift the valus so that U/D/L/R becomes as smooth as possible
+
+// why does it output wrong dirs when
 
 void update_pointer_xy(int dummy){
   float direction_in_radians = POINTER_CURR_DIR * 360/POINTER_DIR_COUNT * rad; // replace 30 by 360/POINTER_DIR_COUNT
@@ -161,7 +128,7 @@ void update_pointer_xy(int dummy){
 //   add and not = prev keycode!!!
 
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
-  int pk = keycode - PDIR1 + 1; // important !!!
+  int pk = keycode - PDIR1 + 1; // important !!! but does this work when I have non linear variuables??
   if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) { // poin
     if (record->event.pressed) {
       POINTER_CURR_DIR = pk; last_pressed_dir_key = keycode;

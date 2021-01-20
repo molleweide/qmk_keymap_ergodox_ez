@@ -30,16 +30,8 @@
 //#define BOOTMAGIC_LITE_COLUMN 0 // col is row
 //#define BOOTMAGIC_LITE_ROW 1    // row is col
 
+#define PI 3.14159265
 
-
-
-////////////////////////////////////////
-// my custom keynames
-////////////////////////////////////////
-
-#define ________    KC_TRANSPARENT // Fillers to make layering more clear
-#define oooooooo    KC_TRANSPARENT
-#define xxxxxxxx    KC_NO
 
 
 
