@@ -21,9 +21,7 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
-- gulp > really nice
-
-- fix mouse dirs
+- gulp > auto build
 
 - where put .ccls, qmk root?
 
