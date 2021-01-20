@@ -1,0 +1,10 @@
+[_POINT] = LAYOUT_ergodox_pretty(//-|---------------|---------------X---------------|---------------$---------------/**/------------$---------------|---------------X---------------|---------------|---------------|---------------|---------------
+    xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       TO(_BASE),
+    xxxxxxxx,       PDIR9,          PDIR10,         PDIR11,         PDIR_LAST,      PDIR1,          xxxxxxxx,       /**/            xxxxxxxx,       KC_MS_BTN3,     KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_BTN4,     KC_MS_BTN5,     xxxxxxxx,
+    KC_ESC,         PDIR5,          PDIR6,          PDIR7,          PDIR8,          PDIR9,          /**/            /**/            /**/            xxxxxxxx,       PVEL1,          PVEL2,          PVEL3,          PVEL_LAST,      xxxxxxxx,
+    xxxxxxxx,       PDIR1,          PDIR2,          PDIR3,          PDIR4,          PDIR5,          xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,       KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       xxxxxxxx,
+    xxxxxxxx,       xxxxxxxx,       xxxxxxxx,       xxxxxxxx,      KC_MS_BTN1,                                     /**/                                            KC_MS_BTN2,      xxxxxxxx,      xxxxxxxx,       xxxxxxxx,       xxxxxxxx,
+    //--------------|***************|***************|***************|***************|---------------$---------------/**/----------------------------$---------------|***************|***************|***************|***************|---------------
+    /*---------------------------------------------------------------------------*/ xxxxxxxx,       xxxxxxxx,       /**/            xxxxxxxx,       xxxxxxxx,
+    /*-------------------------------------------------------------------------------------------*/ xxxxxxxx,       /**/            xxxxxxxx,
+    /*-----------------------------------------------------------*/ TO(_BASE),      KC_MS_BTN3,     KC_MS_BTN4,     /**/            xxxxxxxx,       KC_MS_BTN5,     TO(_BASE)),
