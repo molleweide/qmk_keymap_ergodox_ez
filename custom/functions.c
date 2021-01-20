@@ -1,31 +1,4 @@
-// VARIABLES ----------------------------------------
-rgblight_config_t rgblight_config;
-bool disable_layer_color = 0;
-
-bool LAYER_JUST_CHANGED = true;
-
-int POINTER_DIR_COUNT =  PDIR_LAST - PDIR1 + 1;
-// since I am now using variable vel keycodes, not linear, i should rename it to pointer_vel_max??;
-int POINTER_VEL_COUNT =  PVEL_LAST - PVEL1 + 1;
-
-int last_pressed_dir_key = 0;
-int last_pressed_vel_key = 0;
-
-int POINTER_CURR_DIR = 0;
-int POINTER_V = 0;
-int POINTER_X = 0;
-int POINTER_Y = 0;
-
-float rad = PI / 180;
-float CLOCK_SHIFT = - PI / 3; // 0 == 12 o'clock ?
-
-int POINTER_UPDATE_INTERVAL = 15; // milliseconds
-uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
-
-bool INNER_THUMB_IS_DOWN = false;
-bool OUTER_THUMB_IS_DOWN = false;
-
-
+#include "variable_definitions.h"
 // why does it output wrong dirs when
 
 void update_pointer_xy(int dummy){
@@ -34,7 +7,6 @@ void update_pointer_xy(int dummy){
   POINTER_Y = round(POINTER_V * sin(direction_in_radians + CLOCK_SHIFT));
 }
 
-// TODO
 //   add and not = prev keycode!!!
 
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
@@ -60,8 +32,6 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
     }
   }
 }
-
-
 
 void inner_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
   if (record->event.pressed) {

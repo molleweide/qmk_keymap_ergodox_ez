@@ -21,6 +21,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
+- fix mouse dirs
+
 - where put .ccls, qmk root?
 
 - need to add capslock
