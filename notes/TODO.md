@@ -1,6 +1,6 @@
 # KB LAYOUT
 
-## RNDM
+## DEBUGGING
 
 1. use this to create log statements
 
@@ -13,13 +13,13 @@ CONSOLE_ENABLE uprintf("set direction");
 2. get hid_listen app.
 3. run `./hid_listen.mac` in commandline to start logging
 
-# flash w/KB ---------------------------------------
+# FLASH
 
 1. qmk build : `make <keyboard>:<keymap>`
 2. flash : zshrc > alias tfl="teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_myergo.hex"
 3. hit RESET kc in safe layer. wait for 5 seconds...
 
-## todo --------------------------------------------
+## TODO --------------------------------------------
 
 - where put .ccls, qmk root?
 
