@@ -18,7 +18,7 @@ int POINTER_Y = 0;
 float rad = PI / 180;
 float CLOCK_SHIFT = - PI / 3; // shift keys however I want
 
-int POINTER_UPDATE_INTERVAL = 20; // milliseconds
+int POINTER_UPDATE_INTERVAL = 21; // milliseconds
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
 bool INNER_THUMB_IS_DOWN = false;

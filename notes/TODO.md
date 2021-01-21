@@ -21,7 +21,11 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
-- gulp > auto build
+- gulp > auto build testing now
+
+- test change the number of directions.
+
+  update `tfi` command so that I can run it from within kemap dir
 
 - where put .ccls, qmk root?
 
