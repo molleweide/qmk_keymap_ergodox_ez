@@ -14,6 +14,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode(1);
       }
       return false;
+    case KC_ESC:
+      POINTER_DIR_STATE = 0;
+      if (record->event.pressed) {
+        register_code(KC_ESC);
+      } else {
+        unregister_code(KC_ESC);
+      }
+      break;
     case TOGGLE_LAYER_COLOR:
       if (record->event.pressed) {
         disable_layer_color ^= 1;

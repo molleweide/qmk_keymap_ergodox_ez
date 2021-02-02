@@ -21,8 +21,32 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
-- test change the number of directions.
+- esc dir
 
-- where put .ccls, qmk root?
+- improve velocities,
 
-- need to add capslock
+* are these all combinations???
+
+  1. BASE 2 MOUSE >> 1 press
+  2. BASE 2 MOVE >> 1 press
+  3. BASE 2 MIDI >> 1 press
+
+  4. MIDI 2 BASE >> 1 press
+  5. MIDI 2 MOVE >> 1 press
+  6. MIDI 2 MOUSE >> 1 press
+
+  7. MOVE 2 BASE >> 1 press
+  8. MOVE 2 MOUSE >> 1 press
+  9. MOVE 2 MIDI >> 1 press
+
+* test change the number of directions.
+
+## bluetooth
+
+- building ergoblue would be cool >>> learn go > https://www.xudongz.com/blog/2019/ergoblue/
+
+- ergo bt https://github.com/Biacco42/ErgoDox-BT
+
+- dactyl
+  awesome >>> https://github.com/potakhov/qmk_firmware/tree/pap_rev0.2/keyboards/handwired/papuno
+  https://github.com/jamiehs/custom-bluetooth-dactyl-manuform

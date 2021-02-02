@@ -1,26 +1,43 @@
 #include "variable_definitions.h"
 
 void update_pointer_xy(int dummy){
-  float direction_in_radians = POINTER_CURR_DIR * 360/POINTER_DIR_COUNT * rad; // replace 30 by 360/POINTER_DIR_COUNT
-  POINTER_X = round((POINTER_V+1) * cos(direction_in_radians + CLOCK_SHIFT));
-  POINTER_Y = round((POINTER_V+1) * sin(direction_in_radians + CLOCK_SHIFT));
+  //float direction_in_radians = POINTER_CURR_DIR * 360/POINTER_DIR_COUNT * rad; // replace 30 by 360/POINTER_DIR_COUNT
+
+  float direction_in_radians = ((POINTER_DIR_QUADRANT-1) * 90 + (POINTER_CURR_DIR - 1)*360/16 - 90) * rad;
+
+  POINTER_X = round((POINTER_V+1) * cos(direction_in_radians)); // + CLOCK_SHIFT
+  POINTER_Y = round((POINTER_V+1) * sin(direction_in_radians)); // + CLOCK_SHIFT
+
 }
 
-//   add and not = prev keycode!!!
+//   add and not = prev keycode!????
 
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   int pk = keycode - PDIR1 + 1; // important !!! but does this work when I have non linear variuables??
-  if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) { // poin
+
+  if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) {
+    // dir pressed
     if (record->event.pressed) {
       POINTER_CURR_DIR = pk;
       last_pressed_dir_key = keycode;
-      update_pointer_xy(1);
+      if (POINTER_DIR_STATE == 0) {
+        POINTER_DIR_QUADRANT = pk;
+        POINTER_DIR_STATE = 1;
+      } else {
+        update_pointer_xy(1);
+        POINTER_DIR_STATE = 0;
+      }
     } else {
+      // dir release
       if (last_pressed_dir_key == keycode) {
         last_pressed_dir_key = 0;
       }
+
     }
   }
+
+
+  // HANDLE VELOCITY
   if ( POINTER_DIR_COUNT < pk && pk <= POINTER_DIR_COUNT + POINTER_VEL_COUNT ) {
     if (record->event.pressed) {
       POINTER_V = pk - POINTER_DIR_COUNT;
