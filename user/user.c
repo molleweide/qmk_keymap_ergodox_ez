@@ -52,37 +52,26 @@ uint32_t layer_state_set_user(uint32_t state) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
     switch (layer) {
-      // red
       case _BASE:
-        rgblight_sethsv_noeeprom(0,252,255);
+        rgblight_sethsv_noeeprom(0,252,100);
         break;
       case _SYMB:
-        rgblight_sethsv_noeeprom(10,90,40);
-
-
-        // green
+        rgblight_sethsv_noeeprom(0,240,100);
+        break;
       case _MOVE:
-        rgblight_sethsv_noeeprom(100,30,40);
+        rgblight_sethsv_noeeprom(90,230,40);
         break;
-
-        // blue
       case _POINT:
-        rgblight_sethsv_noeeprom(10,90,40);
+        rgblight_sethsv_noeeprom(150,10,20);
         break;
-
-        // turquoise
       case _FUN:
-        rgblight_sethsv_noeeprom(70,0,50);
+        rgblight_sethsv_noeeprom(170,230,20);
         break;
-
-        // purple
       case _MIDI:
-        rgblight_sethsv_noeeprom(56,0,150);
+        rgblight_sethsv_noeeprom(240,240,60);
         break;
-
-        // grey
       case _TEST:
-        rgblight_sethsv_noeeprom(100,150,100);
+        rgblight_sethsv_noeeprom(10,180,70);
         break;
       default:
         rgblight_config.raw = eeconfig_read_rgblight();

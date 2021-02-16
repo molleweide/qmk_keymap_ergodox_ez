@@ -21,15 +21,10 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
+- if point layer and double press >> enter midi layer!!
+
 - bt thumbs with tap dance
 
 - add move layer with all quick switch with all modifiers
 
 ## RNDM
-
-now if i get a better keyboard with nice thumb keys then i'll be able to
-do all of these things
-it is just that the ergodox ez is completely wrong for my hands.
-
-i have to get something that is more custom fit for my hands
-so that i can really know that i am designing for my own hands.

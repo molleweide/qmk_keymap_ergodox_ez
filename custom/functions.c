@@ -83,6 +83,9 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
       if (IS_LAYER_ON(_MIDI)) {
         layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
       }
+      if (IS_LAYER_ON(_POINT)) {
+        layer_move(_MIDI); LAYER_JUST_CHANGED = true; return;
+      }
 
       // down first -----------------------------------
     } else {
