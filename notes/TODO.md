@@ -21,16 +21,11 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
-- ignore movement if release and press first. >> so that you don't move
-  with the previous direction from before the prev release.
-
-- 2seq > use a timeout to allow for short release before reset > so that you don't
-  get tense from forcing fingers down at all times.
-
-* test change the number of directions.
-
-* where put .ccls, qmk root?
-
-* need to add capslock
+- bt thumbs with tap dance
 
 ## RNDM
+
+even if this is not the ultimate maybe it dous get me one step further this time
+and this iss a bit of a switch but the more i do it and fail the closer i get
+and now hoepefully it will be an even faster process since i can switch quite
+fast now actually i think.

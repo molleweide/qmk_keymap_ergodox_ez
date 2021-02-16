@@ -22,6 +22,7 @@ float rad = PI / 180;
 float CLOCK_SHIFT = - PI / 3; // shift keys however I want
 
 int POINTER_UPDATE_INTERVAL = 19; // milliseconds
+
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
 bool INNER_THUMB_IS_DOWN = false;
@@ -34,3 +35,6 @@ int POINTER_DIR_QUADRANT = 0;
 int same_press_count = 0;
 
 
+bool dir_is_down = false;
+uint16_t RESET_DIR_INTERVAL = 50; // change to regular int??????
+uint16_t TIMESTAMP_RESET_DIR = 0; // change to regular int??????

@@ -23,6 +23,7 @@ void set_pointer_dir_state(int pk) {
 
 }
 
+    /* TIMESTAMP_PREV_POINTER = timer_read(); */
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   int pk = keycode - PDIR1 + 1; // important !!! but does this work when I have non linear variuables??
 
@@ -33,6 +34,7 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
       if (last_pressed_dir_key == keycode) same_press_count++;
       set_pointer_dir_state(pk);
       last_pressed_dir_key = keycode;
+      dir_is_down = true;
 
     } else { // dir release ------------------------------------- RELEASE
 
@@ -41,9 +43,14 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
           same_press_count--;
         } else {
           // refactor >> reset_pointer_dir
-          last_pressed_dir_key = 0;
-          POINTER_DIR_STATE = 0;
-          first_dir = true;
+          /* last_pressed_dir_key = 0; */
+          /* POINTER_DIR_STATE = 0; */
+          /* first_dir = true; */
+
+
+          dir_is_down = false;
+          TIMESTAMP_RESET_DIR = timer_read();
+
         }
       }
     }
@@ -62,39 +69,6 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
         last_pressed_vel_key = 0;
       }
     }
-  }
-}
-
-void inner_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
-  if (record->event.pressed) {
-
-    // down second -----------------------------------
-    if (INNER_THUMB_IS_DOWN) {
-      if (IS_LAYER_ON(_BASE)) {
-        layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
-      }
-      if (IS_LAYER_ON(_POINT)) {
-        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
-      }
-
-      // down first -----------------------------------
-    } else {
-      INNER_THUMB_IS_DOWN = true; LAYER_JUST_CHANGED = false;
-    }
-
-    // RELEASE //////////////////////////////////////////////////////
-
-  } else {
-    INNER_THUMB_IS_DOWN = false;
-    if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTL_INNER) {
-        register_code(KC_SPACE); unregister_code(KC_SPACE); // I am not sure that I even need to unregister here???
-      }
-      if (keycode == BTR_INNER) {
-        register_code(KC_ENTER); unregister_code(KC_ENTER);
-      }
-    }
-
   }
 }
 
@@ -119,20 +93,40 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
 
   } else {
     OUTER_THUMB_IS_DOWN = false;
+
     if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
       if (keycode == BTL_OUTER) {
-        register_code(KC_BSPACE); unregister_code(KC_BSPACE); // I am not sure that I even need to unregister here???
-      }
-      if (keycode == BTR_OUTER) {
-        register_code(KC_TAB); unregister_code(KC_TAB);
+        layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
       }
     }
+
+    if (IS_LAYER_ON(_POINT) && !LAYER_JUST_CHANGED) {
+      if (keycode == BTR_OUTER) {
+        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
+      }
+    }
+
+    if (IS_LAYER_ON(_MIDI) && !LAYER_JUST_CHANGED) {
+      if (keycode == BTL_OUTER) {
+        layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
+      }
+      if (keycode == BTR_OUTER) {
+        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
+      }
+    }
+
 
   }
 }
 
 void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
+
+  if (!dir_is_down && timer_elapsed(TIMESTAMP_RESET_DIR) > RESET_DIR_INTERVAL) {
+          last_pressed_dir_key = 0;
+          POINTER_DIR_STATE = 0;
+          first_dir = true;
+  }
 
   if (timer_elapsed(TIMESTAMP_PREV_POINTER) > POINTER_UPDATE_INTERVAL
       && last_pressed_dir_key > 0

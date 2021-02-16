@@ -28,8 +28,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case BTL_INNER ... BTR_INNER:
-      inner_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
+    /* case BTL_INNER ... BTR_INNER: */
+    /*   inner_thumbs(keycode, record#<{(|, INNER_THUMB_IS_DOWN, _POINT|)}>#); */
 
     case BTL_OUTER ... BTR_OUTER:
       outer_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
