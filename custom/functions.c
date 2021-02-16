@@ -98,6 +98,11 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
       if (keycode == BTL_OUTER) {
         layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
       }
+      if (keycode == BTR_OUTER) {
+        register_code(KC_TAB);
+        unregister_code(KC_TAB);
+        return;
+      }
     }
 
     if (IS_LAYER_ON(_POINT) && !LAYER_JUST_CHANGED) {

@@ -23,9 +23,13 @@ CONSOLE_ENABLE uprintf("set direction");
 
 - bt thumbs with tap dance
 
+- add move layer with all quick switch with all modifiers
+
 ## RNDM
 
-even if this is not the ultimate maybe it dous get me one step further this time
-and this iss a bit of a switch but the more i do it and fail the closer i get
-and now hoepefully it will be an even faster process since i can switch quite
-fast now actually i think.
+now if i get a better keyboard with nice thumb keys then i'll be able to
+do all of these things
+it is just that the ergodox ez is completely wrong for my hands.
+
+i have to get something that is more custom fit for my hands
+so that i can really know that i am designing for my own hands.
