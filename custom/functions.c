@@ -11,30 +11,44 @@ void update_pointer_xy(int dummy){
 }
 
 //   add and not = prev keycode!????
+void set_pointer_dir_state(int pk) {
+  if (POINTER_DIR_STATE == 0) {
+    POINTER_DIR_QUADRANT = pk;
+    POINTER_DIR_STATE = 1;
+  } else {
+    update_pointer_xy(1);
+    POINTER_DIR_STATE = 0;
+    first_dir = false;
+  }
+
+}
 
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   int pk = keycode - PDIR1 + 1; // important !!! but does this work when I have non linear variuables??
 
   if ( 1 <= pk && pk <= POINTER_DIR_COUNT ) {
-    // dir pressed
-    if (record->event.pressed) {
-      POINTER_CURR_DIR = pk;
-      last_pressed_dir_key = keycode;
-      if (POINTER_DIR_STATE == 0) {
-        POINTER_DIR_QUADRANT = pk;
-        POINTER_DIR_STATE = 1;
-      } else {
-        update_pointer_xy(1);
-        POINTER_DIR_STATE = 0;
-      }
-    } else {
-      // dir release
-      if (last_pressed_dir_key == keycode) {
-        last_pressed_dir_key = 0;
-      }
 
+    if (record->event.pressed) { // ----------- PRESS
+      POINTER_CURR_DIR = pk;
+      if (last_pressed_dir_key == keycode) same_press_count++;
+      set_pointer_dir_state(pk);
+      last_pressed_dir_key = keycode;
+
+    } else { // dir release ------------------------------------- RELEASE
+
+      if (last_pressed_dir_key == keycode) { // ---- SAME
+        if (same_press_count > 0) {
+          same_press_count--;
+        } else {
+          // refactor >> reset_pointer_dir
+          last_pressed_dir_key = 0;
+          POINTER_DIR_STATE = 0;
+          first_dir = true;
+        }
+      }
     }
   }
+
 
 
   // HANDLE VELOCITY
@@ -123,6 +137,7 @@ void pointing_device_task(void) {
   if (timer_elapsed(TIMESTAMP_PREV_POINTER) > POINTER_UPDATE_INTERVAL
       && last_pressed_dir_key > 0
       && last_pressed_vel_key > 0
+      && !first_dir
      ) {
     TIMESTAMP_PREV_POINTER = timer_read();
     report.x = POINTER_X;

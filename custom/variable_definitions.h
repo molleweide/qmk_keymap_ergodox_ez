@@ -3,6 +3,8 @@ bool disable_layer_color = 0;
 
 bool LAYER_JUST_CHANGED = true;
 
+bool first_dir = true;
+
 int POINTER_DIR_COUNT =  PDIR_LAST - PDIR1 + 1;
 // since I am now using variable vel keycodes, not linear, i should rename it
 // to pointer_vel_max??;
@@ -28,3 +30,7 @@ bool OUTER_THUMB_IS_DOWN = false;
 bool POINTER_DIR_STATE = 0;
 
 int POINTER_DIR_QUADRANT = 0;
+
+int same_press_count = 0;
+
+
