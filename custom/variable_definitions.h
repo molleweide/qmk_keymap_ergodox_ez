@@ -34,7 +34,11 @@ int POINTER_DIR_QUADRANT = 0;
 
 int same_press_count = 0;
 
-
 bool dir_is_down = false;
-uint16_t RESET_DIR_INTERVAL = 50; // change to regular int??????
-uint16_t TIMESTAMP_RESET_DIR = 0; // change to regular int??????
+
+// release time before dir is reset.
+//  allows one to be a bit sloppy when one is pressing
+//  and releasing the keys.
+uint16_t RESET_DIR_INTERVAL = 50;
+
+uint16_t TIMESTAMP_RESET_DIR = 0;

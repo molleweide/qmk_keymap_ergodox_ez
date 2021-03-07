@@ -21,10 +21,15 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
-- if point layer and double press >> enter midi layer!!
+- bool > continue prev movement if only velocity
 
-- bt thumbs with tap dance
+- only exit midi by right thumb >> security. what can i do with
+  pointer left thumb when single click.
 
-- add move layer with all quick switch with all modifiers
+* if point layer and double press >> enter midi layer!!
+
+* bt thumbs with tap dance
+
+* add move layer with all quick switch with all modifiers
 
 ## RNDM

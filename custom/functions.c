@@ -23,7 +23,7 @@ void set_pointer_dir_state(int pk) {
 
 }
 
-    /* TIMESTAMP_PREV_POINTER = timer_read(); */
+/* TIMESTAMP_PREV_POINTER = timer_read(); */
 void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   int pk = keycode - PDIR1 + 1; // important !!! but does this work when I have non linear variuables??
 
@@ -78,7 +78,12 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
     // down second -----------------------------------
     if (OUTER_THUMB_IS_DOWN) {
       if (IS_LAYER_ON(_BASE)) {
-        layer_move(_MIDI); LAYER_JUST_CHANGED = true; return;
+        if (keycode == BTL_OUTER) {
+          layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
+        }// left point
+        if (keycode == BTR_OUTER) {
+          layer_move(_MIDI); LAYER_JUST_CHANGED = true; return;
+        }// right midi
       }
       if (IS_LAYER_ON(_MIDI)) {
         layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
@@ -99,7 +104,9 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
 
     if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
       if (keycode == BTL_OUTER) {
-        layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
+        /* layer_move(_POINT); LAYER_JUST_CHANGED = true; return; */
+        register_code(KC_BSPACE);
+        unregister_code(KC_BSPACE);
       }
       if (keycode == BTR_OUTER) {
         register_code(KC_TAB);
@@ -131,9 +138,9 @@ void pointing_device_task(void) {
   report_mouse_t report = pointing_device_get_report();
 
   if (!dir_is_down && timer_elapsed(TIMESTAMP_RESET_DIR) > RESET_DIR_INTERVAL) {
-          last_pressed_dir_key = 0;
-          POINTER_DIR_STATE = 0;
-          first_dir = true;
+    last_pressed_dir_key = 0;
+    POINTER_DIR_STATE = 0;
+    first_dir = true;
   }
 
   if (timer_elapsed(TIMESTAMP_PREV_POINTER) > POINTER_UPDATE_INTERVAL
