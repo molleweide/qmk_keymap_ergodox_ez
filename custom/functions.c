@@ -72,65 +72,44 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
+// are all the return statements necessary?
 void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
   if (record->event.pressed) {
 
-    // down second -----------------------------------
     if (OUTER_THUMB_IS_DOWN) {
+      // DOWN SECOND -----------------------------------
       if (IS_LAYER_ON(_BASE)) {
-        if (keycode == BTL_OUTER) {
-          layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
-        }// left point
-        if (keycode == BTR_OUTER) {
-          layer_move(_MIDI); LAYER_JUST_CHANGED = true; return;
-        }// right midi
+        if (keycode == BTL_OUTER) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
+        if (keycode == BTR_OUTER) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
       }
       if (IS_LAYER_ON(_MIDI)) {
-        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
+        if (keycode == BTL_OUTER) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
       }
       if (IS_LAYER_ON(_POINT)) {
-        layer_move(_MIDI); LAYER_JUST_CHANGED = true; return;
+        if (keycode == BTR_OUTER) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
       }
-
-      // down first -----------------------------------
     } else {
+      // DOWN FIRST -----------------------------------
       OUTER_THUMB_IS_DOWN = true; LAYER_JUST_CHANGED = false;
     }
 
-    // RELEASE //////////////////////////////////////////////////////
-
   } else {
+    // RELEASE //////////////////////////////////////////////////////
     OUTER_THUMB_IS_DOWN = false;
 
     if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTL_OUTER) {
-        /* layer_move(_POINT); LAYER_JUST_CHANGED = true; return; */
-        register_code(KC_BSPACE);
-        unregister_code(KC_BSPACE);
-      }
-      if (keycode == BTR_OUTER) {
-        register_code(KC_TAB);
-        unregister_code(KC_TAB);
-        return;
-      }
+      if (keycode == BTL_OUTER) { register_code(KC_BSPACE); unregister_code(KC_BSPACE); return; }
+      if (keycode == BTR_OUTER) { register_code(KC_TAB); unregister_code(KC_TAB); return; }
     }
 
     if (IS_LAYER_ON(_POINT) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTR_OUTER) {
-        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
-      }
+      if (keycode == BTR_OUTER) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
     }
-
     if (IS_LAYER_ON(_MIDI) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTL_OUTER) {
-        layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
+      if (keycode == BTL_OUTER) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
       }
-      if (keycode == BTR_OUTER) {
-        layer_move(_BASE); LAYER_JUST_CHANGED = true; return;
-      }
+      if (keycode == BTR_OUTER) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
     }
-
-
   }
 }
 
