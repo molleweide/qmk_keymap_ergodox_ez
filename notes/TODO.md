@@ -21,6 +21,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
+- use vim functions to find where midi notes are defined
+
 - bool > continue prev movement if only velocity
 
 - only exit midi by right thumb >> security. what can i do with
