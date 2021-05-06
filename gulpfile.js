@@ -6,7 +6,7 @@ const BUILD_DIR = `${ROOT_DIR}.build`;
 const WATCH_DIR = "./**/*";
 
 const CLEAN_CMD = `rm -rf ${BUILD_DIR}`;
-const BUILD_CMD = `make -C ${ROOT_DIR} ergodox_ez:myergo`;
+const BUILD_CMD = `make -C ${ROOT_DIR} ergodox_ez:molleweide`;
 
 gulp.task("clean", run(CLEAN_CMD));
 
