@@ -20,7 +20,7 @@
 #define TO_TEST     TO(_TEST)
 #define TO_BASE     TO(_BASE)
 
-
+#define MI_AOFF     MI_ALLOFF
 
 /* #define NOTE_057 MI_B_ */
 /* #define NOTE_056 MI_As_ */

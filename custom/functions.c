@@ -79,14 +79,14 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
     if (OUTER_THUMB_IS_DOWN) {
       // DOWN SECOND -----------------------------------
       if (IS_LAYER_ON(_BASE)) {
-        if (keycode == BTL_OUTER) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
-        if (keycode == BTR_OUTER) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
+        if (keycode == TSW_L) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
+        if (keycode == TSW_R) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
       }
       if (IS_LAYER_ON(_MIDI)) {
-        if (keycode == BTL_OUTER) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
+        if (keycode == TSW_L) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
       }
       if (IS_LAYER_ON(_POINT)) {
-        if (keycode == BTR_OUTER) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
+        if (keycode == TSW_R) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
       }
     } else {
       // DOWN FIRST -----------------------------------
@@ -98,17 +98,17 @@ void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
     OUTER_THUMB_IS_DOWN = false;
 
     if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTL_OUTER) { register_code(KC_BSPACE); unregister_code(KC_BSPACE); return; }
-      if (keycode == BTR_OUTER) { register_code(KC_TAB); unregister_code(KC_TAB); return; }
+      if (keycode == TSW_L) { register_code(KC_BSPACE); unregister_code(KC_BSPACE); return; }
+      if (keycode == TSW_R) { register_code(KC_TAB); unregister_code(KC_TAB); return; }
     }
 
     if (IS_LAYER_ON(_POINT) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTR_OUTER) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
+      if (keycode == TSW_R) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
     }
     if (IS_LAYER_ON(_MIDI) && !LAYER_JUST_CHANGED) {
-      if (keycode == BTL_OUTER) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
+      if (keycode == TSW_L) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
       }
-      if (keycode == BTR_OUTER) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
+      if (keycode == TSW_R) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
     }
   }
 }
