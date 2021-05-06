@@ -1,7 +1,23 @@
 // clarity
 #define ________    KC_TRANSPARENT
 #define oooooooo    KC_TRANSPARENT
-#define xxxxxxxx    KC_NO
+#define xxxxxxxxxx  KC_NO // 10
+#define xxxxxxxx    KC_NO // 8
+#define xxxxxxx     KC_NO // 7
+#define xxxx        KC_NO // 4
+
+#define KC_SPC      KC_SPACE
+/* #define KC_SCOL  KC_SCOLON */
+#define KC_RET      KC_ENTER
+
+#define KCMUTE      KC__MUTE
+#define KCVOLU      KC__VOLUP
+#define KCVOLD      KC__VOLDOWN
+
+
+#define MY_TEST     TO(_TEST)
+
+
 
 /* #define NOTE_057 MI_B_ */
 /* #define NOTE_056 MI_As_ */
