@@ -15,7 +15,8 @@
 #define KCVOLD      KC__VOLDOWN
 
 
-#define MY_TEST     TO(_TEST)
+#define TO_TEST     TO(_TEST)
+#define TO_BASE     TO(_BASE)
 
 
 

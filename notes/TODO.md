@@ -21,9 +21,7 @@ CONSOLE_ENABLE uprintf("set direction");
 
 ## TODO --------------------------------------------
 
-- space layer
-
-- use vim functions to find where midi notes are defined
+- start building around kmo
 
 - bool > continue prev movement if only velocity
 
