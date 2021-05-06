@@ -34,7 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BTL_OUTER ... BTR_OUTER:
       outer_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
 
-    case PDIR1 ... PVEL_LAST:
+    case PDIR1 ... PVEL_LS:
       // first P direction ... last p velocity
       handle_pointer_keycodes(keycode, record);
       return false; // this shouldn't do anything

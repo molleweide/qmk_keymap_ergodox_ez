@@ -1,5 +1,5 @@
 [_BASE] = LAYOUT_ergodox_pretty(
-    TO_TEST,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,TO_BASE,
+    TO_TEST,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,
     xxxxxxx,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   xxxxxxx,xxxxxxx,KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   xxxxxxx,
     xxxxxxx,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   /*------------*/KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,xxxxxxx,
     xxxxxxx,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   xxxxxxx,xxxxxxx,KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,xxxxxxx,
@@ -26,10 +26,10 @@
     xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,KC_BTN1,/*----------------------------*/KC_BTN2,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,
     /*-----------------------------------*/ xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,
     /*-------------------------------------------*/ xxxxxxx,xxxxxxx,
-    /*----------------------*/ BTL_OUTER,BTL_OUTER,xxxxxxx,xxxxxxx,BTR_OUTER,BTR_OUTER),
+    /*-------------------------*/ BTL_OUTER,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,BTR_OUTER),
 
     [_TEST] = LAYOUT_ergodox_pretty(
-    xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,RESET,  xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,TO_BASE,
+    xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,RESET,  xxxxxxx,xxxxxxx,TO_BASE,
     xxxxxxx,_______,_______,_______,_______,_______,xxxxxxx,xxxxxxx,_______,_______,_______,_______,_______,xxxxxxx,
     xxxxxxx,_______,_______,_______,_______,_______,/*------------*/_______,_______,_______,_______,_______,xxxxxxx,
     xxxxxxx,_______,_______,_______,_______,_______,xxxxxxx,xxxxxxx,_______,_______,_______,_______,_______,xxxxxxx,

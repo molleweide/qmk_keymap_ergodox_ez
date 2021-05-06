@@ -20,5 +20,5 @@ enum custom_keycodes {
   PVEL1,
   PVEL2 = PVEL1+3,
   PVEL3 = PVEL2 + 4,
-  PVEL_LAST = PVEL3 + 5,
+  PVEL_LS = PVEL3 + 5,
 };
