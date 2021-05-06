@@ -1,6 +1,6 @@
 // clarity
-#define ________    KC_TRANSPARENT
 #define oooooooo    KC_TRANSPARENT
+#define ________    KC_NO
 #define xxxxxxxxxx  KC_NO // 10
 #define xxxxxxxx    KC_NO // 8
 #define xxxxxxx     KC_NO // 7
@@ -14,6 +14,8 @@
 #define KCVOLU      KC__VOLUP
 #define KCVOLD      KC__VOLDOWN
 
+#define KC_WHD      KC_MS_WH_DOWN
+#define KC_WHU      KC_MS_WH_UP
 
 #define TO_TEST     TO(_TEST)
 #define TO_BASE     TO(_BASE)
@@ -76,43 +78,43 @@
 #define NOTE_036 MI_C_3
 
 // 24 - 35
-#define NOTE_035 MI_B_2
-#define NOTE_034 MI_As_2
-#define NOTE_033 MI_A_2
-#define NOTE_032 MI_Gs_2
-#define NOTE_031 MI_G_2
-#define NOTE_030 MI_Fs_2
-#define NOTE_029 MI_F_2
-#define NOTE_028 MI_E_2
-#define NOTE_027 MI_Ds_2
-#define NOTE_026 MI_D_2
-#define NOTE_025 MI_Cs_2
-#define NOTE_024 MI_C_2
+#define NTE_035 MI_B_2
+#define NTE_034 MI_As_2
+#define NTE_033 MI_A_2
+#define NTE_032 MI_Gs_2
+#define NTE_031 MI_G_2
+#define NTE_030 MI_Fs_2
+#define NTE_029 MI_F_2
+#define NTE_028 MI_E_2
+#define NTE_027 MI_Ds_2
+#define NTE_026 MI_D_2
+#define NTE_025 MI_Cs_2
+#define NTE_024 MI_C_2
 
 // 12 - 23
-#define NOTE_023 MI_B_1
-#define NOTE_022 MI_As_1
-#define NOTE_021 MI_A_1
-#define NOTE_020 MI_Gs_1
-#define NOTE_019 MI_G_1
-#define NOTE_018 MI_Fs_1
-#define NOTE_017 MI_F_1
-#define NOTE_016 MI_E_1
-#define NOTE_015 MI_Ds_1
-#define NOTE_014 MI_D_1
-#define NOTE_013 MI_Cs_1
-#define NOTE_012 MI_C_1
+#define NTE_023 MI_B_1
+#define NTE_022 MI_As_1
+#define NTE_021 MI_A_1
+#define NTE_020 MI_Gs_1
+#define NTE_019 MI_G_1
+#define NTE_018 MI_Fs_1
+#define NTE_017 MI_F_1
+#define NTE_016 MI_E_1
+#define NTE_015 MI_Ds_1
+#define NTE_014 MI_D_1
+#define NTE_013 MI_Cs_1
+#define NTE_012 MI_C_1
 
 // 0 - 11
-#define NOTE_011 MI_B
-#define NOTE_010 MI_As
-#define NOTE_009 MI_A
-#define NOTE_008 MI_Gs
-#define NOTE_007 MI_G
-#define NOTE_006 MI_Fs
-#define NOTE_005 MI_F
-#define NOTE_004 MI_E
-#define NOTE_003 MI_Ds
-#define NOTE_002 MI_D
-#define NOTE_001 MI_Cs
-#define NOTE_000 MI_C
+#define NTE_011 MI_B
+#define NTE_010 MI_As
+#define NTE_009 MI_A
+#define NTE_008 MI_Gs
+#define NTE_007 MI_G
+#define NTE_006 MI_Fs
+#define NTE_005 MI_F
+#define NTE_004 MI_E
+#define NTE_003 MI_Ds
+#define NTE_002 MI_D
+#define NTE_001 MI_Cs
+#define NTE_000 MI_C
