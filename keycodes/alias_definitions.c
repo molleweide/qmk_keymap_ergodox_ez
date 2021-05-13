@@ -1,4 +1,5 @@
-// clarity
+// PLACE HOLDERS
+
 #define oooooooo    KC_TRANSPARENT
 #define ________    KC_NO
 #define xxxxxxxxxx  KC_NO // 10
@@ -6,8 +7,10 @@
 #define xxxxxxx     KC_NO // 7
 #define xxxx        KC_NO // 4
 
+// GENERAL
+//
+
 #define KC_SPC      KC_SPACE
-/* #define KC_SCOL  KC_SCOLON */
 #define KC_RET      KC_ENTER
 
 #define KCMUTE      KC__MUTE
@@ -19,6 +22,30 @@
 
 #define TO_TEST     TO(_TEST)
 #define TO_BASE     TO(_BASE)
+
+//////////
+//
+// LAYER ALIASES
+//
+
+// BASE LAYER TOP ROW
+
+// BASE LAYER HOMEROW
+#define BAS_A       CTL_T(KC_A)
+#define BAS_S       SFT_T(KC_S)
+#define BAS_D       ALT_T(KC_D)
+#define BAS_F       CMD_T(KC_F)
+#define BAS_J       CMD_T(KC_J)
+#define BAS_K       ALT_T(KC_K)
+#define BAS_L       SFT_T(KC_L)
+#define BAS_SCO     CTL_T(KC_SCOLON)
+
+// BASE LAYER BOTTOM ROW
+
+
+//
+// BELOW IS MIDI STUFF
+//
 
 #define MI_AOFF     MI_ALLOFF
 
