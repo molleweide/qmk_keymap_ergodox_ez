@@ -20,8 +20,8 @@ CONSOLE_ENABLE uprintf("set direction");
 
 2. flash : zshrc > alias tfl="teensy_loader_cli -mmcu=atmega32u4 -w ergodox_ez_molleweide.hex"
 
-3. hit RESET kc in safe layer. 
-    wait for 5 seconds...
+3. hit RESET from current layout
+    wait for 5 seconds... boom new layout!
 
 ## TODO --------------------------------------------
 

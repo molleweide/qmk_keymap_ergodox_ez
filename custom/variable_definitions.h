@@ -8,7 +8,7 @@ bool first_dir = true;
 int POINTER_DIR_COUNT =  PDIR_LAST - PDIR1 + 1;
 // since I am now using variable vel keycodes, not linear, i should rename it
 // to pointer_vel_max??;
-int POINTER_VEL_COUNT =  PVEL_LAST - PVEL1 + 1;
+int POINTER_VEL_COUNT =  PVEL_LS - PVEL1 + 1;
 
 int last_pressed_dir_key = 0;
 int last_pressed_vel_key = 0;

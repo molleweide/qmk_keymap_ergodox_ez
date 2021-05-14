@@ -1,5 +1,3 @@
-#include "variable_definitions.h"
-
 void update_pointer_xy(int dummy){
   //float direction_in_radians = POINTER_CURR_DIR * 360/POINTER_DIR_COUNT * rad; // replace 30 by 360/POINTER_DIR_COUNT
 
