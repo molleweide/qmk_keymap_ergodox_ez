@@ -25,8 +25,7 @@ int POINTER_UPDATE_INTERVAL = 19; // milliseconds
 
 uint16_t TIMESTAMP_PREV_POINTER = 0; // change to regular int??????
 
-bool INNER_THUMB_IS_DOWN = false;
-bool OUTER_THUMB_IS_DOWN = false;
+bool FIRST_T_DOWN = false; // used for thumb switches... should be moved probaly
 
 bool POINTER_DIR_STATE = 0;
 

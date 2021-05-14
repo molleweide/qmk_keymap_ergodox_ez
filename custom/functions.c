@@ -54,8 +54,6 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
     }
   }
 
-
-
   // HANDLE VELOCITY
   if ( POINTER_DIR_COUNT < pk && pk <= POINTER_DIR_COUNT + POINTER_VEL_COUNT ) {
     if (record->event.pressed) {
@@ -70,46 +68,21 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
   }
 }
 
-// are all the return statements necessary?
-//
-// 1. left midi
-// 2. right pointer
-// 3. double >> back to base
 void custom_thumb_switch(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    if (OUTER_THUMB_IS_DOWN) {
+    if (FIRST_T_DOWN) {
       // DOWN SECOND -----------------------------------
-      if (IS_LAYER_ON(_BASE)) {
-        if (keycode == TSW_L) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
-        if (keycode == TSW_R) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
-      }
-      if (IS_LAYER_ON(_MIDI)) {
-        if (keycode == TSW_L) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return; } // left point
-      }
-      if (IS_LAYER_ON(_POINT)) {
-        if (keycode == TSW_R) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; return; } // right midi
-      }
+      if (keycode == TSW_L || keycode == TSW_R) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; } // left point
     } else {
       // DOWN FIRST -----------------------------------
-      OUTER_THUMB_IS_DOWN = true; LAYER_JUST_CHANGED = false;
+      FIRST_T_DOWN = true; LAYER_JUST_CHANGED = false;
     }
-
   } else {
-    // RELEASE //////////////////////////////////////////////////////
-    OUTER_THUMB_IS_DOWN = false;
-
+    // SINGLE FIRST RELEASE //////////////////////////////////////////////////////
+    FIRST_T_DOWN = false;
     if (IS_LAYER_ON(_BASE) && !LAYER_JUST_CHANGED) {
-      if (keycode == TSW_L) { register_code(KC_BSPACE); unregister_code(KC_BSPACE); return; }
-      if (keycode == TSW_R) { register_code(KC_TAB); unregister_code(KC_TAB); return; }
-    }
-
-    if (IS_LAYER_ON(_POINT) && !LAYER_JUST_CHANGED) {
-      if (keycode == TSW_R) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
-    }
-    if (IS_LAYER_ON(_MIDI) && !LAYER_JUST_CHANGED) {
-      if (keycode == TSW_L) { layer_move(_POINT); LAYER_JUST_CHANGED = true; return;
-      }
-      if (keycode == TSW_R) { layer_move(_BASE); LAYER_JUST_CHANGED = true; return; }
+      if (keycode == TSW_L) { layer_move(_MIDI); LAYER_JUST_CHANGED = true; }
+      if (keycode == TSW_R) { layer_move(_POINT); LAYER_JUST_CHANGED = true; }
     }
   }
 }

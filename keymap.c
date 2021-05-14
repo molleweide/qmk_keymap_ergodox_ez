@@ -20,5 +20,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #include "custom/variable_definitions.h"
 #include "custom/functions.c"
-
 #include "user/user.c"
