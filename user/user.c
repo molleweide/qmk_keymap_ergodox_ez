@@ -1,12 +1,3 @@
-/*
- * todo
- *
- *  add case if mode = _base && both thumb keys held down at the same time.
- *  tmuxThumb_L, tmuxThumb_R
- *
- * case thumbs
- *
- */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case RGB_SLD:
@@ -14,30 +5,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode(1);
       }
       return false;
-    /* case KC_ESC: */
-    /*   POINTER_DIR_STATE = 0; */
-    /*   if (record->event.pressed) { */
-    /*     register_code(KC_ESC); */
-    /*   } else { */
-    /*     unregister_code(KC_ESC); */
-    /*   } */
-    /*   break; */
     case TOGGLE_LAYER_COLOR:
       if (record->event.pressed) {
         disable_layer_color ^= 1;
       }
       return false;
 
-    /* case BTL_INNER ... BTR_INNER: */
-    /*   inner_thumbs(keycode, record#<{(|, INNER_THUMB_IS_DOWN, _POINT|)}>#); */
-
-    case BTL_OUTER ... BTR_OUTER:
-      outer_thumbs(keycode, record/*, INNER_THUMB_IS_DOWN, _POINT*/);
+    case TSW_L ... TSW_R:
+      custom_thumb_switch(keycode, record);
 
     case PDIR1 ... PVEL_LS:
-      // first P direction ... last p velocity
       handle_pointer_keycodes(keycode, record);
-      return false; // this shouldn't do anything
+      /* return false; // this shouldn't do anything */
   }
   return true;
 }

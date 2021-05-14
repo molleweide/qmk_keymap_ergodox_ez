@@ -3,7 +3,7 @@ enum custom_keycodes {
   DUMMY,
   BTL_INNER,
   BTR_INNER,
-  TSW_L,
+  TSW_L, // thumb switch left / right
   TSW_R,
   PDIR1,
   PDIR2,

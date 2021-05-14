@@ -73,9 +73,12 @@ void handle_pointer_keycodes(uint16_t keycode, keyrecord_t *record){
 }
 
 // are all the return statements necessary?
-void outer_thumbs(uint16_t keycode, keyrecord_t *record/*, check*/) {
+//
+// 1. left midi
+// 2. right pointer
+// 3. double >> back to base
+void custom_thumb_switch(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-
     if (OUTER_THUMB_IS_DOWN) {
       // DOWN SECOND -----------------------------------
       if (IS_LAYER_ON(_BASE)) {
