@@ -1,6 +1,7 @@
 // PLACE HOLDERS
 
 #define oooooooo    KC_TRANSPARENT
+#define ooooooo     KC_NO
 #define ________    KC_NO
 #define xxxxxxxxxx  KC_NO // 10
 #define xxxxxxxx    KC_NO // 8

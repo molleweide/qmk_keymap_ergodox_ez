@@ -8,14 +8,7 @@
 #include "layers/layer_definitions.c"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#include "layers/kmonad-mult.h"
-/* #include "layers/base.h" */
-/* #include "layers/symbols.h" */
-/* #include "layers/move.h" */
-/* #include "layers/point.h" */
-/* #include "layers/func.h" */
-/* #include "layers/midi.h" */
-/* #include "layers/test.h" */
+#include "layers/kmonad.h"
 };
 
 #include "custom/variable_definitions.h"
