@@ -7,6 +7,7 @@
     version: 0.0.8
 @end
 
+- `npm install -g gulp-cli` is required!!
 - open new window
 - run `gulp`
 - rebuilds on save
