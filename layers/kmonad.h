@@ -4,17 +4,11 @@
     KC_MINS,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KCMUTE, KCMUTE, KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_BSLS,
     KC_ESC, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   /*------------*/KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,
     KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KCMUTE, KCMUTE, KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_LSFT,
-    KC_LCTL,KC_LALT,KC_LCMD,KC_TAB, KC_SPC, /*----------------------------*/KC_SPC, KC_RET, KC_LCMD,KC_LALT,KC_LCTL,
+    KC_LCTL,KC_LALT,KC_LCMD,KC_TAB, KC_SPC, /*----------------------------*/KC_SPC, KC_RET, KC_RCMD,KC_LALT,KC_LCTL,
     /*-----------------------------------*/ KCMUTE, KCMUTE, KCMUTE, KCMUTE,
     /*-------------------------------------------*/ KCMUTE, KCMUTE,
     /*---------------------------*/ TSW_L,  KCMUTE, KCMUTE, KCMUTE, KCMUTE, TSW_R),
 
-
-    // need to check this layer with reaper to make sure this
-    // works.
-    //
-    // i can use any midi keys in this layer since these are not captured by
-    // kmo.
 [_MIDI] = LAYOUT_ergodox_pretty(
     xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,TO_BASE,
     xxxxxxx,NTE_020,NTE_021,NTE_022,NTE_023,NTE_024,xxxxxxx,xxxxxxx,NTE_025,NTE_026,NTE_027,NTE_028,NTE_029,xxxxxxx,
@@ -25,7 +19,6 @@
     /*-------------------------------------------*/ xxxxxxx,xxxxxxx,
     /*-------------------------*/   TSW_L,  MI_AOFF,xxxxxxx,xxxxxxx,MI_AOFF,TSW_R),
 
-    // can I use any pointing device keycodes here??
 [_POINT] = LAYOUT_ergodox_pretty(
     xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,TO_BASE,
     xxxxxxx,PDIR2,  PDIR3,  PDIR4,  PDIR1,  ooooooo,xxxxxxx,xxxxxxx,KC_BTN3,KC_WHD, KC_WHU, KC_BTN4,KC_BTN5,xxxxxxx,
@@ -35,9 +28,6 @@
     /*-----------------------------------*/ xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,
     /*-------------------------------------------*/ xxxxxxx,xxxxxxx,
     /*---------------------------*/ TSW_L,  xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,TSW_R),
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////
 
 [_TEST] = LAYOUT_ergodox_pretty(
     xxxxxxx,xxxxxxx,xxxxxxx,RESET  ,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,RESET  ,xxxxxxx,xxxxxxx,TO_BASE,
