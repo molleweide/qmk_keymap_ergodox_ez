@@ -18,5 +18,5 @@
 @end
 
  ** log to `stdout` get hid_listen app.
-    - https://www.pjrc.com/teensy/hid_listen.html
+    - `https://www.pjrc.com/teensy/hid_listen.html`
     - run `./hid_listen.mac` in commandline to start logging

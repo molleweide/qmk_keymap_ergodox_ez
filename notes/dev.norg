@@ -1,0 +1,12 @@
+@document.meta
+    title: dev
+    description:
+    author: hjalmarjakobsson
+    categories:
+    created: 2021-11-12
+    version: 0.0.8
+@end
+
+- open new window
+- run `gulp`
+- rebuilds on save
