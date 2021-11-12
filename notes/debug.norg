@@ -1,0 +1,22 @@
+@document.meta
+    title: debug
+    description:
+    author: hjalmarjakobsson
+    categories:
+    created: 2021-11-12
+    version: 0.0.8
+@end
+
+* DEBUGGING
+
+ ** use this to create log statements
+
+@code C
+#ifdef
+        CONSOLE_ENABLE uprintf("set direction");
+#endif
+@end
+
+ ** log to `stdout` get hid_listen app.
+    - https://www.pjrc.com/teensy/hid_listen.html
+    - run `./hid_listen.mac` in commandline to start logging
